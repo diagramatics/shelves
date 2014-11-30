@@ -1,0 +1,47 @@
+// Variables will be stored here for global use
+
+// -
+// Grid
+// -
+
+$grid-type: "flexbox";
+$grid-column-count: 10;
+$grid-column-gutter-type: "padding";
+$grid-column-gutter: 2.5%;
+$grid-column-gutter-total: $grid-column-gutter * 2;
+@if ($grid-column-gutter-type == "padding") {
+  $grid-column-width: 100% / $grid-column-count;
+}
+@else {
+  $grid-column-width: (100% / $grid-column-count) - $grid-column-gutter-total;
+}
+
+// -
+// Colors
+// -
+
+$color-brown: #443a31;
+$color-brown-light: #5d361d;
+$color-brown-lighter: #90532c;
+$color-brown-dark: #332217;
+$color-brown-darker: #211914;
+
+$color-green: #6e7c3b;
+$color-green-light: #9baf54;
+$color-green-lighter: #effcc4;
+$color-green-dark: #3d4032;
+$color-green-darker: #5e634d;
+
+$color-brand: $color-brown-darker;
+
+$color-primary: $color-brown;
+$color-primary-light: $color-brown-light;
+$color-primary-lighter: $color-brown-lighter;
+$color-primary-dark: $color-brown-dark;
+$color-primary-darker: $color-brown-darker;
+
+$color-accent: $color-green;
+$color-accent-light: $color-green-light;
+$color-accent-lighter: $color-green-lighter;
+$color-accent-dark: $color-green-dark;
+$color-accent-darker: $color-green-darker;

@@ -1,0 +1,26 @@
+@mixin grid-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
+}
+
+@mixin grid-item($size: 1) {
+
+  @if ($grid-column-gutter-type == "padding") {
+    flex-basis: $grid-column-width * $size;
+    padding-left: $grid-column-gutter;
+    padding-right: $grid-column-gutter;
+  }
+  @else {
+    flex-basis: $grid-column-width * $size + ($grid-column-gutter-total * ($size - 1));
+    margin-left: $grid-column-gutter;
+    margin-right: $grid-column-gutter;
+  }
+}
+
+@for $i from 1 to $grid-column-count {
+  @mixin grid-item-#{$i} {
+    @include grid-item($i);
+  }
+}
