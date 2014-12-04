@@ -6,7 +6,6 @@ class Controller {
 
   public function __construct($db) {
     $database = $db;
-    $database->host_info;
   }
 
   protected function model($model) {
@@ -15,6 +14,9 @@ class Controller {
   }
 
   protected function view($view, $data = [], $noBase = false) {
+    // Some checks on default data, in case there's any forgotten things
+    $this->validateViewData($data, 'title');
+
     // Put in the header stuff first if $noBase is not specified
     if (!$noBase) {
       require_once '../app/views/base/header.php';
@@ -34,6 +36,14 @@ class Controller {
     if (!$noBase) {
       require_once '../app/views/base/footer.php';
     }
+  }
+
+  protected function validateViewData(&$data, $key) {
+    if (!array_key_exists($key, $data)) {
+      $data[$key] = '';
+      trigger_error("You haven't set a value for key '".$key."' yet.");
+    }
+    else return $data[$key];
   }
 }
 

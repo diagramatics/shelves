@@ -6,7 +6,9 @@ class HomeController extends Controller {
     $model = $this->model('HomeModel');
     $model->something = "abc";
 
-    $this->view('home/index', [$model->something]);
+    $this->view('home/index', [
+      'title' => 'Home'
+    ]);
   }
 }
 
