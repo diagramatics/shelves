@@ -26,7 +26,8 @@ gulp.task('styles', function () {
     .pipe($.sass({
       style: 'expanded',
       sourcemap: true,
-      precision: 10
+      precision: 10,
+      errLogToConsole: true
     }))
     .on('error', console.error.bind(console))
     .pipe($.autoprefixer({browsers: AUTOPREFIXER_BROWSERS}))

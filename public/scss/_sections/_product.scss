@@ -1,0 +1,131 @@
+.single-product {
+  display: flex;
+  width: 100%;
+  margin: 0 auto;
+  padding: 50px 0;
+
+  @include mq(sm) {
+    width: 70%;
+  }
+}
+
+.single-product-info {
+  flex: 1 1;
+}
+
+.single-product-info--right {
+  flex: 1.5 1;
+}
+
+.single-product-info--right > header {
+  margin-bottom: 3em;
+}
+
+.product-image {
+  max-width: 300px;
+  height: auto;
+}
+
+.single-product-add {
+  display: flex;
+  position: relative;
+  margin-bottom: 2em;
+
+  &:before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 3px;
+    height: 15px;
+    background: $color-primary;
+  }
+}
+
+.single-product-name {
+  margin: 0 0 10px -30px;
+  padding: 5px 10px 5px 30px;
+  background: $color-primary;
+  color: white;
+  font-family: $font-family-heading;
+  font-size: 2.8em;
+}
+
+.single-product-price {
+  margin: 0;
+}
+
+.single-product-price-number {
+  font-size: 1.6em;
+}
+
+.single-product-add input[type="number"] {
+  padding: .5em 0 .5em 1.5em;
+  background: transparent;
+  border: none;
+  border-bottom: 3px solid $color-primary;
+  border-right: 0 solid $color-primary;
+  outline: 0;
+  font-size: 1.2em;
+  transition: all .4s;
+}
+
+.single-product-add button {
+  position: relative;
+  border: 3px solid $color-primary;
+  border-left: none;
+  padding: .5em 3em;
+  background: #eee;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+  transition: all .4s;
+
+  &:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 3px;
+    height: 9px;
+    background: $color-primary;
+  }
+
+  &:hover {
+    background: $color-primary;
+    color: white;
+
+    span {
+      width: 0;
+      overflow: hidden;
+    }
+  }
+}
+
+.single-product-add button span {
+  vertical-align: middle;
+}
+
+.single-product-add .icon-bag {
+  width: 24px;
+  height: 24px;
+  margin-left: .3em;
+  vertical-align: middle;
+}
+
+.single-product-info-desc {
+  position: relative;
+  margin: 60px 0 0;
+  padding: 20px 0 0;
+
+  &:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    width: 80%;
+    height: 1px;
+    margin: 0 auto;
+    background: #ccc;
+  }
+}

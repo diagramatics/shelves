@@ -1,0 +1,22 @@
+@mixin mq($size) {
+  @if ($size == 'xs') {
+    @media screen and (min-width: $breakpoint-xs) { @content; }
+  }
+  @if ($size == 'sm') {
+    @media screen and (min-width: $breakpoint-sm) { @content; }
+  }
+  @if ($size == 'md') {
+    @media screen and (min-width: $breakpoint-md) { @content; }
+  }
+  @if ($size == 'lg') {
+    @media screen and (min-width: $breakpoint-lg) { @content; }
+  }
+}
+
+@mixin clearfix {
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}

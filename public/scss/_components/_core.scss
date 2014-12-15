@@ -3,3 +3,15 @@
 *:after {
   box-sizing: border-box;
 }
+
+body {
+  background: $site-background;
+  font-family: $font-family-sans-serif;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  height: 32px;
+  width: 32px;
+  display: inline-block;
+  fill: currentColor;
+}

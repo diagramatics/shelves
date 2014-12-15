@@ -1,0 +1,77 @@
+.related-products {
+  display: flex;
+  flex-wrap: wrap;
+  position: relative;
+  width: 80%;
+  margin: 20px auto;
+  padding: 20px 0;
+
+  &:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 60%;
+    height: 1px;
+    margin: 0 auto;
+    background: #ccc;
+  }
+}
+
+.related-products h1 {
+  flex: 2 0 100%;
+}
+
+.related-product {
+  flex: 0 0 22.5%;
+  position: relative;
+  height: 25%;
+  margin: 1.25%;
+  padding: 15px;
+  border-top: 5px solid $color-primary;
+  text-align: center;
+  transition: all .4s;
+
+  &:before,
+  &:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    width: 5px;
+    height: 5px;
+    background: $color-primary;
+  }
+
+  &:before {
+    left: 0;
+  }
+
+  &:after {
+    right: 0;
+  }
+
+  &:hover {
+    background: $color-primary;
+    color: white;
+
+    img {
+      transform: scale(1.1);
+    }
+  }
+}
+
+.related-product img {
+  position: relative;
+  width: 100%;
+  z-index: 1;
+  transition: all .4s;
+}
+
+.related-product h2 {
+  margin: .3em 0;
+}
+
+.related-product p {
+  margin: 0;
+}

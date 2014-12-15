@@ -1,0 +1,58 @@
+body.is-popup-overlayed {
+  overflow: hidden;
+}
+
+.popup {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  opacity: 0;
+  z-index: -1;
+  background: rgba(black, .7);
+  pointer-events: none;
+  transition: all .4s;
+}
+
+.popup--show {
+  opacity: 1;
+  z-index: 10000;
+  pointer-events: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.popup-container {
+  position: relative;
+  width: 95%;
+  max-width: $breakpoint-sm;
+  margin: 50px auto;
+  padding: 10px;
+  background: $site-background;
+
+  @include mq(sm) {
+    width: 100%;
+  }
+}
+
+.popup-close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 32px;
+  height: 32px;
+  padding: 4px;
+  color: $color-primary;
+  transition: all .4s;
+
+  &:hover {
+    background: $color-primary;
+    color: white;
+  }
+}
+
+.popup-close svg {
+  width: 24px;
+  height: 24px;
+}

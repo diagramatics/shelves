@@ -17,6 +17,13 @@ class Controller {
     // Some checks on default data, in case there's any forgotten things
     $this->validateViewData($data, 'title');
 
+    if (User::isLoggedIn()) {
+      $data['user'] = true;
+    }
+    else {
+      $data['user'] = false;
+    }
+
     // Put in the header stuff first if $noBase is not specified
     if (!$noBase) {
       require_once '../app/views/base/header.php';

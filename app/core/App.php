@@ -15,8 +15,8 @@ class App {
     $database = new Database();
 
     // Check if the controller exists first
-    if (file_exists('../app/controllers/'. $url[0].'.php')) {
-      $this->controller = $url[0];
+    if (file_exists('../app/controllers/'. ucfirst($url[0]).'Controller.php')) {
+      $this->controller = ucfirst($url[0]).'Controller';
       // If it exists, set it and take it out from the passed data array
       unset($url[0]);
     }

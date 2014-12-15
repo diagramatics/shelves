@@ -1,0 +1,67 @@
+.site-footer {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: baseline;
+  margin-top: 50px;
+  padding: 20px 0 60px;
+  background: url('../img/street-market-3285.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  color: white;
+  box-shadow: inset $site-footer-shadow;
+}
+
+.site-footer-logo {
+  flex: 2 0 250px;
+  align-self: flex-start;
+  max-width: 250px;
+  margin: -20px 20px 0; // Top margin from .site-footer top padding
+  padding: 10px;
+  background: $site-background;
+  border-bottom-left-radius: 2px;
+  border-bottom-right-radius: 2px;
+  box-shadow: $site-footer-shadow;
+}
+
+.site-footer-links {
+  font-family: $font-family-heading;
+  text-align: right;
+}
+
+.site-footer-link {
+  padding: 3px 10px;
+}
+
+.site-footer-copyright {
+  padding: 15px 10px;
+  font-size: .9em;
+}
+
+.site-footer-directory {
+  flex: 3 1;
+  align-self: baseline;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.site-footer-directory-category {
+  flex: 1 1 20%; // 20% so that we have 5 elements per row (20+20+20+20+20=100)
+  padding: 10px 20px;
+}
+
+.site-footer-directory-category-title {
+  margin: 0;
+  font-family: $font-family-heading;
+  font-size: 1.8em;
+}
+
+.site-footer-directory-list {
+  list-style-type: none;
+  padding-left: .5em;
+}
+
+.site-footer-directory-list li {
+  margin-bottom: .2em;
+  font-size: 1.1em;
+}

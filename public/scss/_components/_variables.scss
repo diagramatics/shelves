@@ -45,3 +45,17 @@ $color-accent-light: $color-green-light;
 $color-accent-lighter: $color-green-lighter;
 $color-accent-dark: $color-green-dark;
 $color-accent-darker: $color-green-darker;
+
+$font-family-sans-serif: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+$font-family-heading: "Montserrat", Times, "Times New Roman", serif;
+
+$site-background: #f8f8f8 !default;
+
+$breakpoint-xs-px: 400;
+$breakpoint-xs: $breakpoint-xs-px / 16 * 1em;
+$breakpoint-sm-px: 640;
+$breakpoint-sm: $breakpoint-sm-px / 16 * 1em;
+$breakpoint-md-px: 960;
+$breakpoint-md: $breakpoint-md-px / 16 * 1em;
+$breakpoint-lg-px: 1440;
+$breakpoint-lg: $breakpoint-sm-px / 16 * 1em;

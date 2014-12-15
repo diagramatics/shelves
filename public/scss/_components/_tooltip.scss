@@ -1,0 +1,40 @@
+@mixin tooltip($position: "top") {
+  position: relative;
+
+  &:before {
+    content: attr(data-tooltip);
+    position: absolute;
+    left: 0;
+    right: 0;
+    width: auto;
+    margin: auto;
+    opacity: 0;
+    text-align: center;
+    text-shadow: 0 1px 1px #000;
+    transition: all .4s;
+
+    @if ($position == "top") {
+      bottom: 100%;
+    }
+
+    @elseif ($position == "bottom") {
+      top: 100%;
+    }
+  }
+
+  &:hover:before {
+    opacity: 1;
+  }
+}
+
+.tooltip {
+  @include tooltip("top");
+}
+
+.tooltip--top {
+  @include tooltip("top");
+}
+
+.tooltip--bottom {
+  @include tooltip("bottom");
+}
