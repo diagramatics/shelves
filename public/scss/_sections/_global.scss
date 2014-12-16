@@ -86,7 +86,6 @@
 .site-sign-in-form button,
 .site-sign-in-form a {
   flex: 0 0 auto;
-  padding: 5px 15px;
   background: transparent;
   border: 1px solid white;
   color: white;
@@ -102,12 +101,13 @@
 .site-sign-in-form a {
   display: flex;
   align-items: stretch;
+  padding: 5px 15px;
   margin-left: .5em;
   padding: 0;
 }
 
-.site-sign-in-form .site-sign-in-facebook {
-  border: none;
+.site-sign-in-form .site-sign-in-facebook svg {
+  padding: 4px;
 }
 
 .site-sign-in-form .site-sign-in-register {

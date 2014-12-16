@@ -24,7 +24,7 @@
 }
 
 .related-product {
-  flex: 0 0 22.5%;
+  flex: 0 0 97.5%;
   position: relative;
   height: 25%;
   margin: 1.25%;
@@ -32,6 +32,14 @@
   border-top: 5px solid $color-primary;
   text-align: center;
   transition: all .4s;
+
+  @include mq(sm) {
+    flex-basis: 47.5%;
+  }
+
+  @include mq(md) {
+    flex-basis: 22.5%;
+  }
 
   &:before,
   &:after {

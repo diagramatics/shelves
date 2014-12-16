@@ -1,0 +1,44 @@
+.form-subscribe {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+
+  @include mq(sm) {
+    width: 80%;
+  }
+
+  @include mq(md) {
+    width: 60%;
+  }
+}
+
+.form-subscribe input[type="email"] {
+  flex: 2 1;
+  background: transparent;
+  border: none;
+  border-bottom: thin solid #ccc;
+  outline: 0;
+  transition: all .4s;
+
+  &:hover {
+    border-bottom-color: #888;
+  }
+  &:focus {
+    border-bottom-color: #333;
+  }
+}
+
+.form-subscribe input[type="submit"] {
+  flex: 1 1;
+  padding: 10px;
+  border-top: none;
+  border-left: none;
+  border-radius: 0;
+  border-bottom-right-radius: 3px;
+  color: $color-primary;
+
+  &:hover,
+  &:focus {
+    color: white;
+  }
+}

@@ -1,3 +1,3 @@
 <?php
-  include_once 'sign-in.php';
+  include_once 'register.php';
 ?>

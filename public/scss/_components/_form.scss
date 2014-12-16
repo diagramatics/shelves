@@ -1,3 +1,27 @@
-.form-input {
+input {
+  padding: 5px 15px;
+  outline-color: $color-primary;
+}
 
+.form-input-block {
+  display: block;
+  width: auto;
+}
+
+.form-button {
+  background: transparent;
+  border: 2px solid $color-primary;
+  border-radius: 3px;
+  color: $color-primary;
+  transition: all .4s;
+
+  &:hover {
+    background: $color-primary;
+    color: white;
+  }
+
+  &:active {
+    background: $color-primary-dark;
+    color: white;
+  }
 }

@@ -1,0 +1,160 @@
+.bag header {
+  text-align: center;
+}
+
+.bag footer {
+  margin: 0 auto;
+  padding: 0 10px;
+  text-align: right;
+
+  @include mq(md) {
+    width: 85%;
+    padding: 0;
+  }
+}
+
+.bag footer .bag-checkout {
+  margin: 1em 0;
+}
+
+.bag-title {
+  font-family: $font-family-heading;
+  font-size: 1.8em;
+  text-align: center;
+
+  @include mq(sm) {
+    font-size: 2.4em;
+  }
+}
+
+.bag-cost {
+  display: inline-flex;
+  flex-direction: column;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.bag-cost-pre {
+  border: 2px solid $color-primary;
+  border-bottom: none;
+  padding: .6em 2em;
+}
+
+.bag-cost-number {
+  display: inline-block;
+  padding: .6em 2em;
+  background: $color-primary;
+  color: white;
+  font-size: 1.6em;
+  font-weight: 700;
+  vertical-align: middle;
+}
+
+.bag-checkout {
+  display: inline-block;
+  position: relative;
+  margin: .5em;
+  padding: 1em 3em;
+  background: $color-primary;
+  color: white;
+  border-radius: 3px;
+  font-family: $font-family-heading;
+  font-size: 1.2em;
+  text-decoration: none;
+  transition: all .4s;
+
+  &:hover,
+  &:focus {
+    background: $color-primary-darker;
+  }
+}
+
+.bag-items {
+  margin: 0 auto;
+  padding: 10px;
+
+  @include mq(md) {
+    width: 85%;
+  }
+}
+
+.bag-items thead {
+  background: $color-primary;
+  color: white;
+}
+
+.bag-items thead tr:nth-of-type(2) {
+  background: darken($color-primary, 2%);
+}
+
+.bag-items th {
+  padding: 10px;
+  font-family: $font-family-heading;
+  text-align: center;
+
+  &:nth-of-type(2n) {
+    background: darken($color-primary, 4%);
+  }
+}
+
+.bag-items tr {
+  margin: 10px 0;
+}
+
+.bag-items tbody tr {
+
+
+  &:nth-of-type(2n) {
+    background: darken($site-background, 4%);
+
+    td:last-of-type {
+      background: darken($color-primary, 5%);
+    }
+  }
+}
+
+.bag-items tbody td {
+  &:last-of-type {
+    background: darken($color-primary, 4%);
+    color: white;
+  }
+}
+
+.bag-items img {
+  max-width: 100%;
+  max-height: 100px;
+  padding: 15px 20px;
+  vertical-align: middle;
+}
+
+// Sort this according to the items in the table
+.bag-items td {
+  &:nth-of-type(1) {
+    max-width: 120px;
+    text-align: center;
+    margin-right: 1em;
+  }
+
+  &:nth-of-type(3),
+  &:nth-of-type(4),
+  &:nth-of-type(5) {
+    text-align: center;
+  }
+}
+
+.bag-items tfoot td:nth-of-type(2) {
+  text-align: center;
+}
+
+.bag-items tfoot td:last-of-type {
+  padding: 15px 0;
+  background: $color-primary;
+  color: white;
+  font-family: $font-family-heading;
+  font-size: 1.4em;
+  text-align: center;
+}
+
+.bag-item-unit {
+  font-size: .7em;
+}

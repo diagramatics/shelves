@@ -1,0 +1,39 @@
+.popup-register-title {
+  font-family: $font-family-heading;
+  text-align: center;
+}
+
+.form-register {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-register input:not(.form-register-submit) {
+  margin-bottom: 1em;
+  padding: 10px;
+  border: thin solid rgba($color-primary, .15);
+  outline: none;
+  transition: all .4s;
+
+  &:hover {
+    border-color: rgba($color-primary, .5);
+  }
+
+  &:focus {
+    border-color: rgba($color-primary, .8);
+  }
+}
+
+.form-register-password-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.form-register-password {
+  flex: 1 1;
+  max-width: 48.75%;
+}
+
+.form-register-submit {
+  padding: 15px 10px;
+}

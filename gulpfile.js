@@ -32,7 +32,8 @@ gulp.task('styles', function () {
     .on('error', console.error.bind(console))
     .pipe($.autoprefixer({browsers: AUTOPREFIXER_BROWSERS}))
     .pipe(gulp.dest('public/css'))
-    .pipe($.size({title: 'styles'}));
+    .pipe($.size({title: 'styles'}))
+    .pipe(reload({stream: true}));
 });
 
 
@@ -42,7 +43,7 @@ gulp.task('serve', ['styles'], function () {
     proxy: '192.168.33.10'
   });
   gulp.watch(['app/**/*.php'], reload);
-  gulp.watch(['public/scss/**/*.{scss,css}'], ['styles', reload]);
+  gulp.watch(['public/scss/**/*.{scss,css}'], ['styles']);
   gulp.watch(['public/js/**/*.js'], reload);
   gulp.watch(['public/images/**/*'], reload);
   reload();

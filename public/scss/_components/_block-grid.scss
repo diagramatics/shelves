@@ -1,0 +1,49 @@
+.block-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 50px 0;
+}
+
+.block-grid-item {
+  display: flex;
+  flex-direction: row;
+  align-content: space-between;
+  flex-wrap: wrap;
+  flex-grow: 0;
+  flex-shrink: 0;
+  width: $block-grid-size;
+  margin: $block-grid-size-spacing;
+}
+
+.block-grid-item--big {
+  width: ($block-grid-size + $block-grid-size-spacing) * 2;
+  min-height: $block-grid-size * 2;
+  background: #ccc;
+}
+
+.block-grid-item--normal {
+  background: transparent;
+}
+
+.block-grid-item--normal > div {
+  width: 100%;
+  height: $block-grid-size - $block-grid-size-spacing;
+  flex-shrink: 0;
+  background: #ccc;
+
+  &:first-of-type:not(:only-child) {
+    margin-bottom: $block-grid-size-spacing * 2;
+  }
+}
+
+.block-grid-item--small {
+
+}
+
+.block-grid-item--small > div {
+  width: 100%;
+  height: $block-grid-size / 2 - $block-grid-size-spacing * 3/2;
+  flex-shrink: 0;
+  background: #ccc;
+}
