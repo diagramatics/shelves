@@ -1,0 +1,106 @@
+CREATE TABLE Account(
+  userID INTEGER NOT NULL UNIQUE AUTO_INCREMENT,
+  fName VARCHAR(25) NOT NULL,
+  lName VARCHAR(25) NOT NULL,
+  dob DATE NOT NULL,
+  email VARCHAR(50) NOT NULL,
+  PRIMARY KEY(userID)
+);
+
+CREATE TABLE Category(
+  catID INTEGER NOT NULL UNIQUE AUTO_INCREMENT,
+  catName VARCHAR(15) NOT NULL,
+  PRIMARY KEY (catID)
+);
+
+CREATE TABLE Promotion(
+  promotionID INTEGER NOT NULL UNIQUE AUTO_INCREMENT,
+  startDate DATE NOT NULL,
+  endDate DATE NOT NULL,
+  PRIMARY KEY(promotionID)
+);
+
+CREATE TABLE DiscountCode(
+  discID INTEGER NOT NULL UNIQUE AUTO_INCREMENT,
+  discCode VARCHAR(32) NOT NULL,
+  startDATE DATE NOT NULL,
+  endDate DATE NOT NULL,
+  codeDescript VARCHAR(100) NOT NULL,
+  PRIMARY KEY(discCode)
+);
+
+CREATE TABLE Product(
+  prodID INTEGER NOT NULL UNIQUE AUTO_INCREMENT,
+  prodName VARCHAR(15) NOT NULL,
+  priceDecimal DECIMAL(4, 2) NOT NULL,
+  decript VARCHAR(30) NOT NULL,
+  quantity INTEGER NOT NULL,
+  image VARCHAR(128),
+  catID INTEGER NOT NULL,
+  FOREIGN KEY(catID) REFERENCES Category(catID),
+  PRIMARY KEY(prodID)
+);
+
+CREATE TABLE ProductPromotion(
+  promotionID INTEGER NOT NULL,
+  prodID INTEGER NOT NULL,
+  discount INTEGER NOT NULL,
+  FOREIGN KEY(promotionID) REFERENCES Promotion(promotionID),
+  FOREIGN KEY(prodID) REFERENCES Product(prodID),
+  PRIMARY KEY(promotionID, prodID)
+);
+
+CREATE TABLE Address(
+  addressID INTEGER NOT NULL UNIQUE AUTO_INCREMENT,
+  userID Integer NOT NULL,
+  streetNo VARCHAR(7) NOT NULL,
+  streetName VARCHAR(30) NOT NULL,
+  street VARCHAR(15) NOT NULL,
+  city VARCHAR(15) NOT NULL,
+  postcode INTEGER NOT NULL,
+  state VARCHAR(15) NOT NULL,
+  country VARCHAR(15) NOT NULL,
+  FOREIGN KEY(userID) REFERENCES Account(userID),
+  PRIMARY KEY(addressID, userID)
+);
+
+CREATE TABLE OrderBag(
+  orderBagID INTEGER NOT NULL UNIQUE AUTO_INCREMENT,
+  userID INTEGER NOT NULL,
+  discID INTEGER,
+  totalCharge DECIMAL(4, 2) NOT NULL,
+  email VARCHAR(50) NOT NULL,
+  dateMade DATE NOT NULL,
+  dateDelivered DATE,
+  addressID INTEGER NOT NULL,
+  orderBagNotes VARCHAR(100),
+  FOREIGN KEY(userID) REFERENCES Account(userID),
+  FOREIGN KEY(discID) REFERENCES DiscountCode(discID),
+  FOREIGN KEY(addressID) REFERENCES Address(addressID),
+  PRIMARY KEY(orderBagID)
+);
+
+CREATE TABLE OrderBagList(
+  orderBagID INTEGER NOT NULL,
+  prodID INTEGER NOT NULL,
+  quantity INTEGER NOT NULL,
+  FOREIGN KEY(orderBagID) REFERENCES OrderBag(orderBagID),
+  FOREIGN KEY(prodID) REFERENCES Product(prodID),
+  PRIMARY KEY(orderBagID, prodID)
+);
+
+CREATE TABLE Login(
+  userID INTEGER UNIQUE NOT NULL,
+  password VARCHAR(64) NOT NULL,
+  userLevel INTEGER NOT NULL,
+  FOREIGN KEY(userID) REFERENCES Account(userID),
+  PRIMARY KEY(userID)
+);
+
+CREATE TABLE SubCategory(
+  subCatID INTEGER UNIQUE NOT NULL AUTO_INCREMENT,
+  catID INTEGER NOT NULL,
+  subCatName VARCHAR(15) NOT NULL,
+  FOREIGN KEY(catID) REFERENCES Category(catID),
+  PRIMARY KEY(subCatID)
+);

@@ -8,11 +8,20 @@ class App {
 
   // Constructor
   public function __construct() {
+    // Start session first
+    session_start();
+
+    // Debugging
+    ini_set('display_errors', 'On');
+    error_reporting(E_ALL);
+
     // Get the URL of the current directory being run on
     $url = $this->parseUrl();
 
     // Now try connecting to the database
     $database = new Database();
+    // Then set up the user class
+    $user = new Account($database);
 
     // Check if the controller exists first
     if (file_exists('../app/controllers/'. ucfirst($url[0]).'Controller.php')) {
@@ -41,6 +50,10 @@ class App {
 
 
     call_user_func_array([$this->controller, $this->method], $this->params);
+
+    // After everything necessary to show content is finished,
+    // close the database connection.
+    $database->close();
   }
 
   public function parseUrl() {

@@ -574,13 +574,13 @@ body.is-popup-overlayed {
   overflow: hidden;
   -webkit-transition: all 0.4s;
           transition: all 0.4s; }
-  .is-sign-in .site-nav {
+  .is-meta .site-nav {
     -webkit-flex: 0.000001;
         -ms-flex: 0.000001;
             flex: 0.000001;
     opacity: 0; }
 
-.site-sign-in {
+.site-meta {
   -webkit-flex: 0.000001;
       -ms-flex: 0.000001;
           flex: 0.000001;
@@ -591,7 +591,7 @@ body.is-popup-overlayed {
   opacity: 0;
   -webkit-transition: all 0.4s;
           transition: all 0.4s; }
-  .is-sign-in .site-sign-in {
+  .is-meta .site-meta {
     -webkit-flex: 3 1;
         -ms-flex: 3 1;
             flex: 3 1;

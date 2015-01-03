@@ -18,7 +18,7 @@ $(function() {
       });
   })
 
-  $('#signInButton').click(function() {
+  $('#metaButton').click(function() {
     $siteHeader = $('#siteHeader');
 
     if ($siteHeader.hasClass('is-sign-in')) {
@@ -30,11 +30,11 @@ $(function() {
     else {
       $siteHeader
         .css('min-height', $siteHeader.outerHeight())
-        .addClass('is-sign-in')
+        .addClass('is-meta')
         .attr('aria-hidden', 'false')
         .on('click', '#signInBackButton', function() {
-          $siteHeader.off('click', '#signInBackButton');
-          $('#signInButton').click();
+          $siteHeader.off('click', '#metaBackButton');
+          $('#metaButton').click();
         });
     }
   })
