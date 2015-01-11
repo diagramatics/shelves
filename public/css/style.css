@@ -530,6 +530,40 @@ body.is-popup-overlayed {
   width: 24px;
   height: 24px; }
 
+.alert {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 80%;
+  margin: 10px auto;
+  padding: 10px;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 20px;
+  -webkit-transition: all 0.4s;
+          transition: all 0.4s; }
+
+.alert--hide {
+  opacity: 0;
+  -webkit-transform: translateY(-100%) scale(0.8);
+          transform: translateY(-100%) scale(0.8); }
+
+.alert-close {
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  margin-top: -12px;
+  color: #443a31;
+  -webkit-transition: all 0.4s;
+          transition: all 0.4s; }
+  .alert-close:hover {
+    color: #706051; }
+
+.alert-close svg {
+  width: 24px;
+  height: 24px; }
+
 .site-header {
   display: -webkit-flex;
   display: -ms-flexbox;

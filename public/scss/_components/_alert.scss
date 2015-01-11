@@ -1,0 +1,36 @@
+.alert {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 80%;
+  margin: 10px auto;
+  padding: 10px;
+  text-align: center;
+  background: rgba(white, .9);
+  border-radius: 20px;
+  transition: all .4s;
+}
+
+.alert--hide {
+  opacity: 0;
+  transform: translateY(-100%) scale(.8);
+}
+
+.alert-close {
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  margin-top: -12px; // Half of the icon size
+  color: $color-primary;
+  transition: all .4s;
+
+  &:hover {
+    color: lighten($color-primary, 15%);
+  }
+}
+
+.alert-close svg {
+  width: 24px;
+  height: 24px;
+}

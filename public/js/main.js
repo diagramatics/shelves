@@ -18,6 +18,16 @@ $(function() {
       });
   })
 
+  // Alert close button functionality
+  $('body').on('click', 'a[data-alert-close]', function() {
+    var alertName = $(this).attr('data-alert-close');
+    alertName = alertName.charAt(0).toUpperCase() + alertName.slice(1);
+
+    var alertId = '#alert'+alertName;
+    $(alertId).addClass('alert--hide');
+  });
+
+
   $('#metaButton').click(function() {
     $siteHeader = $('#siteHeader');
 

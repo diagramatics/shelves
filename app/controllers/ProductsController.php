@@ -3,6 +3,11 @@
 class ProductsController extends Controller {
 
   public function index() {
+    $model = $this->model('ProductsModel');
+
+    // Let's get the categories
+    $categories = $this->database->getValues("Category", "");
+
     $this->view('products/index', [
         'title' => 'Products'
     ]);

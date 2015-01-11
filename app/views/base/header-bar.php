@@ -1,3 +1,11 @@
+<?php // Login fail states ?>
+<?php if(isset($_POST['login']) && $_POST['login'] === false): ?>
+<div id="alertAccount" class="alert">
+  Wrong username and/or password. Please try again.
+  <a href="#" class="alert-close" data-alert-close="account"><svg class="icon-x"><use xlink:href="#icon-x"></use></svg></a>
+</div>
+<?php endif ?>
+
 <header id="siteHeader" class="site-header">
   <div class="site-nav">
     <img src="/img/shelves.png" class="site-logo" />

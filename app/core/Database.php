@@ -27,6 +27,7 @@ class Database extends mysqli {
 
     // Do the same for filters IF the filters are passed in
     // Remember that $filters is an array
+    $filtersFormatted = '';
     if (!empty($filters)) {
       $filtersFormatted = 'WHERE ';
 
@@ -58,7 +59,6 @@ class Database extends mysqli {
     // Then query the whole thing and save it into a variable
     $query = $this->query($command . " LIMIT 1");
 
-//    die(var_dump($query));
 
     if ($query === false) {
       return $query;

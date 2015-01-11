@@ -5,7 +5,7 @@ class Controller {
   protected $database;
 
   public function __construct($db) {
-    $database = $db;
+    $this->database = $db;
   }
 
   protected function model($model) {
