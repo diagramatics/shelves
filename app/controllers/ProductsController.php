@@ -59,8 +59,7 @@ class ProductsController extends Controller {
       ['prodID', '=', $productID]
     ]);
     $model->setName($product->prodName);
-
-    //die($_SERVER['DOCUMENT_ROOT'] . '/img/products/'.$product->image);
+    $model->setDesc($product->decript);
 
     if (file_exists($_SERVER['DOCUMENT_ROOT'] . '/img/products/'.$product->image)) {
       $model->setImage('/img/products/' . $product->image);
@@ -76,14 +75,13 @@ class ProductsController extends Controller {
     }
 
     $model->setPrice($product->price);
-    if (!empty($product->priceUnit)) {
-      $model->setPriceUnit($product->priceUnit);
-    }
+    $model->setPriceUnit($product->priceUnit);
 
     $this->view('products/product', [
       'title' => $model->getName(),
       'id' => $productID,
       'name' => $model->getName(),
+      'desc' => $model->getDesc(),
       'image' => $model->getImage(),
       'price' => $model->getPrice(),
       'priceUnit' => $model->getPriceUnit()

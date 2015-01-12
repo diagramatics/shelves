@@ -19,9 +19,7 @@
     </form>
 
     <div class="single-product-info-desc">
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non autem suscipit aliquam accusamus unde, esse veniam nesciunt quaerat eligendi, iste distinctio assumenda fugit necessitatibus veritatis!</p>
-      <p>Repellat commodi doloribus aut consectetur, rem sapiente eos aspernatur dolor. Facere ipsa nostrum saepe voluptatibus consequuntur blanditiis provident, minus quia incidunt sit modi laboriosam iure.</p>
-      <p>Nostrum facilis nobis, enim eum ut natus, accusantium quisquam rem vel quasi voluptatem, corporis. Beatae facere, molestias dolorum nostrum tempora commodi corporis temporibus nobis sequi?</p>
+    <?= $data['desc'] ?>
     </div>
   </div>
 </section>
