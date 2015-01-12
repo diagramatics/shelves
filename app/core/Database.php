@@ -94,7 +94,7 @@ class Database extends mysqli {
     }
     else {
       // TODO: Have a look at optimising this particular way of getting rows
-      $result = $query->fetch_all();
+      for ($result = array(); $tmp = $query->fetch_object();) $result[] = $tmp;
       $query->close();
       return $result;
     }

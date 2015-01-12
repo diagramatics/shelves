@@ -16,53 +16,16 @@
   </div>
 </section>
 <section class="product-categories">
+  <?php foreach($data['categories'] as $category): ?>
   <div class="product-category">
-    <h1 class="product-category-name"><a href="#">Product Name</a></h1>
+    <h1 class="product-category-name"><a href="/products/category/<?= $category->catID . '/' . Helpers::makeSlug($category->catName) ?>"><?= $category->catName ?></a></h1>
+    <?php if(!empty($category->subs)): ?>
     <ul class="product-category-subs">
-      <li><a href="#">Subcategory Name</a></li>
-      <li><a href="#">Subcategory Name</a></li>
-      <li><a href="#">Subcategory Name</a></li>
+      <?php foreach($category->subs as $sub): ?>
+      <li><a href="/products/subcategory/<?= $sub->subCatID . '/' . Helpers::makeSlug($sub->subCatName) ?>"><?= $sub->subCatName ?></a></li>
+      <?php endforeach; ?>
     </ul>
+    <?php endif; ?>
   </div>
-  <div class="product-category">
-    <h1 class="product-category-name"><a href="#">Product Name</a></h1>
-    <ul class="product-category-subs">
-      <li><a href="#">Subcategory Name</a></li>
-      <li><a href="#">Subcategory Name</a></li>
-      <li><a href="#">Subcategory Name</a></li>
-    </ul>
-  </div>
-  <div class="product-category">
-    <h1 class="product-category-name"><a href="#">Product Name</a></h1>
-    <ul class="product-category-subs">
-      <li><a href="#">Subcategory Name</a></li>
-      <li><a href="#">Subcategory Name</a></li>
-      <li><a href="#">Subcategory Name</a></li>
-    </ul>
-  </div>
-  <div class="product-category">
-    <h1 class="product-category-name"><a href="#">Product Name</a></h1>
-    <ul class="product-category-subs">
-      <li><a href="#">Subcategory Name</a></li>
-      <li><a href="#">Subcategory Name</a></li>
-      <li><a href="#">Subcategory Name</a></li>
-    </ul>
-  </div>
-  <div class="product-category">
-    <h1 class="product-category-name"><a href="#">Product Name</a></h1>
-    <ul class="product-category-subs">
-      <li><a href="#">Subcategory Name</a></li>
-      <li><a href="#">Subcategory Name</a></li>
-      <li><a href="#">Subcategory Name</a></li>
-    </ul>
-  </div>
-  <div class="product-category">
-    <h1 class="product-category-name"><a href="#">Product Name</a></h1>
-    <ul class="product-category-subs">
-      <li><a href="#">Subcategory Name</a></li>
-      <li><a href="#">Subcategory Name</a></li>
-      <li><a href="#">Subcategory Name</a></li>
-    </ul>
-  </div>
-
+  <?php endforeach; ?>
 </section>

@@ -31,10 +31,10 @@ $(function() {
   $('#metaButton').click(function() {
     $siteHeader = $('#siteHeader');
 
-    if ($siteHeader.hasClass('is-sign-in')) {
+    if ($siteHeader.hasClass('is-meta')) {
       $siteHeader
         .css('min-height', 'auto')
-        .removeClass('is-sign-in')
+        .removeClass('is-meta')
         .attr('aria-hidden', 'true');
     }
     else {
@@ -42,7 +42,7 @@ $(function() {
         .css('min-height', $siteHeader.outerHeight())
         .addClass('is-meta')
         .attr('aria-hidden', 'false')
-        .on('click', '#signInBackButton', function() {
+        .on('click', '#metaBackButton', function() {
           $siteHeader.off('click', '#metaBackButton');
           $('#metaButton').click();
         });

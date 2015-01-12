@@ -6,38 +6,87 @@ class ProductsController extends Controller {
     $model = $this->model('ProductsModel');
 
     // Let's get the categories
-    $categories = $this->database->getValues("Category", "");
+    $model->setCategories($this->database->getValues("Category", ""));
+
+    // Then get the subcategories
+    foreach ($model->getCategories() as $category) {
+      $category->subs = $this->database->getValues("SubCategory", "", [
+        ['catID', '=', $category->catID]
+      ]);
+    }
 
     $this->view('products/index', [
-        'title' => 'Products'
+        'title' => 'Products',
+        'categories' => $model->getCategories()
     ]);
   }
 
-  public function show($productID, $productName) {
+  public function category($id, $slug) {
+    $model = $this->model('CategoryModel');
+    // Get the category
+    $category = $this->database->getValue("Category", "", [
+      ['catID', '=', $id]
+    ]);
+    $model->setCatID($category->catID);
+    $model->setCatName($category->catName);
+
+    // Then get the subcategories if there's any
+    $category->subs = $this->database->getValues("SubCategory", "", [
+      ['catID', '=', $category->catID]
+    ]);
+
+    $category->items = $this->database->getValues("Product", "", [
+      ['catID', '=', $category->catID]
+    ]);
+
+    $model->setItems($category->items);
+
+    $this->view('products/category', [
+        'title' => $model->getCatName(),
+        'catName' => $model->getCatName(),
+        'items' => $model->getItems()
+    ]);
+  }
+
+  public function subcategory($id, $slug) {
+    // TODO: Implement this
+  }
+
+  public function product($productID, $productName) {
     $model = $this->model('ProductModel');
     // Put uppercase on the first letter
-    $model->name = ucfirst($productName);
+    $product = $this->database->getValue("Product", "", [
+      ['prodID', '=', $productID]
+    ]);
+    $model->setName($product->prodName);
 
-    if (file_exists('/img/products/'.$productID.'-'.$productName.'.jpg')) {
-      $model->image = $productID.'-'.$productName.'.jpg';
+    //die($_SERVER['DOCUMENT_ROOT'] . '/img/products/'.$product->image);
+
+    if (file_exists($_SERVER['DOCUMENT_ROOT'] . '/img/products/'.$product->image)) {
+      $model->setImage('/img/products/' . $product->image);
     }
-    else if (file_exists('/img/products/'.$productID.'-'.$productName.'.png')) {
-      $model->image = $productID.'-'.$productName.'.png';
+    else if (file_exists($_SERVER['DOCUMENT_ROOT'] . '/img/products/'.$productID.'-'.$productName.'.jpg')) {
+      $model->setImage('/img/products/' . $productID.'-'.$productName.'.jpg');
+    }
+    else if (file_exists($_SERVER['DOCUMENT_ROOT'] . '/img/products/'.$productID.'-'.$productName.'.png')) {
+      $model->setImage('/img/products/' . $productID.'-'.$productName.'.png');
     }
     else {
-      $model->image = '/img/products/default.jpg';
+      $model->setImage('/img/products/default.jpg');
     }
 
-    $model->price = 12.34;
-    $model->priceUnit = 'kg';
+    $model->setPrice($product->price);
+    if (!empty($product->priceUnit)) {
+      $model->setPriceUnit($product->priceUnit);
+    }
 
     $this->view('products/product', [
-      'title' => $model->name,
+      'title' => $model->getName(),
       'id' => $productID,
-      'name' => $model->name,
-      'image' => $model->image,
-      'price' => $model->price,
-      'priceUnit' => $model->priceUnit
+      'name' => $model->getName(),
+      'image' => $model->getImage(),
+      'price' => $model->getPrice(),
+      'priceUnit' => $model->getPriceUnit()
     ]);
   }
 }
