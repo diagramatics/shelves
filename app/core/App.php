@@ -51,6 +51,8 @@ class App {
 
     call_user_func_array([$this->controller, $this->method], $this->params);
 
+    new Bag();
+
     // After everything necessary to show content is finished,
     // close the database connection.
     $database->close();

@@ -1,10 +1,12 @@
 <?php // Login fail states ?>
-<?php if(isset($_POST['login']) && $_POST['login'] === false): ?>
-<div id="alertAccount" class="alert">
-  Wrong username and/or password. Please try again.
-  <a href="#" class="alert-close" data-alert-close="account"><svg class="icon-x"><use xlink:href="#icon-x"></use></svg></a>
-</div>
-<?php endif ?>
+<?php
+  if(isset($_POST['login']) && $_POST['login'] === false) {
+    Helpers::makeAlert('account', 'Wrong username and/or password. Please try again.');
+  }
+  else if (isset($_POST['register']) && $_POST['register'] === true) {
+    Helpers::makeAlert('register', 'Successfully registered! Welcome '.$_POST["registerName"].'!');
+  }
+?>
 
 <header id="siteHeader" class="site-header">
   <div class="site-nav">
@@ -27,7 +29,7 @@
       <input type="password" name="loginPassword" value="" placeholder="Password">
       <button>Sign In</button>
       <a href="#" class="site-sign-in-facebook"><svg class="icon-facebook"><use xlink:href="#icon-facebook"></use></svg></a>
-      <a href="#" class="site-sign-in-register">Register</a>
+      <a href="#" class="site-sign-in-register" data-popup="register">Register</a>
     </form>
   </div>
   <?php else: ?>

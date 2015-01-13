@@ -7,6 +7,7 @@
     private $price;
     private $desc;
     private $priceUnit;
+    private $qty;
 
     public function getID() {
       return $this->id;
@@ -54,6 +55,14 @@
 
     public function setPriceUnit($priceUnit) {
       $this->priceUnit = $priceUnit;
+    }
+
+    public function getQty() {
+      return $this->qty;
+    }
+
+    public function setQty($qty) {
+      $this->qty = $qty;
     }
   }
 

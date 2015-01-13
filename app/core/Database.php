@@ -35,7 +35,7 @@ class Database extends mysqli {
       $filtersArrayFormatted = "";
       $i = 0;
       foreach ($filters as $filter) {
-        $filtersArrayFormatted[$i++] = $filter[0] . $filter[1] . '"' . $this->real_escape_string($filter[2]) . '"';
+        $filtersArrayFormatted[$i++] = $filter[0] . ' ' . $filter[1] . ' ' . $this->real_escape_string($filter[2]);
       }
       $filtersFormatted .= implode(', ', $filtersArrayFormatted);
     }

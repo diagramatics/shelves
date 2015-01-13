@@ -1,3 +1,11 @@
+<?php
+if(isset($_GET['addBag'])) {
+  // These data will be processed on Bag.php
+  $_POST['itemQty'] = $data['qty'];
+  $_POST['itemID'] = $data['id'];
+}
+?>
+
 <section class="single-product">
   <div class="single-product-info single-product-info--left">
     <img src="<?= $data['image'] ?>" class="product-image" />
@@ -10,16 +18,18 @@
       </p>
     </header>
 
-    <form id="" action="" class="single-product-add" method="POST">
-      <input type="number" name="" value="1" min="1" max="100">
+    <form id="" action="?addBag" class="single-product-add" method="POST">
+      <input type="number" name="qty" value="1" min="1" max="<?= $data['qty'] ?>">
       <button>
         <span>Add to Bag</span>
         <svg class="icon-bag"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-bag"></use></svg>
       </button>
     </form>
 
+    <?php if(isset($data['desc'])): ?>
     <div class="single-product-info-desc">
     <?= $data['desc'] ?>
+    <?php endif ?>
     </div>
   </div>
 </section>

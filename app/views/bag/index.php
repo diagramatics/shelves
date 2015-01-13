@@ -2,7 +2,8 @@
   <header>
     <h1 class="bag-title">Your Shopping Bag</h1>
     <div class="bag-action">
-      <p class="bag-cost"><span class="bag-cost-pre">Total cost</span><span class="bag-cost-number">$123.45</span></p>
+      <p class="bag-cost"><span class="bag-cost-pre">Total cost</span><span class="bag-cost-number">
+        <?= '$'.number_format($data['totalCost'], 2) ?></span></p>
       <a class="bag-checkout" href="">Checkout</a>
     </div>
   </header>
@@ -30,34 +31,16 @@
       </tr>
     </thead>
     <tbody>
+      <?php //die(var_dump($data["products"])); ?>
+      <?php foreach($data["products"] as $product): ?>
       <tr>
-        <td><img src="/img/products/default.jpg" /></td>
-        <td>Lorem Item</td>
-        <td>2</td>
-        <td>$10.00</td>
-        <td>$20.00</td>
+        <td><img src="/img/products/<?= $product->image ?>" /></td>
+        <td><?= $product->prodName ?></td>
+        <td><?= $product->bagQty ?></td>
+        <td><?= '$'.number_format($product->price, 2) ?></td>
+        <td><?= '$'.number_format($product->price * $product->bagQty, 2) ?></td>
       </tr>
-      <tr>
-        <td><img src="/img/products/1234-potato.png" /></td>
-        <td>Potato</td>
-        <td>2</td>
-        <td>$12.34<span class="bag-item-unit">/kg</span></td>
-        <td>$24.68</td>
-      </tr>
-      <tr>
-        <td><img src="/img/products/default.jpg" /></td>
-        <td>Lorem Item 2</td>
-        <td>4</td>
-        <td>$2.44</td>
-        <td>$9.76</td>
-      </tr>
-      <tr>
-        <td><img src="/img/products/default.jpg" /></td>
-        <td>Lorem Item 3</td>
-        <td>2</td>
-        <td>$7.99</td>
-        <td>$15.98</td>
-      </tr>
+      <?php endforeach ?>
     </tbody>
     <tfoot>
       <tr>
@@ -66,7 +49,7 @@
           Total cost:
         </td>
         <td colspan="2">
-          $70.42
+          <?= '$'.number_format($data['totalCost'], 2) ?>
         </td>
       </tr>
     </tfoot>

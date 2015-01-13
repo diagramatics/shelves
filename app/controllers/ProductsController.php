@@ -76,6 +76,7 @@ class ProductsController extends Controller {
 
     $model->setPrice($product->price);
     $model->setPriceUnit($product->priceUnit);
+    $model->setQty($product->quantity);
 
     $this->view('products/product', [
       'title' => $model->getName(),
@@ -84,7 +85,8 @@ class ProductsController extends Controller {
       'desc' => $model->getDesc(),
       'image' => $model->getImage(),
       'price' => $model->getPrice(),
-      'priceUnit' => $model->getPriceUnit()
+      'priceUnit' => $model->getPriceUnit(),
+      'qty' => $model->getQty()
     ]);
   }
 }

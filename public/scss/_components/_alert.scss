@@ -7,9 +7,11 @@
   margin: 10px auto;
   padding: 10px;
   text-align: center;
-  background: rgba(white, .9);
+  background: rgba(white, .95);
   border-radius: 20px;
   transition: all .4s;
+  z-index: 9999;
+  box-shadow: 0 2px 2px rgba(black, .2);
 }
 
 .alert--hide {

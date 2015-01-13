@@ -14,6 +14,10 @@ class Account {
     else if (isset($_GET["logout"])) {
       $this->logout();
     }
+
+    else if (isset($_GET["register"])) {
+      $this->register();
+    }
   }
 
   public function isLoggedIn() {
@@ -73,6 +77,13 @@ class Account {
     $_SESSION["email"] = null;
 
     $_POST['logout'] = true;
+  }
+
+  /**
+   * Register the user
+   */
+  private function register() {
+    $_POST["register"] = true;
   }
 }
 
