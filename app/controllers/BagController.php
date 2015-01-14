@@ -4,6 +4,9 @@ class BagController extends Controller {
 
   public function index() {
     $model = $this->model('BagModel');
+    $model->setProducts(null);
+    $model->setTotalCost(0);
+    
     if (isset($_SESSION['bag'])) {
       $bag = $_SESSION["bag"];
       $ids = [];
@@ -33,13 +36,6 @@ class BagController extends Controller {
       }
       $model->setTotalCost($totalCost);
     }
-    else {
-      $model->setProducts(null);
-      $model->setTotalCost(0);
-    }
-
-
-
 
     $this->view("bag/index", [
       "title" => "Your Shopping Bag",

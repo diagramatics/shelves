@@ -6,6 +6,7 @@ if(isset($_GET['addBag'])) {
 }
 ?>
 
+<?php if(!empty($data['name'])): ?>
 <section class="single-product">
   <div class="single-product-info single-product-info--left">
     <img src="<?= $data['image'] ?>" class="product-image" />
@@ -57,3 +58,9 @@ if(isset($_GET['addBag'])) {
     <p class="related-product-price">$12.34</p>
   </div>
 </section>
+<?php else: ?>
+<div class="single-product-info-empty">
+  Sorry, we can't find the product. <br />
+  <a href="javascript:history.back()">Go Back</a>
+</div>
+<?php endif ?>

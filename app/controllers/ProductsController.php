@@ -58,25 +58,28 @@ class ProductsController extends Controller {
     $product = $this->database->getValue("Product", "", [
       ['prodID', '=', $productID]
     ]);
-    $model->setName($product->prodName);
-    $model->setDesc($product->decript);
 
-    if (file_exists($_SERVER['DOCUMENT_ROOT'] . '/img/products/'.$product->image)) {
-      $model->setImage('/img/products/' . $product->image);
-    }
-    else if (file_exists($_SERVER['DOCUMENT_ROOT'] . '/img/products/'.$productID.'-'.$productName.'.jpg')) {
-      $model->setImage('/img/products/' . $productID.'-'.$productName.'.jpg');
-    }
-    else if (file_exists($_SERVER['DOCUMENT_ROOT'] . '/img/products/'.$productID.'-'.$productName.'.png')) {
-      $model->setImage('/img/products/' . $productID.'-'.$productName.'.png');
-    }
-    else {
-      $model->setImage('/img/products/default.jpg');
-    }
+    if (!empty($product)) {
+      $model->setName($product->prodName);
+      $model->setDesc($product->decript);
 
-    $model->setPrice($product->price);
-    $model->setPriceUnit($product->priceUnit);
-    $model->setQty($product->quantity);
+      if (file_exists($_SERVER['DOCUMENT_ROOT'] . '/img/products/'.$product->image)) {
+        $model->setImage('/img/products/' . $product->image);
+      }
+      else if (file_exists($_SERVER['DOCUMENT_ROOT'] . '/img/products/'.$productID.'-'.$productName.'.jpg')) {
+        $model->setImage('/img/products/' . $productID.'-'.$productName.'.jpg');
+      }
+      else if (file_exists($_SERVER['DOCUMENT_ROOT'] . '/img/products/'.$productID.'-'.$productName.'.png')) {
+        $model->setImage('/img/products/' . $productID.'-'.$productName.'.png');
+      }
+      else {
+        $model->setImage('/img/products/default.jpg');
+      }
+
+      $model->setPrice($product->price);
+      $model->setPriceUnit($product->priceUnit);
+      $model->setQty($product->quantity);
+    }
 
     $this->view('products/product', [
       'title' => $model->getName(),

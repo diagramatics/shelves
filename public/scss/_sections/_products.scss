@@ -1,106 +1,52 @@
-.product-categories-name {
-  font-family: $font-family-heading;
-  font-size: 3em;
-  text-align: center;
+.product-category-item {
+  background: #ddd;
+  border: thin solid #d2d2d2;
+  transition: all .4s;
+
+  &:hover {
+    background: #ccc;
+    border-color: #c2c2c2;
+  }
 }
 
-.product-categories {
+.product-category-item-link {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin: 30px 0;
-}
-
-.product-category {
-  width: 33.3333333%; // For one row, three items
-  max-width: 300px;
-  padding: 20px;
-
-  &:hover {
-    .product-category-name {
-      background: $color-primary;
-      color: white;
-
-      &:before {
-        background: $color-primary;
-      }
-    }
-  }
-}
-
-.product-category-name {
-  position: relative;
-  margin: 0;
-  padding: 5px 10px;
-  font-family: $font-family-heading;
-  transition: all .4s;
-
-  &:before {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    width: 25%;
-    height: 1px;
-    background: #ccc;
-    transition: all .4s;
-  }
-}
-
-.product-category-name a {
+  flex-direction: column;
   color: inherit;
   text-decoration: none;
 }
 
-.product-category-subs {
-  list-style-type: none;
-  margin: 0 0 0 .3em;
-  padding: .8em 0 .8em .4em;
-  border-left: thin solid #ccc;
+.product-category-item-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  padding: 10px;
+}
+
+.product-category-item-details {
+  display: flex;
+  height: auto !important;
+  margin: 0 !important;
+  padding: 10px;
+  background: none !important;
+}
+
+.product-category-item-name {
+  flex: 1 1;
+}
+
+.product-category-item-add {
+  flex: 0 1 48px;
+  padding: 8px;
+}
+
+.product-category-item-add svg {
+  width: 24px;
+  height: 24px;
+  fill: #555;
   transition: all .4s;
 
   &:hover {
-    border-left-color: $color-primary;
+    fill: #333;
   }
-}
-
-.product-category-subs li {
-  position: relative;
-
-  &:before {
-    content: "";
-    position: absolute;
-    top: 1px;
-    bottom: 0;
-    right: 100%;
-    width: 7px; // A fraction of the left margin
-    height: 1px;
-    margin: auto;
-    background: #ccc;
-    transition: all .4s;
-  }
-
-  &:hover {
-    &:before {
-      background: $color-primary;
-    }
-
-    a {
-      background: $color-primary;
-      color: white;
-    }
-  }
-}
-
-.product-category-subs li+li {
-  margin-top: .7em;
-}
-
-.product-category-subs li a {
-  display: inline-block;
-  padding: 5px 10px;
-  color: inherit;
-  text-decoration: none;
-  transition: all .4s;
 }

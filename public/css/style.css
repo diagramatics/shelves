@@ -1015,6 +1015,60 @@ body.is-popup-overlayed {
     .homepage-dash {
       width: 60%; } }
 
+.product-category-item {
+  background: #ddd;
+  border: thin solid #d2d2d2;
+  -webkit-transition: all 0.4s;
+          transition: all 0.4s; }
+  .product-category-item:hover {
+    background: #ccc;
+    border-color: #c2c2c2; }
+
+.product-category-item-link {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  color: inherit;
+  text-decoration: none; }
+
+.product-category-item-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  padding: 10px; }
+
+.product-category-item-details {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  height: auto !important;
+  margin: 0 !important;
+  padding: 10px;
+  background: none !important; }
+
+.product-category-item-name {
+  -webkit-flex: 1 1;
+      -ms-flex: 1 1;
+          flex: 1 1; }
+
+.product-category-item-add {
+  -webkit-flex: 0 1 48px;
+      -ms-flex: 0 1 48px;
+          flex: 0 1 48px;
+  padding: 8px; }
+
+.product-category-item-add svg {
+  width: 24px;
+  height: 24px;
+  fill: #555;
+  -webkit-transition: all 0.4s;
+          transition: all 0.4s; }
+  .product-category-item-add svg:hover {
+    fill: #333; }
+
 .product-categories-name {
   font-family: "Montserrat", Times, "Times New Roman", serif;
   font-size: 3em;
@@ -1241,6 +1295,14 @@ body.is-popup-overlayed {
     height: 1px;
     margin: 0 auto;
     background: #ccc; }
+
+.single-product-info-empty {
+  -webkit-flex: 2 1;
+      -ms-flex: 2 1;
+          flex: 2 1;
+  padding: 4em 0 1em;
+  font-size: 1.2em;
+  text-align: center; }
 
 .related-products {
   display: -webkit-flex;
