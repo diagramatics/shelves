@@ -4,7 +4,7 @@
     <div class="bag-action">
       <p class="bag-cost"><span class="bag-cost-pre">Total cost</span><span class="bag-cost-number">
         <?= '$'.number_format($data['totalCost'], 2) ?></span></p>
-      <a class="bag-checkout" href="">Checkout</a>
+        <a class="bag-checkout" <?= !empty($data['products']) ?: 'disabled' ?> href="">Checkout</a>
     </div>
   </header>
 
@@ -31,7 +31,7 @@
       </tr>
     </thead>
     <tbody>
-      <?php //die(var_dump($data["products"])); ?>
+      <?php if(!empty($data['products'])): ?>
       <?php foreach($data["products"] as $product): ?>
       <tr>
         <td><img src="/img/products/<?= $product->image ?>" /></td>
@@ -41,6 +41,10 @@
         <td><?= '$'.number_format($product->price * $product->bagQty, 2) ?></td>
       </tr>
       <?php endforeach ?>
+      <?php else: ?>
+      <tr>
+        <td class="bag-empty" colspan="5">You have nothing on your shopping bag yet. <br/>Add some things to buy!</td>
+      <?php endif ?>
     </tbody>
     <tfoot>
       <tr>
@@ -56,7 +60,7 @@
   </table>
 
   <footer>
-    <a class="bag-checkout" href="">Checkout</a>
+    <a class="bag-checkout" <?= !empty($data['products']) ?: 'disabled' ?> href="">Checkout</a>
   </footer>
 
 </section>

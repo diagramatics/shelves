@@ -1399,6 +1399,9 @@ body.is-popup-overlayed {
           transition: all 0.4s; }
   .bag-checkout:hover, .bag-checkout:focus {
     background: #211914; }
+  .bag-checkout[disabled] {
+    pointer-events: none;
+    background: rgba(68, 58, 49, 0.3); }
 
 .bag-items {
   margin: 0 auto;
@@ -1432,6 +1435,11 @@ body.is-popup-overlayed {
 .bag-items tbody td:last-of-type {
   background: #383028;
   color: white; }
+.bag-items tbody td.bag-empty {
+  padding: 2em 0;
+  background: #eee;
+  color: black;
+  font-size: 1.4em; }
 
 .bag-items img {
   max-width: 100%;

@@ -67,6 +67,11 @@
   &:focus {
     background: $color-primary-darker;
   }
+
+  &[disabled] {
+    pointer-events: none;
+    background: fade-out($color-primary, .7);
+  }
 }
 
 .bag-items {
@@ -117,6 +122,13 @@
   &:last-of-type {
     background: darken($color-primary, 4%);
     color: white;
+  }
+
+  &.bag-empty {
+    padding: 2em 0;
+    background: #eee;
+    color: black;
+    font-size: 1.4em;
   }
 }
 
