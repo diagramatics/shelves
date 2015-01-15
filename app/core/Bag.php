@@ -10,7 +10,8 @@ class Bag {
 
       // ----
       // If there's no errors then do these
-      // ----
+
+      // If there's no shopping bags yet, make one
       if (!isset($_SESSION['bag'])) {
         $_SESSION['bag'] = [];
       }
@@ -37,31 +38,39 @@ class Bag {
 
       // Item removal
       if (isset($_POST['removeItem'])) {
-        // Try and find the item and remove it if found
-        if (isset($_SESSION['bag'][$id])) {
-          unset($_SESSION['bag'][$id]);
-          Helpers::makeAlert('bag', 'Item removed from bag.');
-        }
-        // If no reference of that item is found, then it's an error?
-        else {
-          Helpers::makeAlert('bag', 'There is a problem removing that item. Please try again.');
-        }
+        $this->removeItem($id, $name);
       }
 
       // Item quantity edit -- confirmation
       // Why confirmation? Because the normal one is just for toggling the input
       else if (isset($_POST['confirmEditItemQty'])) {
         $editedQty = $_POST['editedQty'];
-        // Try and find the item and edit the quantity if found
-        if (isset($_SESSION['bag'][$id])) {
-          $_SESSION['bag'][$id]['qty'] = $editedQty;
-          Helpers::makeAlert('bag', 'Quantity edited to '. $editedQty .'.');
-        }
-        // If no reference of that item is found, then it's an error?
-        else {
-          Helpers::makeAlert('bag', 'There is a problem removing that item. Please try again.');
-        }
+        $this->editItemQty($id, $name, $editedQty);
       }
+    }
+  }
+
+  private function removeItem($id, $name) {
+    // Try and find the item and remove it if found
+    if (isset($_SESSION['bag'][$id])) {
+      unset($_SESSION['bag'][$id]);
+      Helpers::makeAlert('bag', $name .' removed from bag.');
+    }
+    // If no reference of that item is found, then it's an error?
+    else {
+      Helpers::makeAlert('bag', 'There is a problem removing '. $name .'. Please try again.');
+    }
+  }
+
+  private function editItemQty($id, $name, $editedQty) {
+    // Try and find the item and edit the quantity if found
+    if (isset($_SESSION['bag'][$id])) {
+      $_SESSION['bag'][$id]['qty'] = $editedQty;
+      Helpers::makeAlert('bag', 'Quantity of '. $name .' edited to '. $editedQty .'.');
+    }
+    // If no reference of that item is found, then it's an error?
+    else {
+      Helpers::makeAlert('bag', 'There is a problem changing the quantity of '. $name .'. Please try again.');
     }
   }
 }
