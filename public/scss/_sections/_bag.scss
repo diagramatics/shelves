@@ -107,8 +107,6 @@
 }
 
 .bag-items tbody tr {
-
-
   &:nth-of-type(2n) {
     background: darken($site-background, 4%);
 
@@ -141,16 +139,37 @@
 
 // Sort this according to the items in the table
 .bag-items td {
-  &:nth-of-type(1) {
-    max-width: 120px;
-    text-align: center;
-    margin-right: 1em;
+  text-align: center;
+}
+
+.bag-items-td-image {
+  max-width: 120px;
+  margin-right: 1em;
+}
+
+.bag-items-td-qty {
+  position: relative;
+}
+
+.bag-items-td-qty-edit {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 10px;
+  text-align: right;
+  color: #ccc;
+  transition: all .4s;
+
+  svg {
+    width: 16px;
+    height: 16px;
   }
 
-  &:nth-of-type(3),
-  &:nth-of-type(4),
-  &:nth-of-type(5) {
-    text-align: center;
+  &:hover {
+    color: #333;
   }
 }
 
@@ -169,4 +188,18 @@
 
 .bag-item-unit {
   font-size: .7em;
+}
+
+.bag-items-manipulate svg {
+  width: 24px;
+  height: 24px;
+}
+
+.bag-items-manipulate .icon-minus {
+  fill: $color-accent;
+  transition: all .4s;
+
+  &:hover {
+    fill: $color-accent-dark;
+  }
 }

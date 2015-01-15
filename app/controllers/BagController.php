@@ -6,8 +6,8 @@ class BagController extends Controller {
     $model = $this->model('BagModel');
     $model->setProducts(null);
     $model->setTotalCost(0);
-    
-    if (isset($_SESSION['bag'])) {
+
+    if (!empty($_SESSION['bag'])) {
       $bag = $_SESSION["bag"];
       $ids = [];
       foreach($bag as $item) {

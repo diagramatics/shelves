@@ -11,6 +11,8 @@
   <table class="bag-items">
     <thead>
       <tr>
+        <th rowspan="2">
+        </th>
         <th colspan="2" rowspan="2">
           Item
         </th>
@@ -34,21 +36,36 @@
       <?php if(!empty($data['products'])): ?>
       <?php foreach($data["products"] as $product): ?>
       <tr>
-        <td><img src="/img/products/<?= $product->image ?>" /></td>
+        <td>
+          <form id="manipulateBag<?= $product->prodID ?>" action="?manipulateBag" method="post">
+            <input type="hidden" name="prodID" value="<?= $product->prodID ?>">
+            <input type="hidden" name="prodName" value="<?= $product->prodName ?>">
+            <button class="button-icon bag-items-manipulate" title="Remove" name="removeItem">
+              <svg class="icon-minus"><use xlink:href="#icon-minus"></use></svg>
+            </button>
+          </form>
+        </td>
+        <td class="bag-items-td-image"><img src="/img/products/<?= $product->image ?>" /></td>
         <td><?= $product->prodName ?></td>
-        <td><?= $product->bagQty ?></td>
-        <td><?= '$'.number_format($product->price, 2) ?></td>
-        <td><?= '$'.number_format($product->price * $product->bagQty, 2) ?></td>
+        <td class="bag-items-td-qty">
+          <?= $product->bagQty ?>
+          <button href="#" class="button-icon bag-items-td-qty-edit" title="Edit Quantity" name="editItemQty" form="manipulateBag<?= $product->prodID ?>">
+            <svg class="icon-edit"><use xlink:href="#icon-edit"></use></svg>
+          </button>
+        </td>
+        <td class="bag-items-td-price"><?= '$'.number_format($product->price, 2) ?></td>
+        <td class="bag-items-td-price"><?= '$'.number_format($product->price * $product->bagQty, 2) ?></td>
       </tr>
       <?php endforeach ?>
       <?php else: ?>
       <tr>
-        <td class="bag-empty" colspan="5">You have nothing on your shopping bag yet. <br/>Add some things to buy!</td>
+        <td class="bag-empty" colspan="100%">You have nothing on your shopping bag yet. <br/>Add some things to buy!</td>
+      </tr>
       <?php endif ?>
     </tbody>
     <tfoot>
       <tr>
-        <td colspan="2"></td>
+        <td colspan="3"></td>
         <td>
           Total cost:
         </td>

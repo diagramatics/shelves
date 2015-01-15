@@ -22,6 +22,8 @@ class App {
     $database = new Database();
     // Then set up the user class
     $user = new Account($database);
+    // And the shopping bag system
+    new Bag();
 
     // Check if the controller exists first
     if (file_exists('../app/controllers/'. ucfirst($url[0]).'Controller.php')) {
@@ -50,8 +52,6 @@ class App {
 
 
     call_user_func_array([$this->controller, $this->method], $this->params);
-
-    new Bag();
 
     // After everything necessary to show content is finished,
     // close the database connection.
