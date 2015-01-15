@@ -1541,6 +1541,13 @@ body.is-popup-overlayed {
   .bag-items-td-qty-edit:hover {
     color: #333; }
 
+.bag-items-td-qty-edit--confirm {
+  top: auto;
+  right: auto;
+  bottom: auto;
+  left: auto;
+  width: auto; }
+
 .bag-items tfoot td:nth-of-type(2) {
   text-align: center; }
 

@@ -11,9 +11,9 @@ class Bag {
       // ----
       // If there's no errors then do these
       // ----
-      if (!isset($_SESSION['bag'])) {
+      //if (!isset($_SESSION['bag'])) {
         $_SESSION['bag'] = [];
-      }
+      //}
       array_push($_SESSION['bag'], array(
         "id" => $_POST['itemID'],
         "qty" => $_POST['qty']
@@ -35,6 +35,25 @@ class Bag {
           if ($bagItem['id'] === $id) {
             unset($_SESSION['bag'][$i]);
             Helpers::makeAlert('bag', 'Item removed from bag.');
+            // Found it! Now stop the loop and the function entirely.
+            return;
+          }
+          $i++;
+        }
+        // If no reference of that item is found, then it's an error?
+        Helpers::makeAlert('bag', 'There is a problem removing that item. Please try again.');
+      }
+
+      // Item quantity edit -- confirmation
+      // Why confirmation? Because the normal one is just for toggling the input
+      else if (isset($_POST['confirmEditItemQty'])) {
+        $editedQty = $_POST['editedQty'];
+        $i = 0;
+        // Try and find the item and edit the quantity if found
+        foreach($_SESSION['bag'] as $bagItem) {
+          if ($bagItem['id'] === $id) {
+            $_SESSION['bag'][$i]['qty'] = $editedQty;
+            Helpers::makeAlert('bag', 'Quantity edited to '. $editedQty .'.');
             // Found it! Now stop the loop and the function entirely.
             return;
           }

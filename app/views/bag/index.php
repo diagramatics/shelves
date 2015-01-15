@@ -48,10 +48,17 @@
         <td class="bag-items-td-image"><img src="/img/products/<?= $product->image ?>" /></td>
         <td><?= $product->prodName ?></td>
         <td class="bag-items-td-qty">
+          <?php if(!isset($_POST['editItemQty'])): ?>
           <?= $product->bagQty ?>
           <button href="#" class="button-icon bag-items-td-qty-edit" title="Edit Quantity" name="editItemQty" form="manipulateBag<?= $product->prodID ?>">
             <svg class="icon-edit"><use xlink:href="#icon-edit"></use></svg>
           </button>
+          <?php else: ?>
+          <input form="manipulateBag<?= $product->prodID ?>" type="number" name="editedQty" value="<?= $product->bagQty ?>" min="1" max="<?= $product->quantity ?>" />
+          <button class="button-icon bag-items-td-qty-edit bag-items-td-qty-edit--confirm" title="Edit Quantity" name="confirmEditItemQty" form="manipulateBag<?= $product->prodID ?>">
+            <svg class="icon-edit"><use xlink:href="#icon-edit"></use></svg>
+          </button>
+          <?php endif ?>
         </td>
         <td class="bag-items-td-price"><?= '$'.number_format($product->price, 2) ?></td>
         <td class="bag-items-td-price"><?= '$'.number_format($product->price * $product->bagQty, 2) ?></td>
