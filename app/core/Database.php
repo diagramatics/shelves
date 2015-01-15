@@ -7,11 +7,23 @@ class Database extends mysqli {
   private $database = 'shelves';
 
   public function __construct() {
+    // If the getenv fails assume that it's in development and not on production server
+    // and revert to development database connection values
+    if ($this->user = getenv('DB_USER') === false) {
+      $this->user = 'root';
+    }
+    if ($this->password = getenv('DB_PASSWORD') === false) {
+      $this->password = 'root';
+    }
+    if ($this->database = getenv('DB_DATABASE') === false) {
+      $this->database = 'shelves';
+    }
+
+    // Start connection
     parent::__construct($this->host, $this->user, $this->password, $this->database);
 
     if (mysqli_connect_error()) {
-      die('Connect Error ('. mysqli_connect_errno() .')'
-      . mysqli_connect_error());
+      die('Connect Error ('. mysqli_connect_errno() .')' . mysqli_connect_error());
     }
   }
 
