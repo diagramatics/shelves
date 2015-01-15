@@ -10,6 +10,7 @@ class BagController extends Controller {
     if (!empty($_SESSION['bag'])) {
       $bag = $_SESSION["bag"];
       $ids = [];
+      var_dump($bag);
       foreach($bag as $item) {
         array_push($ids, $item["id"]);
       }
