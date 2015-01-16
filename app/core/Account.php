@@ -77,6 +77,8 @@ class Account {
     $_SESSION["email"] = null;
 
     $_POST['logout'] = true;
+
+    // TODO: Clear memory, destroy session (Alex FTW)
   }
 
   /**
