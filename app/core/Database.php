@@ -9,17 +9,11 @@ class Database extends mysqli {
   public function __construct() {
     // If the getenv fails assume that it's in development and not on production server
     // and revert to development database connection values
-    if ($this->host = getenv('DB_HOST') === false) {
-      $this->host = 'localhost';
-    }
-    if ($this->user = getenv('DB_USER') === false) {
-      $this->user = 'root';
-    }
-    if ($this->password = getenv('DB_PASSWORD') === false) {
-      $this->password = 'root';
-    }
-    if ($this->database = getenv('DB_DATABASE') === false) {
-      $this->database = 'shelves';
+    if ($url = parse_url(getenv("CLEARDB_DATABASE_URL")) !== false) {
+      $this->host = $url["host"];
+      $this->user = $url["user"];
+      $this->password = $url["pass"];
+      $this->database = substr($url["path"], 1);
     }
 
     // Start connection
