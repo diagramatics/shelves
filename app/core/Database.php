@@ -45,7 +45,13 @@ class Database extends mysqli {
       $filtersArrayFormatted = "";
       $i = 0;
       foreach ($filters as $filter) {
-        $filtersArrayFormatted[$i++] = $filter[0] . ' ' . $filter[1] . ' ' . $this->real_escape_string($filter[2]);
+        // Detect if the value is a string or not and add quotes to it if it is
+        if (is_string($filter[2])) {
+          $filter[2] = '"'.$this->real_escape_string($filter[2]).'"';
+        }
+        else $filter[2] = $this->real_escape_string($filter[2]);
+
+        $filtersArrayFormatted[$i++] = $filter[0] . ' ' . $filter[1] . ' ' . $filter[2];
       }
       $filtersFormatted .= implode(', ', $filtersArrayFormatted);
     }

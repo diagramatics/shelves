@@ -38,12 +38,12 @@ class Account {
     // If there's a matching account...
     if ($result != false) {
       // Get the password and compare
-      $loginResult = $this->database->getValue("Login", ["password"], [
+      $loginResult = $this->database->getValue("Login", ["password", "userLevel"], [
         ["userID", "=", $result->userID]
       ]);
       if (password_verify($password, $loginResult->password)) {
         // If the password matches then log in
-        return $this->setCredentials($result);
+        return $this->setCredentials($result, $loginResult);
       }
       // If it doesn't match the return below will be called
     }
@@ -58,10 +58,10 @@ class Account {
    * @param     $result   The data row on the MySQL
    * @return    void
    */
-  private function setCredentials($result) {
+  private function setCredentials($result, $loginResult) {
     $_SESSION["fName"] = $result->fName;
     $_SESSION["email"] = $result->email;
-    $_SESSION["userLevel"] = $result->userLevel;
+    $_SESSION["userLevel"] = $loginResult->userLevel;
 
     $_POST['login'] = true;
   }

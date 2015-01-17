@@ -3,6 +3,13 @@
   flex-wrap: wrap;
   justify-content: center;
   align-content: center;
+  width: 100%;
+  margin: 20px auto;
+  padding: 0 20px;
+
+  @include mq(sm) {
+    width: 60%;
+  }
 }
 
 @mixin grid-item($size: 1) {

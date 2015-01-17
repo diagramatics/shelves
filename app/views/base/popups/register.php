@@ -13,7 +13,7 @@
         <input class="form-input-halfblock" type="password" name="registerPassword" value="" placeholder="Password">
         <input class="form-input-halfblock" type="password" name="registerConfirmPassword" value="" placeholder="Confirm Password">
       </div>
-      <input class="form-register-submit form-button" type="submit" value="Register">
+      <input class="form-button form-input-block" type="submit" value="Register">
       <p>
         Additional information can be filled on your user account preferences or on your first checkout later.
       </p>

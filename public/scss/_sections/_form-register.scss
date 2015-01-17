@@ -8,7 +8,7 @@
   flex-direction: column;
 }
 
-.form-register input:not(.form-register-submit) {
+.form-register input:not(.form-button) {
   margin-bottom: 1em;
   padding: 10px;
   border: thin solid rgba($color-primary, .15);
@@ -32,8 +32,4 @@
 .form-input-halfblock {
   flex: 1 1;
   max-width: 48.75%;
-}
-
-.form-register-submit {
-  padding: 15px 10px;
 }
