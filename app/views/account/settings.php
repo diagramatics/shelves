@@ -1,3 +1,14 @@
+<?php
+// Alerts for updating the settings
+if (isset($_POST['changeAccountSettings']) && $_POST['changeAccountSettings'] == true) {
+  Helpers::makeAlert("accountSettings", "Settings updated.");
+}
+
+elseif (isset($_POST['changeAccountSettings']) && $_POST['changeAccountSettings'] == false) {
+  Helpers::makeAlert("accountSettings", "There's something wrong when changing your account settings. Please try again.");
+}
+?>
+
 <section class="settings container">
   <h1><?= $data['title'] ?></h1>
 
@@ -31,7 +42,7 @@
       <div class="form-account-settings-addresses">
         <?php foreach($data['addresses'] as $address): ?>
           <div class="form-account-settings-address">
-            <input type="radio" name="address" value="<?= $address->addressID ?>" <?= $address->primary == 0 ? '' : ' checked' ?>>
+            <input type="radio" name="address" value="<?= $address->addressID ?>" <?= $address->primaryAddress == 0 ? '' : ' checked' ?>>
             <div class="form-account-settings-address-content">
               <?= $address->unit ?> <br />
               <?= $address->streetNo ?> <?= $address->streetName ?> <?= $address->street ?> <br />

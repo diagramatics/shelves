@@ -18,6 +18,10 @@ class Account {
     else if (isset($_GET["register"])) {
       $this->register();
     }
+
+    else if (isset($_GET["changeAccountSettings"])) {
+      $this->changeAccountSettings();
+    }
   }
 
   public function isLoggedIn() {
@@ -59,6 +63,7 @@ class Account {
    * @return    void
    */
   private function setCredentials($result, $loginResult) {
+    $_SESSION["userID"] = $result->userID;
     $_SESSION["fName"] = $result->fName;
     $_SESSION["email"] = $result->email;
     $_SESSION["userLevel"] = $loginResult->userLevel;
@@ -92,6 +97,38 @@ class Account {
   private function register() {
     // TODO: Implement this
     $_POST["register"] = true;
+  }
+
+  /**
+   * Change the account settings
+   */
+  private function changeAccountSettings() {
+    $fName = $_POST['fName'];
+    $lName = $_POST['lName'];
+    $addressID = $_POST['address'];
+
+    // TODO: An update revert function if it fails? Should it be baked on Database.php instead?
+    $profileUpdateResult = $this->database->updateValue("Account", [
+      ["fName", $fName],
+      ["lName", $lName]
+    ], [
+      ["email", "=", $_SESSION['email']]
+    ]);
+
+    $addressResetResult = $this->database->updateValue("Address", [
+      ["primaryAddress", "0"]
+    ], [
+      ["userID", "=", $_SESSION['userID']]
+    ]);
+
+    $addressUpdateResult = $this->database->updateValue("Address", [
+      ["primaryAddress", "1"]
+    ], [
+      ["addressID", "=", $addressID]
+    ]);
+
+    // Return false if any of these results are false
+    $_POST["changeAccountSettings"] = ($profileUpdateResult && $addressResetResult && $addressUpdateResult);
   }
 }
 

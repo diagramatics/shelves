@@ -25,7 +25,7 @@ class Database extends mysqli {
     }
   }
 
-  private function assembleQuery($table, $values, $filters = []) {
+  private function assembleSelectQuery($table, $values, $filters = []) {
     // If values are empty set $valuesFormatted to all
     if ($values === "") {
       $valuesFormatted = "*";
@@ -53,7 +53,7 @@ class Database extends mysqli {
 
         $filtersArrayFormatted[$i++] = $filter[0] . ' ' . $filter[1] . ' ' . $filter[2];
       }
-      $filtersFormatted .= implode(', ', $filtersArrayFormatted);
+      $filtersFormatted .= implode('AND ', $filtersArrayFormatted);
     }
 
     $command = 'SELECT '. $valuesFormatted .' FROM '. $table . ' ' . $filtersFormatted;
@@ -70,7 +70,7 @@ class Database extends mysqli {
    */
   public function getValue($table, $values, $filters = []) {
     // Make the query
-    $command = $this->assembleQuery($table, $values, $filters);
+    $command = $this->assembleSelectQuery($table, $values, $filters);
 
     // Then query the whole thing and save it into a variable
     $query = $this->query($command . " LIMIT 1");
@@ -99,7 +99,7 @@ class Database extends mysqli {
   */
   public function getValues($table, $values, $filters = []) {
     // Make the query
-    $command = $this->assembleQuery($table, $values, $filters);
+    $command = $this->assembleSelectQuery($table, $values, $filters);
 
     // Then query the whole thing and save it into a variable to be returned later
     $query = $this->query($command);
@@ -131,6 +131,53 @@ class Database extends mysqli {
     $result = $this->getValue($table, $values, $filters);
     $this->close();
     return $result;
+  }
+
+  private function assembleUpdateQuery($table, $values, $filters = []) {
+    // UPDATE `shelves`.`Address` SET `unit`='aaaa' WHERE `addressID`='2' and`userID`='1';
+
+    $valuesArrayFormatted = "";
+    $i = 0;
+    foreach($values as $value) {
+      if (is_string($value[1])) {
+        $value[1] = '"'.$this->real_escape_string($value[1]).'"';
+      }
+      else $value[1] = $this->real_escape_string($value[1]);
+
+      $valuesArrayFormatted[$i++] = $value[0] . ' = ' . $value[1];
+    }
+    $valuesFormatted = implode(', ', $valuesArrayFormatted);
+
+
+    // Do the same for filters IF the filters are passed in
+    // Remember that $filters is an array
+    $filtersFormatted = '';
+    if (!empty($filters)) {
+      $filtersFormatted = 'WHERE ';
+
+      // Format the filters so it can be imploded to $filtersFormatted easily
+      $filtersArrayFormatted = "";
+      $i = 0;
+      foreach ($filters as $filter) {
+        // Detect if the value is a string or not and add quotes to it if it is
+        if (is_string($filter[2])) {
+          $filter[2] = '"'.$this->real_escape_string($filter[2]).'"';
+        }
+        else $filter[2] = $this->real_escape_string($filter[2]);
+
+        $filtersArrayFormatted[$i++] = $filter[0] . ' ' . $filter[1] . ' ' . $filter[2];
+      }
+      $filtersFormatted .= implode('AND ', $filtersArrayFormatted);
+    }
+
+    $command = 'UPDATE '. $table .' SET '. $valuesFormatted . ' ' . $filtersFormatted;
+    return $command;
+  }
+
+  public function updateValue($table, $values, $filters = []) {
+    $command = $this->assembleUpdateQuery($table, $values, $filters);
+
+    return $query = $this->query($command);
   }
 }
 
