@@ -24,6 +24,7 @@
 }
 
 .form-account-settings legend {
+  margin-bottom: .5em;
   padding: 1em;
   font-size: 1.1em;
   border-left: .5em solid $color-primary;
@@ -56,19 +57,55 @@
 
 .form-account-settings-addresses {
   display: flex;
-  justify-content: center;
 }
 
-.form-account-settings-addresses div {
-  flex: 1 1 22.5%;
-  max-width: 22.5%;
-  margin: 1em 1.25%;
+.form-account-settings-address {
+  flex: 1 1 24%;
+  max-width: 24%;
+  margin: 1em .5%;
 }
 
-.form-account-settings-addresses div a {
+.form-account-settings-address a {
   display: block;
+  position: relative;
   padding: 1em;
   background: #eee;
   color: inherit;
   text-decoration: none;
+  transition: all .4s;
+
+  &:before {
+    content: "Set as primary";
+    position: absolute;
+    bottom: 100%;
+    right: 1em;
+    background: #e0e0e0;
+    padding: .1em .5em;
+    transition: all .4s;
+    z-index: -1;
+    opacity: 0;
+  }
+
+  &:hover {
+    background: #e0e0e0;
+
+    &:before {
+      opacity: 1;
+    }
+  }
+}
+
+.form-account-settings-address--primary a {
+  background: $color-primary;
+  color: white;
+
+  &:before {
+    content: "Primary";
+    background: $color-primary;
+    opacity: 1;
+  }
+
+  &:hover {
+    background: $color-primary;
+  }
 }

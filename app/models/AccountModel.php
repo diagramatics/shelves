@@ -1,10 +1,19 @@
 <?php
 
 class AccountModel {
+  private $id;
   private $email;
   private $fName;
   private $lName;
   private $dob;
+
+  public function getID() {
+    return $this->id;
+  }
+
+  public function setID($id) {
+    $this->id = $id;
+  }
 
   public function getEmail() {
     return $this->email;

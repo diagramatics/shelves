@@ -60,6 +60,7 @@ CREATE TABLE Address(
   city VARCHAR(15) NOT NULL,
   postcode INTEGER NOT NULL,
   state VARCHAR(15) NOT NULL,
+  primary TINYINT(1) NOT NULL DEFAULT 0,
   FOREIGN KEY(userID) REFERENCES Account(userID),
   PRIMARY KEY(addressID, userID)
 );

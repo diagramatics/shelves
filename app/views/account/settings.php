@@ -26,14 +26,18 @@
         <input type="text" name="lName" value="<?= $data['lName'] ?>" class="form-account-settings-input" />
       </div>
     </fieldset>
-    <fieldset class="form-account-settings-addresses">
+    <fieldset>
       <legend>Addresses</legend>
-      <div>
-        <a href="#">
-          Unit 123 <br />
-          123 Road Rd. <br />
-          Suburb NSW 2002
-        </a>
+      <div class="form-account-settings-addresses">
+        <?php foreach($data['addresses'] as $address): ?>
+          <div class="form-account-settings-address<?= $address->primary == 0 ? '' : ' form-account-settings-address--primary' ?>">
+            <a href="#">
+              <?= $address->unit ?> <br />
+              <?= $address->streetNo ?> <?= $address->streetName ?> <?= $address->street ?> <br />
+              <?= $address->city ?> <?= $address->state ?> <?= $address->postcode ?>
+            </a>
+          </div>
+        <?php endforeach; ?>
       </div>
     </fieldset>
 
