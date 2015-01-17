@@ -1718,11 +1718,27 @@ body.is-popup-overlayed {
   -webkit-flex: 1 1 24%;
       -ms-flex: 1 1 24%;
           flex: 1 1 24%;
+  position: relative;
   max-width: 24%;
   margin: 1em 0.5%; }
 
-.form-account-settings-address a {
-  display: block;
+.form-account-settings-address input[type=radio] {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  cursor: pointer; }
+  .form-account-settings-address input[type=radio]:hover + .form-account-settings-address-content {
+    background: #e0e0e0; }
+    .form-account-settings-address input[type=radio]:hover + .form-account-settings-address-content:before {
+      opacity: 1; }
+
+.form-account-settings-address-content {
   position: relative;
   padding: 1em;
   background: #eee;
@@ -1730,7 +1746,7 @@ body.is-popup-overlayed {
   text-decoration: none;
   -webkit-transition: all 0.4s;
           transition: all 0.4s; }
-  .form-account-settings-address a:before {
+  .form-account-settings-address-content:before {
     content: "Set as primary";
     position: absolute;
     bottom: 100%;
@@ -1741,17 +1757,17 @@ body.is-popup-overlayed {
             transition: all 0.4s;
     z-index: -1;
     opacity: 0; }
-  .form-account-settings-address a:hover {
+  .form-account-settings-address-content:hover {
     background: #e0e0e0; }
-    .form-account-settings-address a:hover:before {
+    .form-account-settings-address-content:hover:before {
       opacity: 1; }
 
-.form-account-settings-address--primary a {
+.form-account-settings-address input[type=radio]:checked + .form-account-settings-address-content {
   background: #443a31;
   color: white; }
-  .form-account-settings-address--primary a:before {
+  .form-account-settings-address input[type=radio]:checked + .form-account-settings-address-content:before {
     content: "Primary";
     background: #443a31;
     opacity: 1; }
-  .form-account-settings-address--primary a:hover {
+  .form-account-settings-address input[type=radio]:checked + .form-account-settings-address-content:hover {
     background: #443a31; }

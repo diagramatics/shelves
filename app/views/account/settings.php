@@ -30,12 +30,13 @@
       <legend>Addresses</legend>
       <div class="form-account-settings-addresses">
         <?php foreach($data['addresses'] as $address): ?>
-          <div class="form-account-settings-address<?= $address->primary == 0 ? '' : ' form-account-settings-address--primary' ?>">
-            <a href="#">
+          <div class="form-account-settings-address">
+            <input type="radio" name="address" value="<?= $address->addressID ?>" <?= $address->primary == 0 ? '' : ' checked' ?>>
+            <div class="form-account-settings-address-content">
               <?= $address->unit ?> <br />
               <?= $address->streetNo ?> <?= $address->streetName ?> <?= $address->street ?> <br />
               <?= $address->city ?> <?= $address->state ?> <?= $address->postcode ?>
-            </a>
+            </div>
           </div>
         <?php endforeach; ?>
       </div>
