@@ -53,13 +53,13 @@ CREATE TABLE ProductPromotion(
 CREATE TABLE Address(
   addressID INTEGER NOT NULL UNIQUE AUTO_INCREMENT,
   userID Integer NOT NULL,
+  unit VARCHAR(30),
   streetNo VARCHAR(7) NOT NULL,
   streetName VARCHAR(30) NOT NULL,
   street VARCHAR(15) NOT NULL,
   city VARCHAR(15) NOT NULL,
   postcode INTEGER NOT NULL,
   state VARCHAR(15) NOT NULL,
-  country VARCHAR(15) NOT NULL,
   FOREIGN KEY(userID) REFERENCES Account(userID),
   PRIMARY KEY(addressID, userID)
 );
