@@ -47,5 +47,9 @@ $(function() {
           $('#metaButton').click();
         });
     }
-  })
+  });
+
+  $('#menuButton').click(function() {
+    $('#menuButtonPopup').toggleClass('is-shown');
+  });
 })

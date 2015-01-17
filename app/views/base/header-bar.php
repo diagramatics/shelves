@@ -47,7 +47,12 @@
       <a href="/bag"><svg class="icon-bag"><use xlink:href="#icon-bag"></use></svg></a>
     </span>
     <span class="site-header-buttons tooltip--bottom" data-tooltip="Menu">
-      <svg class="icon-menu"><use xlink:href="#icon-menu"></use></svg>
+      <a id="menuButton" href="#"><svg class="icon-menu"><use xlink:href="#icon-menu"></use></svg></a>
+      <div id="menuButtonPopup" class="menu-button-popup">
+        <?php if (isset($_SESSION['userLevel']) && $_SESSION['userLevel'] == 1): ?>
+        <li><a href="#">Admin Panel</a></li>
+        <?php endif ?>
+      </div>
     </span>
   </div>
 </header>

@@ -61,6 +61,7 @@ class Account {
   private function setCredentials($result) {
     $_SESSION["fName"] = $result->fName;
     $_SESSION["email"] = $result->email;
+    $_SESSION["userLevel"] = $result->userLevel;
 
     $_POST['login'] = true;
   }

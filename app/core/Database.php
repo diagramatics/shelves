@@ -9,7 +9,8 @@ class Database extends mysqli {
   public function __construct() {
     // If the getenv fails assume that it's in development and not on production server
     // and revert to development database connection values
-    if ($url = parse_url(getenv("CLEARDB_DATABASE_URL")) !== false) {
+    if (getenv("CLEARDB_DATABASE_URL") !== false) {
+      $url = parse_url(getenv("CLEARDB_DATABASE_URL"));
       $this->host = $url["host"];
       $this->user = $url["user"];
       $this->password = $url["pass"];
