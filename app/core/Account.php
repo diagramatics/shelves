@@ -74,18 +74,23 @@ class Account {
    */
   private function logout() {
     // On logging out remove the credentials
-    $_SESSION["fName"] = null;
-    $_SESSION["email"] = null;
-
+    $_SESSION = array();
+    if (ini_get("session.use_cookies")) {
+      $params = session_get_cookie_params();
+      setcookie(session_name(), '', time() - 42000,
+        $params["path"], $params["domain"],
+        $params["secure"], $params["httponly"]
+      );
+    }
+    session_destroy();
     $_POST['logout'] = true;
-
-    // TODO: Clear memory, destroy session (Alex FTW)
   }
 
   /**
    * Register the user
    */
   private function register() {
+    // TODO: Implement this
     $_POST["register"] = true;
   }
 }
