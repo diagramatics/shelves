@@ -1,11 +1,3 @@
-<?php
-if(isset($_GET['addBag'])) {
-  // These data will be processed on Bag.php
-  $_POST['itemQty'] = $data['qty'];
-  $_POST['itemID'] = $data['id'];
-}
-?>
-
 <?php if(!empty($data['name'])): ?>
 <section class="single-product">
   <div class="single-product-info single-product-info--left">
@@ -21,6 +13,8 @@ if(isset($_GET['addBag'])) {
 
     <form id="" action="?addBag" class="single-product-add" method="POST">
       <input type="number" name="qty" value="1" min="1" max="<?= $data['qty'] ?>">
+      <input type="hidden" name="itemQty" value="<?= $data['qty'] ?>">
+      <input type="hidden" name="itemID" value="<?= $data['id'] ?>">
       <button>
         <span>Add to Bag</span>
         <svg class="icon-bag"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-bag"></use></svg>

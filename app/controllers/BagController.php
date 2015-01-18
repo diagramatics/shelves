@@ -14,8 +14,8 @@ class BagController extends Controller {
         array_push($ids, $item["id"]);
       }
 
-      $model->setProducts($this->database->getValues("Product", "", [
-        ['prodID', 'LIKE', '('. implode(',', $ids) .')']
+      $model->setProducts($this->database->getValues("Product", "", [], [
+        'WHERE prodID IN ('. implode(',', $ids) .')'
       ]));
 
       $mapQuantity = function($k) use ($bag) {
@@ -32,7 +32,7 @@ class BagController extends Controller {
 
       $totalCost = 0.0;
       foreach($model->getProducts() as $product) {
-        $totalCost .= $product->price * $product->bagQty;
+        $totalCost += $product->price * $product->bagQty;
       }
       $model->setTotalCost($totalCost);
     }
