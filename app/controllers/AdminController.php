@@ -18,21 +18,69 @@ class AdminController extends Controller {
     ]);
   }
 
-  public function add($item) {
-    switch ($item) {
-      case "category":
-        $this->viewIfAllowed('admin/add-category', [
-          'title' => 'Add New Category'
-        ]);
-      break;
+  // Category
+  public function category($item) {
+    if ($item == "add") {
+      $this->addCategory();
     }
   }
 
+  private function addCategory() {
+    if (isset($_GET["adminAddCategory"])) {
+      $name = $_POST['name'];
+
+      // Insert the category to the database
+      $insert = $this->database->insertValue("Category", [['catName', $name]]);
+
+      // If something bad happens abort
+      if ($insert == false) {
+        $_POST['adminAddCategory'] = false;
+      }
+      else $_POST['adminAddCategory'] = true;
+    }
+
+    $this->viewIfAllowed('admin/category/add', [
+      'title' => 'Add New Category'
+    ]);
+  }
+
+  // Subcategories
+  public function subcategory($item) {
+    if ($item == "add") {
+      $this->addSubCategory();
+    }
+  }
+
+  private function addSubCategory() {
+    if (isset($_GET["adminAddSubCategory"])) {
+      $name = $_POST['name'];
+      $category = $_POST['category'];
+
+      // Insert the category to the database
+      $insert = $this->database->insertValue("SubCategory", [['subCatName', $name], ['catID', $category]]);
+
+      // If something bad happens abort
+      if ($insert == false) {
+        $_POST['adminAddSubCategory'] = false;
+      }
+      else $_POST['adminAddSubCategory'] = true;
+    }
+
+    $categories = $this->database->getValues("Category", "");
+
+    $this->viewIfAllowed('admin/subcategory/add', [
+      'title' => 'Add New Subcategory',
+      'categories' => $categories
+      ]);
+    }
+
+  // Products
   public function product($item) {
     if ($item == "add") {
       $this->addProduct();
     }
   }
+
 
   private function addProduct() {
     if (isset($_GET["adminAddProduct"])) {
