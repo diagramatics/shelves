@@ -23,13 +23,3 @@
     border-color: rgba($color-primary, .8);
   }
 }
-
-.form-input-halfblock-container {
-  display: flex;
-  justify-content: space-between;
-}
-
-.form-input-halfblock {
-  flex: 1 1;
-  max-width: 48.75%;
-}

@@ -6,7 +6,23 @@ input {
 .form-input-block {
   display: block;
   width: 100%;
-  padding: 15px 10px;
+}
+
+.form-input-halfblock-container,
+.form-input-thirdblock-container {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0;
+}
+
+.form-input-halfblock {
+  flex: 1 1;
+  max-width: 48.75%;
+}
+
+.form-input-thirdblock {
+  flex: 1 1;
+  max-width: 32.5%;
 }
 
 .form-button {
@@ -25,4 +41,12 @@ input {
     background: $color-primary-dark;
     color: white;
   }
+}
+
+.form-button.form-input-block {
+  padding: 15px 10px;
+}
+
+.form-button.form-input-block.form-input-block--small {
+  padding: 5px 10px;
 }

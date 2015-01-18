@@ -179,6 +179,33 @@ class Database extends mysqli {
 
     return $query = $this->query($command);
   }
+
+  private function assembleInsertQuery($table, $values) {
+    //INSERT INTO `shelves`.`Account` (`fName`, `lName`, `dob`, `email`) VALUES ('Test', 'Person', '1992-01-01', 'test@person.com');
+
+    $valuesKeyArrayFormatted = array();
+    $valuesArrayFormatted = array();
+    $i = 0;
+    foreach($values as $value) {
+      $value[0] = $this->real_escape_string($value[0]);
+      $valuesKeyArrayFormatted[$i] = $value[0];
+
+      if (is_string($value[1])) {
+        $value[1] = '"'.$this->real_escape_string($value[1]).'"';
+      }
+      else $value[1] = $this->real_escape_string($value[1]);
+      $valuesArrayFormatted[$i++] = $value[1];
+    }
+
+    $command = 'INSERT INTO '. $table .' ('. implode(', ', $valuesKeyArrayFormatted) .') VALUES ('. implode(', ', $valuesArrayFormatted) .')';
+    return $command;
+  }
+
+  public function insertValue($table, $values) {
+    $command = $this->assembleInsertQuery($table, $values);
+
+    return $query = $this->query($command);
+  }
 }
 
 ?>

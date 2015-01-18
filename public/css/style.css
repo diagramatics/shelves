@@ -408,8 +408,28 @@ input {
 
 .form-input-block {
   display: block;
-  width: 100%;
-  padding: 15px 10px; }
+  width: 100%; }
+
+.form-input-halfblock-container, .form-input-thirdblock-container {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  margin: 10px 0; }
+
+.form-input-halfblock {
+  -webkit-flex: 1 1;
+      -ms-flex: 1 1;
+          flex: 1 1;
+  max-width: 48.75%; }
+
+.form-input-thirdblock {
+  -webkit-flex: 1 1;
+      -ms-flex: 1 1;
+          flex: 1 1;
+  max-width: 32.5%; }
 
 .form-button {
   background: transparent;
@@ -424,6 +444,12 @@ input {
   .form-button:active {
     background: #332217;
     color: white; }
+
+.form-button.form-input-block {
+  padding: 15px 10px; }
+
+.form-button.form-input-block.form-input-block--small {
+  padding: 5px 10px; }
 
 .tooltip {
   position: relative; }
@@ -944,20 +970,6 @@ body.is-popup-overlayed {
     border-color: rgba(68, 58, 49, 0.5); }
   .form-register input:not(.form-button):focus {
     border-color: rgba(68, 58, 49, 0.8); }
-
-.form-input-halfblock-container {
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-justify-content: space-between;
-      -ms-flex-pack: justify;
-          justify-content: space-between; }
-
-.form-input-halfblock {
-  -webkit-flex: 1 1;
-      -ms-flex: 1 1;
-          flex: 1 1;
-  max-width: 48.75%; }
 
 .form-subscribe {
   display: -webkit-flex;
@@ -1681,7 +1693,7 @@ body.is-popup-overlayed {
               flex-basis: 30%;
       width: 30%; } }
 
-.form-account-settings legend {
+.form-account-settings > fieldset > legend {
   margin-bottom: 0.5em;
   padding: 1em;
   font-size: 1.1em;
@@ -1771,3 +1783,7 @@ body.is-popup-overlayed {
     opacity: 1; }
   .form-account-settings-address input[type=radio]:checked + .form-account-settings-address-content:hover {
     background: #443a31; }
+
+.form-account-settings .form-account-settings-address-new {
+  border: thin solid #ccc;
+  padding: 15px 10px; }

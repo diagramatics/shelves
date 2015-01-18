@@ -23,7 +23,7 @@
   }
 }
 
-.form-account-settings legend {
+.form-account-settings > fieldset > legend {
   margin-bottom: .5em;
   padding: 1em;
   font-size: 1.1em;
@@ -129,4 +129,9 @@
   &:hover {
     background: $color-primary;
   }
+}
+
+.form-account-settings .form-account-settings-address-new {
+  border: thin solid #ccc;
+  padding: 15px 10px;
 }
