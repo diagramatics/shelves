@@ -68,9 +68,13 @@ class Database extends mysqli {
    * @param     array $filters The filter(s) in SQL query format
    * @return    array The result
    */
-  public function getValue($table, $values, $filters = []) {
+  public function getValue($table, $values, $filters = [], $others = []) {
     // Make the query
     $command = $this->assembleSelectQuery($table, $values, $filters);
+
+    if (!empty($others)) {
+      $command .= ' ' . implode(' ', $others);
+    }
 
     // Then query the whole thing and save it into a variable
     $query = $this->query($command . " LIMIT 1");
@@ -97,9 +101,13 @@ class Database extends mysqli {
   * @param     array $filters The filter(s) in SQL query format
   * @return    array The result
   */
-  public function getValues($table, $values, $filters = []) {
+  public function getValues($table, $values, $filters = [], $others = []) {
     // Make the query
     $command = $this->assembleSelectQuery($table, $values, $filters);
+
+    if (!empty($others)) {
+      $command .= ' ' . implode(' ', $others);
+    }
 
     // Then query the whole thing and save it into a variable to be returned later
     $query = $this->query($command);
@@ -203,6 +211,39 @@ class Database extends mysqli {
 
   public function insertValue($table, $values) {
     $command = $this->assembleInsertQuery($table, $values);
+
+    return $query = $this->query($command);
+  }
+
+  private function assembleDeleteQuery($table, $filters) {
+    // DELETE FROM `shelves`.`Product` WHERE `prodID`='2';$filtersFormatted = '';
+    if (!empty($filters)) {
+      $filtersFormatted = 'WHERE ';
+
+      // Format the filters so it can be imploded to $filtersFormatted easily
+      $filtersArrayFormatted = "";
+      $i = 0;
+      foreach ($filters as $filter) {
+        // Detect if the value is a string or not and add quotes to it if it is
+        if (is_string($filter[2])) {
+          $filter[2] = '"'.$this->real_escape_string($filter[2]).'"';
+        }
+        else $filter[2] = $this->real_escape_string($filter[2]);
+
+        $filtersArrayFormatted[$i++] = $filter[0] . ' ' . $filter[1] . ' ' . $filter[2];
+      }
+      $filtersFormatted .= implode('AND ', $filtersArrayFormatted);
+    }
+    else {
+      die("The function Database->deleteValue() doesn't allow deleting without filters for now.");
+    }
+
+    $command = 'DELETE FROM ' . $table . ' ' . $filtersFormatted;
+    return $command;
+  }
+
+  public function deleteValue($table, $filters) {
+    $command = $this->assembleDeleteQuery($table, $filters);
 
     return $query = $this->query($command);
   }

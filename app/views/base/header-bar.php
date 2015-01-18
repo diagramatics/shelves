@@ -51,7 +51,7 @@
       <a id="menuButton" href="#"><svg class="icon-menu"><use xlink:href="#icon-menu"></use></svg></a>
       <div id="menuButtonPopup" class="menu-button-popup">
         <?php if (isset($_SESSION['userLevel']) && $_SESSION['userLevel'] == 1): ?>
-        <li><a href="#">Admin Panel</a></li>
+        <li><a href="/admin">Admin Panel</a></li>
         <?php endif ?>
       </div>
     </span>

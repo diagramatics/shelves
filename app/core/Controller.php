@@ -38,6 +38,10 @@ class Controller {
     }
   }
 
+  protected function view404() {
+    $this->view('base/404', ['title' => 'Page Not Found']);
+  }
+
   protected function validateViewData(&$data, $key) {
     if (!array_key_exists($key, $data)) {
       $data[$key] = '';
