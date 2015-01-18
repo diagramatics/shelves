@@ -21,11 +21,11 @@ class AdminController extends Controller {
   // Category
   public function category($item) {
     if ($item == "add") {
-      $this->addCategory();
+      $this->addCategoryView();
     }
   }
 
-  private function addCategory() {
+  private function addCategoryView() {
     if (isset($_GET["adminAddCategory"])) {
       $name = $_POST['name'];
 
@@ -47,11 +47,11 @@ class AdminController extends Controller {
   // Subcategories
   public function subcategory($item) {
     if ($item == "add") {
-      $this->addSubCategory();
+      $this->addSubCategoryView();
     }
   }
 
-  private function addSubCategory() {
+  private function addSubCategoryView() {
     if (isset($_GET["adminAddSubCategory"])) {
       $name = $_POST['name'];
       $category = $_POST['category'];
@@ -75,14 +75,48 @@ class AdminController extends Controller {
     }
 
   // Products
-  public function product($item) {
+  public function product($item = "", $item2 = "") {
     if ($item == "add") {
-      $this->addProduct();
+      $this->addProductView();
+    }
+
+    else if ($item == "edit") {
+      $this->editProductView($item2);
+    }
+
+    else {
+      $this->productsView();
     }
   }
 
+  private function productsView() {
+    $products = $this->database->getValues("Product", "");
 
-  private function addProduct() {
+    $categories = $this->database->getValues("Category", "");
+    $categoriesFormat = array();
+    // Format the whole array so it becomes an associative array with IDs as the indicator
+    foreach ($categories as $category) {
+      $categoriesFormat[$category->catID] = $category;
+    }
+    $categories = $categoriesFormat;
+
+    $subcategories = $this->database->getValues("SubCategory", "", [], ['ORDER BY catID']);
+    $subcategoriesFormat = array();
+    // Format this array also
+    foreach ($subcategories as $subcategory) {
+      $subcategoriesFormat[$subcategory->subCatID] = $subcategory;
+    }
+    $subcategories = $subcategoriesFormat;
+
+    $this->viewIfAllowed('admin/product/index', [
+      'title' => 'Products',
+      'products' => $products,
+      'categories' => $categories,
+      'subcategories' => $subcategories
+    ]);
+  }
+
+  private function addProductView() {
     if (isset($_GET["adminAddProduct"])) {
       $this->addNewProduct();
     }
@@ -130,7 +164,8 @@ class AdminController extends Controller {
       ['prodName', $name],
       ['price', $price],
       ['catID', $category],
-      ['quantity', $quantity],
+      ['subCatID', $subcategory[1]],
+      ['quantity', $quantity]
     ];
 
     // Add these two if they're not empty
@@ -153,13 +188,135 @@ class AdminController extends Controller {
     // Upload the image
     // TODO: More image uploading validations
     if (move_uploaded_file($imageFile['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . '/img/products/' . $imageName)) {
-      // We're done here.
-      return $_POST['adminAddProduct'] = true;
+      // We're done here. Update the image file reference and finish
+      $update = $this->database->updateValue("Product", [['image', $imageName]], [['prodID', '=', $id]]);
+      if ($update) {
+        return $_POST['adminAddProduct'] = true;
+      }
     }
 
     // If the image upload fails then churn out an error and delete the database insert.
     $_POST['adminAddProduct'] = 'noupload';
     $this->database->deleteValue('Product', [['prodID', '=', $id]]);
+  }
+
+  private function editProductView($prodID) {
+    $model = $this->model('ProductModel');
+    $categories = array();
+    $subcategories = array();
+
+    // Check if the form is submitted
+    if (isset($_GET['adminEditProduct'])) {
+      $this->editProduct($prodID);
+    }
+
+    // Check if the user landed on this page incidentally
+    if (!empty($prodID)) {
+
+      $query = $this->database->getValue("Product", "", [
+        ['prodID', '=', $prodID]
+      ]);
+
+      if ($query) {
+        $model->setID($query->prodID);
+        $model->setName($query->prodName);
+        $model->setImage($query->image);
+        $model->setPrice($query->price);
+        $model->setPriceUnit($query->priceUnit);
+        $model->setDesc($query->decript);
+        $model->setQty($query->quantity);
+        if (empty($_POST['adminEditProduct'])) {
+          $_POST['adminEditProduct'] = 'in';
+        }
+      }
+
+      $categories = $this->database->getValues("Category", "");
+      $categoriesFormat = array();
+      // Format the whole array so it becomes an associative array with IDs as the indicator
+      foreach ($categories as $category) {
+        $categoriesFormat[$category->catID] = $category;
+      }
+      $categories = $categoriesFormat;
+
+      $subcategories = $this->database->getValues("SubCategory", "", [], ['ORDER BY catID']);
+      $subcategoriesFormat = array();
+      // Format this array also
+      foreach ($subcategories as $subcategory) {
+        $subcategoriesFormat[$subcategory->subCatID] = $subcategory;
+      }
+      $subcategories = $subcategoriesFormat;
+    }
+
+    else {
+      $_POST['adminEditProduct'] = 'stumbled';
+    }
+
+    $this->viewIfAllowed('admin/product/edit', [
+      'title' => 'Edit Product',
+      'id' => $prodID,
+      'name' => $model->getName(),
+      'desc' => $model->getDesc(),
+      'image' => $model->getImage(),
+      'price' => $model->getPrice(),
+      'priceUnit' => $model->getPriceUnit(),
+      'qty' => $model->getQty(),
+      'categories' => $categories,
+      'subcategories' => $subcategories
+    ]);
+  }
+
+  private function editProduct($prodID) {
+    $name = $_POST['name'];
+    $price = $_POST['price'];
+    $priceUnit = $_POST['priceUnit'];
+    $quantity = $_POST['quantity'];
+    $category = $_POST['category'];
+    $subcategory = explode("-", $_POST['subcategory']); // Array index 0 is the catID, index 1 is subCatID
+    $description = $_POST['description'];
+
+    if ($subcategory[0] != '0' && $subcategory[0] != $category) {
+      return $_POST['adminEditProduct'] = 'wrongsub';
+    }
+
+    $dbValues = [
+      ['prodName', $name],
+      ['price', $price],
+      ['quantity', $quantity],
+      ['priceUnit', $priceUnit],
+      ['decript', $description],
+      ['catID', $category]
+    ];
+
+    if ($subcategory[1] != 0) {
+      array_push($dbValues, ['subCatID', $subcategory[1]]);
+    }
+
+    // If there's any image uploaded to replace the existing image
+    if (isset($_FILES['image'])) {
+      // Make the slug from the image
+      $slug = Helpers::makeSlug($name);
+
+      // And get the image
+      $imageFile = $_FILES['image'];
+
+      $imageName = $prodID . '-' . $slug . '.' . pathinfo($imageFile['name'], PATHINFO_EXTENSION);
+
+      // Upload the image
+      // TODO: More image uploading validations
+      if (move_uploaded_file($imageFile['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . '/img/products/' . $imageName)) {
+        // We're done here. Update the image file reference and finish
+        $update = $this->database->updateValue("Product", [['image', $imageName]], [['prodID', '=', $id]]);
+        if (!$update) {
+          return $_POST['adminAddProduct'] = 'noupload';
+        }
+        else {
+          array_push($dbValues, ['image', $imageName]);
+        }
+      }
+    }
+
+    $insert = $this->database->updateValue("Product", $dbValues, [['prodID', '=', $prodID]]);
+    return $_POST['adminEditProduct'] = $insert;
   }
 }
 

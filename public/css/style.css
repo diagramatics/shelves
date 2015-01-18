@@ -1787,3 +1787,31 @@ body.is-popup-overlayed {
 .form-account-settings .form-account-settings-address-new {
   border: thin solid #ccc;
   padding: 15px 10px; }
+
+.admin-table {
+  width: 90%;
+  margin: 20px auto;
+  text-align: center; }
+
+.admin-table th {
+  padding: 10px;
+  background: #443a31;
+  color: white; }
+
+.admin-table tbody tr:nth-of-type(2n) {
+  background: #eee; }
+
+.admin-table tbody td {
+  padding: 5px 0; }
+
+.admin-table tbody img {
+  max-width: 100px; }
+
+.admin-table-edit svg {
+  width: 18px;
+  height: 18px;
+  fill: #6e7c3b;
+  -webkit-transition: all 0.4s;
+          transition: all 0.4s; }
+.admin-table-edit:hover svg {
+  fill: #3d4032; }
