@@ -6,30 +6,37 @@ class AccountController extends Controller {
   }
 
   public function settings() {
-    $model = $this->model("AccountModel");
+    if(isset($_SESSION["email"])) {
 
-    $account = $this->database->getValue("Account", "", [
-      ["email", "=", $_SESSION["email"]]
-    ]);
+      $model = $this->model("AccountModel");
 
-    $model->setID($account->userID);
-    $model->setEmail($account->email);
-    $model->setFName($account->fName);
-    $model->setLName($account->lName);
-    $model->setDob($account->dob);
+      $account = $this->database->getValue("Account", "", [
+        ["email", "=", $_SESSION["email"]]
+      ]);
 
-    $addresses = $this->database->getValues("Address", "", [
-      ["userID", "=", $model->getID()]
-    ]);
+      $model->setID($account->userID);
+      $model->setEmail($account->email);
+      $model->setFName($account->fName);
+      $model->setLName($account->lName);
+      $model->setDob($account->dob);
 
-    $this->view("account/settings", [
-      "title" => "Account Settings",
-      "email" => $model->getEmail(),
-      "fName" => $model->getFName(),
-      "lName" => $model->getLName(),
-      "dob" => $model->getDob(),
-      "addresses" => $addresses
-    ]);
+      $addresses = $this->database->getValues("Address", "", [
+        ["userID", "=", $model->getID()]
+      ]);
+
+      $this->view("account/settings", [
+        "title" => "Account Settings",
+        "email" => $model->getEmail(),
+        "fName" => $model->getFName(),
+        "lName" => $model->getLName(),
+        "dob" => $model->getDob(),
+        "addresses" => $addresses
+      ]);
+    }
+
+    else {
+      $this->view("account/settings-error", ["title" => "Whoops."]);
+    }
   }
 }
 
