@@ -103,6 +103,10 @@ class AdminController extends Controller {
       $this->addSubCategoryView();
     }
 
+    elseif ($item == "edit") {
+      $this->editSubCategoryView($item2);
+    }
+
     else {
       $this->subCategoryView();
     }
@@ -121,7 +125,8 @@ class AdminController extends Controller {
 
     $this->viewIfAllowed('admin/subcategory/index', [
       'title' => 'Subcategories',
-      'categories' => $categories
+      'categories' => $categories,
+      'subcategories' => $subcategories
     ]);
   }
 
@@ -146,6 +151,51 @@ class AdminController extends Controller {
       'title' => 'Add New Subcategory',
       'categories' => $categories
     ]);
+  }
+
+  private function editSubCategoryView($id) {
+    $name = "";
+    $category = "";
+
+    if (isset($_GET['adminEditSubCategory'])) {
+      $this->editSubCategory($id);
+    }
+
+    if (!empty($id)) {
+      $categories = $this->database->getValues("Category", "");
+
+      $query = $this->database->getValue("SubCategory", "", [
+        ['subCatID', '=', $id]
+      ]);
+
+      if ($query) {
+        $name = $query->subCatName;
+        $category = $query->catID;
+
+        if (empty($_POST['adminEditSubCategory'])) {
+          $_POST['adminEditSubCategory'] = 'in';
+        }
+      }
+    }
+    else {
+      $_POST['adminEditSubCategory'] = 'stumbled';
+    }
+
+    $this->viewIfAllowed('admin/subcategory/edit', [
+      'title' => 'Add New Subcategory',
+      'categories' => $categories,
+      'name' => $name,
+      'category' => $category
+    ]);
+  }
+
+  private function editSubCategory($subCatID) {
+    $name = $_POST["name"];
+    $catID = $_POST["category"];
+
+    $insert = $this->database->updateValue("SubCategory", [['subCatName', $name], ['catID', $catID]], [['subCatID', '=', $subCatID]]);
+
+    return $_POST['adminEditSubCategory'] = $insert;
   }
 
   // Products
