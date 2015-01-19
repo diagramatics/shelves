@@ -189,8 +189,6 @@ class Database extends mysqli {
   }
 
   private function assembleInsertQuery($table, $values) {
-    //INSERT INTO `shelves`.`Account` (`fName`, `lName`, `dob`, `email`) VALUES ('Test', 'Person', '1992-01-01', 'test@person.com');
-
     $valuesKeyArrayFormatted = array();
     $valuesArrayFormatted = array();
     $i = 0;
@@ -211,7 +209,7 @@ class Database extends mysqli {
 
   public function insertValue($table, $values) {
     $command = $this->assembleInsertQuery($table, $values);
-
+    
     return $query = $this->query($command);
   }
 

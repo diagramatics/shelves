@@ -5,7 +5,6 @@ class AccountModel {
   private $email;
   private $fName;
   private $lName;
-  private $dob;
 
   public function getID() {
     return $this->id;
@@ -37,14 +36,6 @@ class AccountModel {
 
   public function setLName($lName) {
     $this->lName = $lName;
-  }
-
-  public function getDob() {
-    return $this->dob;
-  }
-
-  public function setDob($dob) {
-    $this->dob = $dob;
   }
 }
 

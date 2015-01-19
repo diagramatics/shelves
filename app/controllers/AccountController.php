@@ -18,7 +18,6 @@ class AccountController extends Controller {
       $model->setEmail($account->email);
       $model->setFName($account->fName);
       $model->setLName($account->lName);
-      $model->setDob($account->dob);
 
       $addresses = $this->database->getValues("Address", "", [
         ["userID", "=", $model->getID()]
@@ -29,7 +28,6 @@ class AccountController extends Controller {
         "email" => $model->getEmail(),
         "fName" => $model->getFName(),
         "lName" => $model->getLName(),
-        "dob" => $model->getDob(),
         "addresses" => $addresses
       ]);
     }

@@ -1,7 +1,6 @@
 <?php
 
 class Account {
-  // TODO: Implement the user itself.
   // Constructor should have a parameter to get user ID or other credentials
   // and verify it on the constructor to login.
   private $database;
@@ -25,7 +24,6 @@ class Account {
   }
 
   public function isLoggedIn() {
-    // TODO: Implement this by checking the session/cookie if there's any user credentials stored from logging in function
     return isset($_SESSION["email"]);
   }
 
@@ -53,6 +51,7 @@ class Account {
     }
 
     // TODO: Error view if password or email (or both) doesn't match
+    Helpers::makeAlert('account', 'Wrong username and/or password. Please try again.');
     return $_POST['login'] = false;
   }
 
@@ -68,6 +67,9 @@ class Account {
     $_SESSION["email"] = $result->email;
     $_SESSION["userLevel"] = $loginResult->userLevel;
 
+    if (!isset($_GET['register'])) {
+      Helpers::makeAlert('account', 'Logged in. Welcome back '. $result->fName .'!');
+    }
     $_POST['login'] = true;
   }
 
@@ -88,6 +90,8 @@ class Account {
       );
     }
     session_destroy();
+
+    Helpers::makeAlert('account', 'Succesfully logged out.');
     $_POST['logout'] = true;
   }
 
@@ -95,8 +99,61 @@ class Account {
    * Register the user
    */
   private function register() {
-    // TODO: Implement this
-    $_POST["register"] = true;
+    $fname = $_POST["fname"];
+    $lname = $_POST["lname"];
+    $email = $_POST["email"];
+    $password = $_POST["password"];
+
+    // Validation checks
+    // The way it does things is by returning false on the register check and
+    // stop the function from executing register commands
+    if ($password != $_POST["passwordConfirm"]) {
+      Helpers::makeAlert("account", "Sorry, the password doesn't match. Please try again.");
+      return $_POST["register"] = false;
+    }
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+      Helpers::makeAlert("account", "That doesn't look like an email. Please input a valid email.");
+      return $_POST["register"] = false;
+    }
+
+    // ---
+    // That's the end of validation checks. If it passes then let's register the user
+    $account = $this->database->insertValue("Account", [
+      ['fName', $fname],
+      ['lName', $lname],
+      ['email', $email]
+    ]);
+
+    // Get the new ID of the account we just created
+    $id = $this->database->insert_id;
+
+    if ($account) {
+      $hash = password_hash($password, PASSWORD_DEFAULT);
+      $credentials = $this->database->insertValue("Login", [
+        ['userID', $id],
+        ['password', $hash],
+        ['userLevel', 0]
+      ]);
+
+      if ($credentials) {
+        // Successfully registered. Automatically log the user in
+        $_POST['loginEmail'] = $email;
+        $_POST['loginPassword'] = $password;
+        $this->login();
+
+        Helpers::makeAlert("account", "Successfully registered, welcome ". $fname ."!");
+        return $_POST["register"] = true;
+      }
+
+      else {
+        // Putting the password in the database fails. Revert the account insertion
+        $this->database->deleteValue("Account", [["userID", "=", $id]]);
+      }
+    }
+
+    // This gets called if the return is not made
+    Helpers::makeAlert("account", "Something is wrong and we can't register your account right now. Please try again later.");
+    return $_POST["register"] = false;
   }
 
   /**

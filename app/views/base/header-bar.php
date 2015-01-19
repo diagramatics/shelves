@@ -1,13 +1,3 @@
-<?php // Login fail states ?>
-<?php
-  if(isset($_POST['login']) && $_POST['login'] === false) {
-    Helpers::makeAlert('account', 'Wrong username and/or password. Please try again.');
-  }
-  else if (isset($_POST['register']) && $_POST['register'] === true) {
-    Helpers::makeAlert('register', 'Successfully registered! Welcome '.$_POST["registerName"].'!');
-  }
-?>
-
 <header id="siteHeader" class="site-header">
   <div class="site-nav">
     <img src="/img/shelves.png" class="site-logo" />

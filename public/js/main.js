@@ -7,16 +7,20 @@ $(function() {
     var popupId = '#popup'+popupName;
 
     $('body').addClass('is-popup-overlayed');
-    $(popupId)
-      .addClass('popup--show')
-      .on('click', 'a[data-popup-close]', function() {
-        $('body').removeClass('is-popup-overlayed');
-        $(popupId)
-          .removeClass('popup--show')
-        // Remove the event listener after the popup is closed.
-          .off('click', 'a[data-popup-close]');
-      });
+    $(popupId).addClass('popup--show');
   })
+
+  $('body').on('click', 'a[data-popup-close]', function() {
+    var popupName = $(this).attr('data-popup-close');
+    popupName = popupName.charAt(0).toUpperCase() + popupName.slice(1);
+    var popupId = '#popup'+popupName;
+
+    $('body').removeClass('is-popup-overlayed');
+    $(popupId)
+      .removeClass('popup--show')
+      // Remove the event listener after the popup is closed.
+      .off('click', 'a[data-popup-close]');
+  });
 
   // Alert close button functionality
   $('body').on('click', 'a[data-alert-close]', function() {
