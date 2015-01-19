@@ -65,7 +65,7 @@ class AdminController extends Controller {
     }
 
     $this->viewIfAllowed('admin/category/edit', [
-      'title' => 'Categories',
+      'title' => 'Edit Category',
       'name' => $model->getCatName()
     ]);
   }
@@ -98,10 +98,31 @@ class AdminController extends Controller {
   }
 
   // Subcategories
-  public function subcategory($item) {
+  public function subcategory($item = "", $item2 = "") {
     if ($item == "add") {
       $this->addSubCategoryView();
     }
+
+    else {
+      $this->subCategoryView();
+    }
+  }
+
+  private function subCategoryView() {
+    $subcategories = $this->database->getValues("SubCategory", "");
+    $categories = $this->database->getValues("Category", "");
+
+    $categoriesFormat = array();
+    // Format the whole array so it becomes an associative array with IDs as the indicator
+    foreach ($categories as $category) {
+      $categoriesFormat[$category->catID] = $category;
+    }
+    $categories = $categoriesFormat;
+
+    $this->viewIfAllowed('admin/subcategory/index', [
+      'title' => 'Subcategories',
+      'categories' => $categories
+    ]);
   }
 
   private function addSubCategoryView() {
