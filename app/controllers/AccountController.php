@@ -3,6 +3,10 @@
 class AccountController extends Controller {
   public function index() {
     // TODO: Implement an account overview page
+
+    $this->view("account/index", [
+      "title" => "Your Account Overview"
+    ]);
   }
 
   public function settings() {
