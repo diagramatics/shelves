@@ -29,6 +29,19 @@
   svg {
     width: 18px;
     height: 18px;
+    fill: $color-primary;
+    transition: all .4s;
+  }
+
+  &:hover svg {
+    fill: $color-primary-dark;
+  }
+}
+
+.admin-table-delete {
+  svg {
+    width: 18px;
+    height: 18px;
     fill: $color-accent;
     transition: all .4s;
   }

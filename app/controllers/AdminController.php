@@ -214,6 +214,36 @@ class AdminController extends Controller {
   }
 
   private function productsView() {
+    // If is deleting
+    if (isset($_GET['deleteProduct'])) {
+      $prodID = $_POST['prodID'];
+
+      $product = $this->database->getValue("Product", ["image"], [["prodID", "=", $prodID]]);
+
+      $this->database->autocommit(false);
+
+      $deletion = $this->database->deleteValue("Product", [["prodID", "=", $prodID]]);
+
+      // Check if the deletion succeeds
+      if ($deletion) {
+        // Now try to delete the image
+        if (unlink($_SERVER['DOCUMENT_ROOT'] . '/img/products/' . $product->image)) {
+          $this->database->commit();
+          $this->database->autocommit(true);
+          Helpers::makeAlert('product', 'Successfully deleted product.');
+        }
+        // If the deletion fails get the product back
+        else {
+          $this->database->rollback();
+          Helpers::makeAlert('product', "There's a problem in deleting the product. Please try again.");
+        }
+      }
+      else {
+      // If SQL deletion fails...
+        Helpers::makeAlert('product', "There's a problem in deleting the product. Please try again.");
+      }
+    }
+
     $products = $this->database->getValues("Product", "");
 
     $categories = $this->database->getValues("Category", "");

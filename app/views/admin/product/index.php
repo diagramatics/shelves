@@ -14,6 +14,13 @@
     <?php foreach ($data['products'] as $product): ?>
       <tr>
         <td>
+          <form id="" action="?deleteProduct" method="POST">
+            <input type="hidden" name="prodID" value="<?= $product->prodID ?>" />
+            <input type="hidden" name="prodName" value="<?= $product->prodName ?>" />
+            <button class="button-icon admin-table-delete" title="Delete" name="delete">
+              <svg class="icon-minus"><use xlink:href="#icon-minus"></use></svg>
+            </button>
+          </form>
           <form id="" action="/admin/product/edit/<?= $product->prodID ?>" method="POST">
             <button class="button-icon admin-table-edit" title="Edit" name="edit">
               <svg class="icon-edit"><use xlink:href="#icon-edit"></use></svg>

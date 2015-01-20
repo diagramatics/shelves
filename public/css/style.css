@@ -1810,8 +1810,17 @@ body.is-popup-overlayed {
 .admin-table-edit svg {
   width: 18px;
   height: 18px;
-  fill: #6e7c3b;
+  fill: #443a31;
   -webkit-transition: all 0.4s;
           transition: all 0.4s; }
 .admin-table-edit:hover svg {
+  fill: #332217; }
+
+.admin-table-delete svg {
+  width: 18px;
+  height: 18px;
+  fill: #6e7c3b;
+  -webkit-transition: all 0.4s;
+          transition: all 0.4s; }
+.admin-table-delete:hover svg {
   fill: #3d4032; }
