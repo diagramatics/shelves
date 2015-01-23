@@ -1,4 +1,4 @@
-<section class="block-grid">
+<div class="block-grid">
   <div class="block-grid-item block-grid-item--big"></div>
   <div class="block-grid-item block-grid-item--small">
     <div></div>
@@ -30,4 +30,4 @@
     <div></div>
     <div></div>
   </div>
-</section>
+</div>

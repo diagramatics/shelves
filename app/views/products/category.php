@@ -1,6 +1,6 @@
 <h1 class="product-categories-name"><?= $data['catName'] ?></h1>
 
-<section class="block-grid">
+<div class="block-grid">
   <?php foreach($data['items'] as $item): ?>
   <div class="block-grid-item block-grid-item--normal product-category-item">
 
@@ -20,4 +20,4 @@
     </div>
   </div>
   <?php endforeach ?>
-</section>
+</div>
