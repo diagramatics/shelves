@@ -220,8 +220,8 @@ class AdminController extends Controller {
 
       $product = $this->database->getValue("Product", ["image"], [["prodID", "=", $prodID]]);
 
+      // Stop autocommit so we can rollback it in case of deletion problems
       $this->database->autocommit(false);
-
       $deletion = $this->database->deleteValue("Product", [["prodID", "=", $prodID]]);
 
       // Check if the deletion succeeds
@@ -235,6 +235,7 @@ class AdminController extends Controller {
         // If the deletion fails get the product back
         else {
           $this->database->rollback();
+          $this->database->autocommit(true);
           Helpers::makeAlert('product', "There's a problem in deleting the product. Please try again.");
         }
       }
@@ -318,11 +319,11 @@ class AdminController extends Controller {
       ['prodName', $name],
       ['price', $price],
       ['catID', $category],
-      ['subCatID', $subcategory[1]],
       ['quantity', $quantity]
     ];
 
     // Add these two if they're not empty
+    $subcategory[1] == 0 ?: array_push($dbValues, ['subCatID', $subcategory[1]]);
     $priceUnit == "" ?: array_push($dbValues, ['priceUnit', $priceUnit]);
     $description == "" ?: array_push($dbValues, ['decript', $description]);
 

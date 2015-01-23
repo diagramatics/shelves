@@ -30,13 +30,16 @@ CREATE TABLE DiscountCode(
 
 CREATE TABLE Product(
   prodID INTEGER NOT NULL UNIQUE AUTO_INCREMENT,
-  prodName VARCHAR(15) NOT NULL,
-  priceDecimal DECIMAL(4, 2) NOT NULL,
-  decript VARCHAR(30),
+  prodName VARCHAR(128) NOT NULL,
+  price DECIMAL(8, 2) NOT NULL,
+  priceUnit VARCHAR(15),
+  decript VARCHAR(255),
   quantity INTEGER NOT NULL,
   image VARCHAR(128),
   catID INTEGER NOT NULL,
+  subCatID INTEGER,
   FOREIGN KEY(catID) REFERENCES Category(catID),
+  FOREIGN KEY(subCatID) REFERENCES SubCategory(subCatID),
   PRIMARY KEY(prodID)
 );
 
