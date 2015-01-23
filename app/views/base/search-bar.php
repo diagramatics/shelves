@@ -1,4 +1,4 @@
-<form id="" class="site-search-form" action="" method="GET">
+<form id="search-bar" class="site-search-form" action="search-bar.php" method="GET">
   <div>
     <input type="text" name="" placeholder="Search">
     <input type="submit" name="" value="">
