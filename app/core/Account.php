@@ -115,6 +115,11 @@ class Account {
       Helpers::makeAlert("account", "That doesn't look like an email. Please input a valid email.");
       return $_POST["register"] = false;
     }
+    $duplicateUser = $this->database->getValue("Account", "", [['email', '=', $email]]);
+    if ($duplicateUser) {
+      Helpers::makeAlert("account", "It seems you have registered. If you forget your password you can reset it.");
+      return $_POST["register"] = false;
+    }
 
     // ---
     // That's the end of validation checks. If it passes then let's register the user
