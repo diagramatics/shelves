@@ -49,7 +49,20 @@ class ProductsController extends Controller {
   }
 
   public function subcategory($id, $slug) {
-    // TODO: Implement this
+    $raw = $this->database->getValue("SubCategory", "", [
+      ['subCatID', '=', $id]
+    ]);
+    $model = $this->model("SubCategoryModel");
+    $model->setRaw($raw);
+
+    $products = $this->database->getValues("Product", "", [
+      ['subCatID', '=', $model->getID()]
+    ]);
+
+    $this->view('products/category', [
+      'title' => $model->getName(),
+      'items' => $products
+    ]);
   }
 
   public function product($productID, $productName) {

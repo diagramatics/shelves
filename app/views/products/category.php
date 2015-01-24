@@ -1,6 +1,7 @@
-<h1 class="product-categories-name"><?= $data['catName'] ?></h1>
+<h1 class="product-categories-name"><?= $data['title'] ?></h1>
 
-<section class="block-grid">
+<?php if (!empty($data['items'])): ?>
+<div class="block-grid">
   <?php foreach($data['items'] as $item): ?>
   <div class="block-grid-item block-grid-item--normal product-category-item">
 
@@ -20,4 +21,10 @@
     </div>
   </div>
   <?php endforeach ?>
-</section>
+</div>
+<?php else: ?>
+<div class="container">
+  <p class="align-center">Sorry, there are no products in this category.</p>
+  <p class="align-center"><a href="/products">&laquo; Go back to categories list</a></p>
+</div>
+<?php endif; ?>

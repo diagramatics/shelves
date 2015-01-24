@@ -342,6 +342,15 @@ body {
     .container {
       width: 60%; } }
 
+.align-left {
+  text-align: left; }
+
+.align-center {
+  text-align: center; }
+
+.align-right {
+  text-align: right; }
+
 .block-grid {
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -1680,6 +1689,14 @@ body.is-popup-overlayed {
   display: flex;
   margin-bottom: 1em; }
 
+.form-account-settings-group--inner {
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-flex: 1 1;
+      -ms-flex: 1 1;
+          flex: 1 1; }
+
 .form-account-settings label {
   display: inline-block;
   -webkit-align-self: center;
@@ -1713,6 +1730,10 @@ body.is-popup-overlayed {
   .form-account-settings-input:focus {
     border-color: rgba(68, 58, 49, 0.8); }
 
+.form-account-settings-input--password {
+  display: block;
+  margin: 5px 0; }
+
 .form-account-settings-button {
   -webkit-flex: 1 1;
       -ms-flex: 1 1;
@@ -1734,7 +1755,7 @@ body.is-popup-overlayed {
   max-width: 24%;
   margin: 1em 0.5%; }
 
-.form-account-settings-address input[type=radio] {
+.form-account-settings-address-select {
   position: absolute;
   top: 0;
   right: 0;
@@ -1745,9 +1766,9 @@ body.is-popup-overlayed {
   height: 100%;
   z-index: 1;
   cursor: pointer; }
-  .form-account-settings-address input[type=radio]:hover + .form-account-settings-address-content {
+  .form-account-settings-address-select:hover + .form-account-settings-address-content {
     background: #e0e0e0; }
-    .form-account-settings-address input[type=radio]:hover + .form-account-settings-address-content:before {
+    .form-account-settings-address-select:hover + .form-account-settings-address-content:before {
       opacity: 1; }
 
 .form-account-settings-address-content {
@@ -1774,19 +1795,26 @@ body.is-popup-overlayed {
     .form-account-settings-address-content:hover:before {
       opacity: 1; }
 
-.form-account-settings-address input[type=radio]:checked + .form-account-settings-address-content {
+.form-account-settings-address.primary .form-account-settings-address-content {
   background: #443a31;
   color: white; }
-  .form-account-settings-address input[type=radio]:checked + .form-account-settings-address-content:before {
+  .form-account-settings-address.primary .form-account-settings-address-content:before {
     content: "Primary";
     background: #443a31;
     opacity: 1; }
-  .form-account-settings-address input[type=radio]:checked + .form-account-settings-address-content:hover {
+  .form-account-settings-address.primary .form-account-settings-address-content:hover {
     background: #443a31; }
 
 .form-account-settings .form-account-settings-address-new {
   border: thin solid #ccc;
   padding: 15px 10px; }
+
+.button-delete-address {
+  position: relative;
+  z-index: 2;
+  padding: 5px 10px !important;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0; }
 
 .admin-table {
   width: 90%;
