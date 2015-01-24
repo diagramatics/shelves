@@ -33,7 +33,7 @@
         <td><?= $product->priceUnit ?></td>
         <td><?= $product->quantity ?></td>
         <td><?= $data['categories'][$product->catID]->catName ?></td>
-        <td><?= Helpers::orEmpty($data['subcategories'][$product->subCatID]->subCatName) ?></td>
+        <td><?= !empty($data['subcategories'][$product->subCatID]->subCatName) ? $data['subcategories'][$product->subCatID]->subCatName : "" ?></td>
       </tr>
     <?php endforeach ?>
   </tbody>
