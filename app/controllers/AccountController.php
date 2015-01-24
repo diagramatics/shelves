@@ -51,14 +51,8 @@ class AccountController extends Controller {
     $fName = $_POST['fName'];
     $lName = $_POST['lName'];
 
-    // Some toggle buttons to show more information on the form
-    // These are just PHP fallbacks. Normally they are handled with JavaScript
-    if (isset($_POST['addAddress'])) {
-      return;
-    }
-
     // Add a new address
-    else if (isset($_POST['confirmAddAddress'])) {
+    if (isset($_POST['confirmAddAddress'])) {
       $addAddressResult = $this->database->insertValue("Address", [
         ['userID', $_SESSION['userID']],
         ['unit', $_POST['addressUnit']],
@@ -115,9 +109,54 @@ class AccountController extends Controller {
       }
       $this->database->autocommit(true);
     }
-    
+
+    // Change password
+    else if (isset($_POST['confirmChangePassword'])) {
+      $oldPassword = $_POST['password'];
+      $newPassword = $_POST['newPassword'];
+
+      $credentials = $this->database->getValue("Login", "", [
+        ['userID', '=', $_SESSION['userID']]
+      ]);
+
+      // If the validations fail make sure the change password dialog is still open
+      $_POST['changePassword'] = true;
+      // Let's try and validate everything now
+      // If the credentials fetch failed abort the whole process
+      if (!$credentials) {
+        return Helpers::makeAlert("accountSettings", "There is something wrong in updating your password. Please try again.");
+      }
+      // If the current password didn't match what we have on the server then abort
+      if (!password_verify($oldPassword, $credentials->password)) {
+        return Helpers::makeAlert("accountSettings", "Your current password is wrong. Please try again.");
+      }
+      // If the old and new password is the same abort the whole process
+      // There's no point in changing the password
+      if ($oldPassword == $newPassword) {
+        return Helpers::makeAlert("accountSettings", "Your new password is the same with the current one.");
+      }
+      // If the new password doesn't match the confirmed password also abort
+      if ($newPassword !== $_POST['confirmPassword']) {
+        return Helpers::makeAlert("accountSettings", "The new password doesn't match with the one you confirmed. Please try again.");
+      }
+
+      // The code below gets executed if it passes all the validations
+      $hash = password_hash($newPassword, PASSWORD_DEFAULT);
+      $changePassword = $this->database->updateValue("Login", [["password", $hash]], [
+        ['userID', '=', $_SESSION['userID']]
+      ]);
+      if ($changePassword) {
+        // Password changing is successful. Make sure the password change dialog is closed
+        unset($_POST['changePassword']);
+        return Helpers::makeAlert("accountSettings", "Password successfully updated.");
+      }
+      else {
+        return Helpers::makeAlert("accountSettings", "There is something wrong in updating your password. Please try again.");
+      }
+    }
+
     // If it is not some minor interaction with the form then update the whole thing
-    else {
+    else if (isset($_POST['changeSettings'])) {
       $profileUpdateResult = $this->database->updateValue("Account", [
         ["fName", $fName],
         ["lName", $lName]

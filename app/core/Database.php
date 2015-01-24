@@ -184,7 +184,6 @@ class Database extends mysqli {
 
   public function updateValue($table, $values, $filters = []) {
     $command = $this->assembleUpdateQuery($table, $values, $filters);
-
     return $query = $this->query($command);
   }
 
@@ -209,7 +208,7 @@ class Database extends mysqli {
 
   public function insertValue($table, $values) {
     $command = $this->assembleInsertQuery($table, $values);
-    
+
     return $query = $this->query($command);
   }
 

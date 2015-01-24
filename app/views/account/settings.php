@@ -11,8 +11,18 @@
       </div>
 
       <div class="form-account-settings-group">
-        <label for="changePassword">Password</label>
-        <input type="submit" name="changePassword" value="Change Password" class="form-button form-account-settings-button" />
+        <?php if (isset($_POST['changePassword'])): ?>
+          <label for="changePassword">Password</label>
+          <div class="form-account-settings-group form-account-settings-group--password">
+            <input type="password" name="password" class="form-account-settings-input form-account-settings-input--password" placeholder="Current Password" />
+            <input type="password" name="newPassword" class="form-account-settings-input form-account-settings-input--password" placeholder="New Password" />
+            <input type="password" name="confirmPassword" class="form-account-settings-input form-account-settings-input--password" placeholder="Confirm Password" />
+            <input type="submit" name="confirmChangePassword" value="Change Password" class="form-button form-account-settings-button" />
+          </div>
+        <?php else: ?>
+          <label for="changePassword">Password</label>
+          <input type="submit" name="changePassword" value="Change Password" class="form-button form-account-settings-button" />
+        <?php endif; ?>
       </div>
     </fieldset>
     <fieldset>
@@ -48,6 +58,6 @@
       <?php endif; ?>
     </fieldset>
 
-    <input type="submit" name="" value="Update Changes" class="form-button form-input-block" />
+    <input type="submit" name="changeSettings" value="Update Changes" class="form-button form-input-block" />
   </form>
 </section>

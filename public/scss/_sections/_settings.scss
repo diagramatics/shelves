@@ -12,6 +12,11 @@
   margin-bottom: 1em;
 }
 
+.form-account-settings-group--password {
+  flex-direction: column;
+  flex: 1 1;
+}
+
 .form-account-settings label {
   display: inline-block;
   align-self: center;
@@ -44,6 +49,11 @@
   &:focus {
     border-color: rgba($color-primary, .8);
   }
+}
+
+.form-account-settings-input--password {
+  display: block;
+  margin: 5px 0;
 }
 
 .form-account-settings-button {
