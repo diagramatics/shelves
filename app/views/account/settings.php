@@ -7,20 +7,18 @@
       <div class="form-account-settings-group">
         <label for="email">Email</label>
         <input type="email" name="email" value="<?= $data['email'] ?>" class="form-account-settings-input" disabled="disabled" />
-        <input type="submit" name="changeEmail" value="Change" class="form-button form-account-settings-button form-account-settings-button--inline" />
       </div>
 
       <div class="form-account-settings-group">
+        <label for="changePassword">Password</label>
         <?php if (isset($_POST['changePassword'])): ?>
-          <label for="changePassword">Password</label>
-          <div class="form-account-settings-group form-account-settings-group--password">
+          <div class="form-account-settings-group form-account-settings-group--inner">
             <input type="password" name="password" class="form-account-settings-input form-account-settings-input--password" placeholder="Current Password" />
             <input type="password" name="newPassword" class="form-account-settings-input form-account-settings-input--password" placeholder="New Password" />
             <input type="password" name="confirmPassword" class="form-account-settings-input form-account-settings-input--password" placeholder="Confirm Password" />
             <input type="submit" name="confirmChangePassword" value="Change Password" class="form-button form-account-settings-button" />
           </div>
         <?php else: ?>
-          <label for="changePassword">Password</label>
           <input type="submit" name="changePassword" value="Change Password" class="form-button form-account-settings-button" />
         <?php endif; ?>
       </div>
