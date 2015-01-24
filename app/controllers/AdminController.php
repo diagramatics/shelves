@@ -32,7 +32,46 @@ class AdminController extends Controller {
   }
 
   private function categoryView() {
+    if (isset($_GET['adminDeleteCategory'])) {
+      $catID = $_POST['catID'];
+      $query = $this->database->deleteValue("Category", [['catID', '=', $catID]]);
+
+      if ($query) {
+        Helpers::makeAlert("category", "Successfully deleted ".$_POST['catName']." category.");
+      }
+      else if ($_POST['products'] > 0) {
+        Helpers::makeAlert("category", "There is still products assigned to ".$_POST['catName'].". Remove them first or assign to another category.");
+      }
+      else if ($_POST['subCats'] > 0) {
+        Helpers::makeAlert("category", "There is still subcategories assigned to ".$_POST['catName'].". Remove them first or assign to another category.");
+      }
+      else {
+        Helpers::makeAlert("category", "There is a problem in deleting ".$_POST['catName'].". Please try again.");
+      }
+    }
+
     $categories = $this->database->getValues("Category", "");
+    $categoriesFormat = array();
+    // Format the whole array so it becomes an associative array with IDs as the indicator
+    foreach ($categories as $category) {
+      $categoriesFormat[$category->catID] = $category;
+    }
+    $categories = $categoriesFormat;
+
+    $subcategories = $this->database->getValues("SubCategory", "");
+    foreach ($subcategories as $subcategory) {
+      if (!isset($categories[$subcategory->catID]->subCats)) {
+        $categories[$subcategory->catID]->subCats = 0;
+      }
+      $categories[$subcategory->catID]->subCats++;
+    }
+    $products = $this->database->getValues("Product", "");
+    foreach ($products as $product) {
+      if (!isset($categories[$product->catID]->products)) {
+        $categories[$product->catID]->products = 0;
+      }
+      $categories[$product->catID]->products++;
+    }
 
     $this->viewIfAllowed('admin/category/index', [
       'title' => 'Categories',
