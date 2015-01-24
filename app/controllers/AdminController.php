@@ -539,6 +539,14 @@ class AdminController extends Controller {
     $insert = $this->database->updateValue("Product", $dbValues, [['prodID', '=', $prodID]]);
     return $_POST['adminEditProduct'] = $insert;
   }
+
+  public function users() {
+    $users = $this->database->getValues("Account", "");
+    $this->viewIfAllowed('admin/users/index', [
+      'title' => 'Users',
+      'users' => $users
+    ]);
+  }
 }
 
 ?>
