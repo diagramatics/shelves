@@ -30,8 +30,8 @@
       <legend>Addresses</legend>
       <div class="form-account-settings-addresses">
         <?php foreach($data['addresses'] as $address): ?>
-          <div class="form-account-settings-address">
-            <input type="radio" name="address" value="<?= $address->addressID ?>" <?= $address->primaryAddress == 0 ? '' : ' checked' ?>>
+          <div class="form-account-settings-address <?= $address->primaryAddress == 0 ? '' : '  primary' ?>">
+            <input type="submit" class="form-account-settings-address-select" name="changeAddressPrimary" value="<?= $address->addressID ?>" />
             <div class="form-account-settings-address-content">
               <?= $address->unit ?> <br />
               <?= $address->streetNo ?> <?= $address->streetName ?> <?= $address->street ?> <br />

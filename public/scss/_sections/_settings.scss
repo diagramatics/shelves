@@ -66,7 +66,7 @@
   margin: 1em .5%;
 }
 
-.form-account-settings-address input[type=radio] {
+.form-account-settings-address-select {
   position: absolute;
   top: 0;
   right: 0;
@@ -116,7 +116,7 @@
   }
 }
 
-.form-account-settings-address input[type=radio]:checked + .form-account-settings-address-content {
+.form-account-settings-address.primary .form-account-settings-address-content {
   background: $color-primary;
   color: white;
 
@@ -134,4 +134,12 @@
 .form-account-settings .form-account-settings-address-new {
   border: thin solid #ccc;
   padding: 15px 10px;
+}
+
+.button-delete-address {
+  position: relative;
+  z-index: 2;
+  padding: 5px 10px !important;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
 }

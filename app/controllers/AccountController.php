@@ -50,7 +50,6 @@ class AccountController extends Controller {
   private function changeAccountSettings() {
     $fName = $_POST['fName'];
     $lName = $_POST['lName'];
-    $addressID = $_POST['address'];
 
     // Some toggle buttons to show more information on the form
     // These are just PHP fallbacks. Normally they are handled with JavaScript
@@ -91,17 +90,10 @@ class AccountController extends Controller {
       }
     }
 
-    else {
-      // If it is not some minor interaction with the form then update the whole thing
+    // Change an address to primary
+    else if (isset($_POST['changeAddressPrimary'])) {
       // Stop autocommit so we can rollback it in case of deletion problems
       $this->database->autocommit(false);
-      $profileUpdateResult = $this->database->updateValue("Account", [
-        ["fName", $fName],
-        ["lName", $lName]
-      ], [
-        ["email", "=", $_SESSION['email']]
-      ]);
-
       $addressResetResult = $this->database->updateValue("Address", [
         ["primaryAddress", "0"]
       ], [
@@ -111,17 +103,37 @@ class AccountController extends Controller {
       $addressUpdateResult = $this->database->updateValue("Address", [
         ["primaryAddress", "1"]
       ], [
-        ["addressID", "=", $addressID]
+        ["addressID", "=", $_POST['changeAddressPrimary']]
       ]);
 
-      if ($profileUpdateResult && $addressResetResult && $addressUpdateResult) {
+      if ($addressResetResult && $addressUpdateResult) {
+        $this->database->commit();
+        Helpers::makeAlert("accountSettings", "Address has been set to primary.");
+      }
+      else {
+        Helpers::makeAlert("accountSettings", "There is something wrong in updating your primary address. Please try again.");
+      }
+      $this->database->autocommit(true);
+    }
+    
+    // If it is not some minor interaction with the form then update the whole thing
+    else {
+      $profileUpdateResult = $this->database->updateValue("Account", [
+        ["fName", $fName],
+        ["lName", $lName]
+      ], [
+        ["email", "=", $_SESSION['email']]
+      ]);
+
+
+
+      if ($profileUpdateResult) {
         $this->database->commit();
         Helpers::makeAlert("accountSettings", "You account settings has been updated.");
       }
       else {
         Helpers::makeAlert("accountSettings", "There is something wrong in updating your account settings. Please try again.");
       }
-      $this->database->autocommit(true);
     }
   }
 }
