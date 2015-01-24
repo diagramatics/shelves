@@ -227,20 +227,23 @@ class AdminController extends Controller {
       // Check if the deletion succeeds
       if ($deletion) {
         // Now try to delete the image
-        if (unlink($_SERVER['DOCUMENT_ROOT'] . '/img/products/' . $product->image)) {
+        // Try delete it first. If it fails then check if the file is even there
+        // If the file isn't there assume deletion is successful
+        if (unlink($_SERVER['DOCUMENT_ROOT'] . '/img/products/' . $product->image) ||
+        !file_exists($_SERVER['DOCUMENT_ROOT'] . '/img/products/' . $product->image)) {
           $this->database->commit();
           $this->database->autocommit(true);
           Helpers::makeAlert('product', 'Successfully deleted product.');
         }
-        // If the deletion fails get the product back
+        // If the deletion fails and the file is there get the product back
         else {
           $this->database->rollback();
           $this->database->autocommit(true);
-          Helpers::makeAlert('product', "There's a problem in deleting the product. Please try again.");
+          Helpers::makeAlert('product', "There's a problem in deleting the product image. Please try again.");
         }
       }
       else {
-      // If SQL deletion fails...
+      // If even SQL deletion fails...
         Helpers::makeAlert('product', "There's a problem in deleting the product. Please try again.");
       }
     }
