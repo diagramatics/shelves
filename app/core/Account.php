@@ -17,10 +17,6 @@ class Account {
     else if (isset($_GET["register"])) {
       $this->register();
     }
-
-    else if (isset($_GET["changeAccountSettings"])) {
-      $this->changeAccountSettings();
-    }
   }
 
   public function isLoggedIn() {
@@ -159,63 +155,6 @@ class Account {
     // This gets called if the return is not made
     Helpers::makeAlert("account", "Something is wrong and we can't register your account right now. Please try again later.");
     return $_POST["register"] = false;
-  }
-
-  /**
-   * Change the account settings
-   */
-  private function changeAccountSettings() {
-    $fName = $_POST['fName'];
-    $lName = $_POST['lName'];
-    $addressID = $_POST['address'];
-
-    // Some toggle buttons to show more information on the form
-    // These are just PHP fallbacks. Normally they are handled with JavaScript
-    if (isset($_POST['addAddress'])) {
-      return;
-    }
-
-    // Add a new address
-    if (isset($_POST['confirmAddAddress'])) {
-      $addAddressResult = $this->database->insertValue("Address", [
-        ['userID', $_SESSION['userID']],
-        ['unit', $_POST['addressUnit']],
-        ['streetNo', $_POST['addressNumber']],
-        ['streetName', $_POST['addressName']],
-        ['street', $_POST['addressType']],
-        ['city', $_POST['addressCity']],
-        ['postcode', $_POST['addressPostcode']],
-        ['state', $_POST['addressState']],
-        ['primaryAddress', 0]
-      ]);
-      // Return true if successful, else return false
-      return $_POST['confirmAddAddress'] = $addAddressResult;
-    }
-
-    // If it is not some minor interaction with the form then update the whole thing
-
-    // TODO: An update revert function if it fails? Should it be baked on Database.php instead?
-    $profileUpdateResult = $this->database->updateValue("Account", [
-      ["fName", $fName],
-      ["lName", $lName]
-    ], [
-      ["email", "=", $_SESSION['email']]
-    ]);
-
-    $addressResetResult = $this->database->updateValue("Address", [
-      ["primaryAddress", "0"]
-    ], [
-      ["userID", "=", $_SESSION['userID']]
-    ]);
-
-    $addressUpdateResult = $this->database->updateValue("Address", [
-      ["primaryAddress", "1"]
-    ], [
-      ["addressID", "=", $addressID]
-    ]);
-
-    // Return false if any of these results are false
-    $_POST["changeAccountSettings"] = ($profileUpdateResult && $addressResetResult && $addressUpdateResult);
   }
 }
 

@@ -1,22 +1,3 @@
-<?php
-// Alerts for updating the settings
-if (isset($_POST['changeAccountSettings']) && $_POST['changeAccountSettings'] == true) {
-  Helpers::makeAlert("accountSettings", "Settings updated.");
-}
-
-elseif (isset($_POST['changeAccountSettings']) && $_POST['changeAccountSettings'] == false) {
-  Helpers::makeAlert("accountSettings", "There's something wrong when changing your account settings. Please try again.");
-}
-
-elseif (isset($_POST['confirmAddAddress']) && $_POST['confirmAddAddress'] == true) {
-  Helpers::makeAlert("accountSettings", "New address added.");
-}
-
-elseif (isset($_POST['confirmAddAddress']) && $_POST['confirmAddAddress'] == false) {
-  Helpers::makeAlert("accountSettings", "There's something wrong when adding a new address. Please try again.");
-}
-?>
-
 <section class="settings container">
   <h1><?= $data['title'] ?></h1>
 
@@ -56,25 +37,12 @@ elseif (isset($_POST['confirmAddAddress']) && $_POST['confirmAddAddress'] == fal
               <?= $address->streetNo ?> <?= $address->streetName ?> <?= $address->street ?> <br />
               <?= $address->city ?> <?= $address->state ?> <?= $address->postcode ?>
             </div>
+            <button class="form-button form-input-block form-input-block-small button-delete-address" name="deleteAddress" value="<?= $address->addressID ?>">Delete</button>
           </div>
         <?php endforeach; ?>
       </div>
       <?php if (isset($_POST['addAddress'])): ?>
-      <fieldset class="form-account-settings-address-new">
-        <legend>New Address</legend>
-        <input type="text" name="addressUnit" placeholder="Unit (optional)" class="form-input-block" />
-        <div class="form-input-thirdblock-container">
-          <input type="text" name="addressNumber" placeholder="Street Number" class="form-input-thirdblock" />
-          <input type="text" name="addressName" placeholder="Street Name" class="form-input-thirdblock" />
-          <input type="text" name="addressType" placeholder="Street Type" class="form-input-thirdblock" />
-        </div>
-        <div class="form-input-thirdblock-container">
-          <input type="text" name="addressCity" placeholder="City" class="form-input-thirdblock" />
-          <input type="text" name="addressState" placeholder="State/Suburb" class="form-input-thirdblock" />
-          <input type="text" name="addressPostcode" placeholder="Postcode" class="form-input-thirdblock" />
-        </div>
-        <input type="submit" name="confirmAddAddress" value="Add Address" class="form-button form-input-block" />
-      </fieldset>
+      <?php include 'settings-add-address.php' ?>
       <?php else: ?>
       <input type="submit" name="addAddress" value="Add New Address" class="form-button form-input-block form-input-block--small" />
       <?php endif; ?>
