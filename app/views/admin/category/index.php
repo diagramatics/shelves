@@ -27,8 +27,8 @@
           </form>
         </td>
         <td><?= $category->catName ?></td>
-        <td><?= empty($category->products) ? "0" : $category->products ?></td>
-        <td><?= empty($category->subCats) ? "0" : $category->subCats ?></td>
+        <td><?= $category->products ?></td>
+        <td><?= $category->subCats ?></td>
       </tr>
     <?php endforeach ?>
   </tbody>

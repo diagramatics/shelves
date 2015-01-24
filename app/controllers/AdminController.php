@@ -55,21 +55,17 @@ class AdminController extends Controller {
     // Format the whole array so it becomes an associative array with IDs as the indicator
     foreach ($categories as $category) {
       $categoriesFormat[$category->catID] = $category;
+      $categoriesFormat[$category->catID]->subCats = 0;
+      $categoriesFormat[$category->catID]->products = 0;
     }
     $categories = $categoriesFormat;
 
     $subcategories = $this->database->getValues("SubCategory", "");
     foreach ($subcategories as $subcategory) {
-      if (!isset($categories[$subcategory->catID]->subCats)) {
-        $categories[$subcategory->catID]->subCats = 0;
-      }
       $categories[$subcategory->catID]->subCats++;
     }
     $products = $this->database->getValues("Product", "");
     foreach ($products as $product) {
-      if (!isset($categories[$product->catID]->products)) {
-        $categories[$product->catID]->products = 0;
-      }
       $categories[$product->catID]->products++;
     }
 
@@ -152,9 +148,38 @@ class AdminController extends Controller {
   }
 
   private function subCategoryView() {
-    $subcategories = $this->database->getValues("SubCategory", "");
-    $categories = $this->database->getValues("Category", "");
+    if (isset($_GET['adminDeleteSubCategory'])) {
+      $subCatID = $_POST['subCatID'];
+      $query = $this->database->deleteValue("SubCategory", [['subCatID', '=', $subCatID]]);
 
+      if ($query) {
+        Helpers::makeAlert("category", "Successfully deleted ".$_POST['subCatName']." subcategory.");
+      }
+      else if ($_POST['products'] > 0) {
+        Helpers::makeAlert("category", "There is still products assigned to ".$_POST['subCatName'].". Remove them first or assign to another category.");
+      }
+      else {
+        Helpers::makeAlert("category", "There is a problem in deleting ".$_POST['subCatName'].". Please try again.");
+      }
+    }
+
+    $subcategories = $this->database->getValues("SubCategory", "");
+    $subcategoriesFormat = array();
+    // Format this array also
+    foreach ($subcategories as $subcategory) {
+      $subcategoriesFormat[$subcategory->subCatID] = $subcategory;
+      $subcategoriesFormat[$subcategory->subCatID]->products = 0;
+    }
+    $subcategories = $subcategoriesFormat;
+
+    $products = $this->database->getValues("Product", "");
+    foreach ($products as $product) {
+      if (!empty($product->subCatID)) {
+        $subcategories[$product->subCatID]->products++;
+      }
+    }
+
+    $categories = $this->database->getValues("Category", "");
     $categoriesFormat = array();
     // Format the whole array so it becomes an associative array with IDs as the indicator
     foreach ($categories as $category) {
