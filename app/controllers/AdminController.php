@@ -232,15 +232,14 @@ class AdminController extends Controller {
         if (unlink($_SERVER['DOCUMENT_ROOT'] . '/img/products/' . $product->image) ||
         !file_exists($_SERVER['DOCUMENT_ROOT'] . '/img/products/' . $product->image)) {
           $this->database->commit();
-          $this->database->autocommit(true);
           Helpers::makeAlert('product', 'Successfully deleted product.');
         }
         // If the deletion fails and the file is there get the product back
         else {
           $this->database->rollback();
-          $this->database->autocommit(true);
           Helpers::makeAlert('product', "There's a problem in deleting the product image. Please try again.");
         }
+        $this->database->autocommit(true);
       }
       else {
       // If even SQL deletion fails...
