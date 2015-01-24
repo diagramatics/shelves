@@ -4,7 +4,13 @@ class AdminController extends Controller {
 
   private function viewIfAllowed($view, $data) {
     if (isset($_SESSION["userLevel"]) && $_SESSION["userLevel"] == 1) {
-      $this->view($view, $data);
+      if ($view == 'admin/index') {
+        $this->view($view, $data);
+      }
+      // Add the "back to admin panel" link for any other pages other than index
+      else {
+        $this->view(['admin/header', $view], $data);
+      }
     }
 
     else {
