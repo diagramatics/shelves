@@ -25,7 +25,12 @@
         <div class="block-grid-item block-grid-item--big">
           <div class="specials-item">
             <h2><?= $special->getTitle() ?></h2>
-            <p><?= $special->getDesc() ?></p>
+            <p><?= $special->getLongDesc() ?></p>
+            <div class="specials-item-products">
+              <?php foreach ($special->getProductLinks() as $product): ?>
+                <img src="/img/products/<?= $data['products'][$product->prodID]->image ?>" alt="<?= $data['products'][$product->prodID]->prodName ?>" />
+              <?php endforeach ?>
+            </div>
           </div>
         </div>
       <?php elseif ($special->isNotStarted()): ?>
@@ -35,11 +40,11 @@
           <div class="block-grid-item block-grid-item--normal">
             <div class="specials-item">
               <h2><?= $tempUpcoming->getTitle() ?></h2>
-              <p><?= $special->getDesc() ?></p>
+              <p><?= $special->getShortDesc() ?></p>
             </div>
             <div class="specials-item">
               <h2><?= $special->getTitle() ?></h2>
-              <p><?= $special->getDesc() ?></p>
+              <p><?= $special->getShortDesc() ?></p>
             </div>
           </div>
           <?php $tempUpcoming = null ?>
@@ -50,7 +55,7 @@
       <div class="block-grid-item block-grid-item--normal">
         <div class="specials-item">
           <h2><?= $tempUpcoming->getTitle() ?></h2>
-          <p><?= $special->getDesc() ?></p>
+          <p><?= $special->getShortDesc() ?></p>
         </div>
       </div>
     <?php endif ?>

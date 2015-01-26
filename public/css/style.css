@@ -1524,7 +1524,6 @@ body.is-popup-overlayed {
           align-content: center;
   position: relative;
   width: 100%;
-  overflow: hidden;
   background: #443a31 !important;
   color: white; }
   .specials-item:before {
@@ -1568,6 +1567,7 @@ body.is-popup-overlayed {
       -ms-flex: 1 100%;
           flex: 1 100%;
   padding: 0 2em;
+  text-overflow: ellipsis;
   -webkit-transform: translateY(0);
           transform: translateY(0);
   -webkit-transition: all 0.4s;
@@ -1586,6 +1586,36 @@ body.is-popup-overlayed {
 .block-grid-item--normal .specials-item:hover p {
   -webkit-transform: scale(1);
           transform: scale(1); }
+
+.specials-item-products {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  right: 0;
+  padding: 10px;
+  background: white;
+  opacity: 0;
+  box-shadow: 0 -1px 10px 1px rgba(0, 0, 0, 0.2);
+  -webkit-transform: translateY(100%);
+          transform: translateY(100%);
+  -webkit-transition: all 0.4s;
+          transition: all 0.4s; }
+  .specials-item:hover .specials-item-products {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+            transform: translateY(0); }
+
+.specials-item-products img {
+  width: 125px;
+  height: 125px; }
+  .specials-item-products img + img {
+    margin-left: 10px; }
 
 .bag header {
   text-align: center; }

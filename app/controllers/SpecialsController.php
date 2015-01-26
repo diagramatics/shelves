@@ -11,12 +11,28 @@ class SpecialsController extends Controller {
     ]);
     $accountModel->parse($account);
 
+    $products = $this->database->getValues("Product", "");
+    $productsFormat = array();
+    // Format the whole array so it becomes an associative array with IDs as the indicator
+    foreach ($products as $product) {
+      $productsFormat[$product->prodID] = $product;
+      $productsFormat[$product->prodID]->subCats = 0;
+      $productsFormat[$product->prodID]->products = 0;
+    }
+    $products = $productsFormat;
+
     $specialsModel = array();
     $specialsRaw = $this->database->getValues("Promotion", "");
     $i = 0;
     foreach ($specialsRaw as $s) {
       $specialsModel[$i] = $this->model("SpecialsModel");
-      $specialsModel[$i++]->parse($s);
+      $specialsModel[$i]->parse($s);
+
+      $productsRaw = $this->database->getValues("ProductPromotion", "", [
+        ['promotionID', '=', $s->promotionID]
+      ]);
+      $specialsModel[$i]->linkProducts($productsRaw);
+      $i++;
     }
 
     // Check if the user is submitting subscription request
@@ -28,6 +44,7 @@ class SpecialsController extends Controller {
       'title' => 'Specials',
       'logged' => $isLoggedIn,
       'subscribed' => $accountModel->getSpecialSub(),
+      'products' => $products,
       'specials' => $specialsModel
     ]);
   }
