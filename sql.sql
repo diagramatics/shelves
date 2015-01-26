@@ -14,6 +14,8 @@ CREATE TABLE Category(
 
 CREATE TABLE Promotion(
   promotionID INTEGER NOT NULL UNIQUE AUTO_INCREMENT,
+  promotionTitle VARCHAR(255) NOT NULL,
+  promotionDesc VARCHAR(255),
   startDate DATE NOT NULL,
   endDate DATE NOT NULL,
   PRIMARY KEY(promotionID)
