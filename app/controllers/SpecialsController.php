@@ -9,8 +9,15 @@ class SpecialsController extends Controller {
     $account = $this->database->getValue("Account", "", [
       ['email', '=', $_SESSION['email']]
     ]);
-
     $accountModel->parse($account);
+
+    $specialsModel = array();
+    $specialsRaw = $this->database->getValues("Promotion", "");
+    $i = 0;
+    foreach ($specialsRaw as $s) {
+      $specialsModel[$i] = $this->model("SpecialsModel");
+      $specialsModel[$i++]->parse($s);
+    }
 
     // Check if the user is submitting subscription request
     if (isset($_GET['subscribe'])) {
@@ -20,7 +27,8 @@ class SpecialsController extends Controller {
     $this->view('specials/index', [
       'title' => 'Specials',
       'logged' => $isLoggedIn,
-      'subscribed' => $accountModel->getSpecialSub()
+      'subscribed' => $accountModel->getSpecialSub(),
+      'specials' => $specialsModel
     ]);
   }
 

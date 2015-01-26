@@ -19,13 +19,40 @@
   <?php endif ?>
 
   <div class="block-grid">
-    <div class="block-grid-item block-grid-item--big">
-    </div>
-    <div class="block-grid-item block-grid-item--big">
-    </div>
-    <div class="block-grid-item block-grid-item--normal">
-      <div></div>
-      <div></div>
-    </div>
+    <?php $tempUpcoming = null ?>
+    <?php foreach ($data['specials'] as $special): ?>
+      <?php if ($special->isRunning()): ?>
+        <div class="block-grid-item block-grid-item--big">
+          <div class="specials-item">
+            <h2><?= $special->getTitle() ?></h2>
+            <p><?= $special->getDesc() ?></p>
+          </div>
+        </div>
+      <?php elseif ($special->isNotStarted()): ?>
+        <?php if ($tempUpcoming == null): ?>
+          <?php $tempUpcoming = $special; ?>
+        <?php else: ?>
+          <div class="block-grid-item block-grid-item--normal">
+            <div class="specials-item">
+              <h2><?= $tempUpcoming->getTitle() ?></h2>
+              <p><?= $special->getDesc() ?></p>
+            </div>
+            <div class="specials-item">
+              <h2><?= $special->getTitle() ?></h2>
+              <p><?= $special->getDesc() ?></p>
+            </div>
+          </div>
+          <?php $tempUpcoming = null ?>
+        <?php endif ?>
+      <?php endif ?>
+    <?php endforeach ?>
+    <?php if ($tempUpcoming != null): ?>
+      <div class="block-grid-item block-grid-item--normal">
+        <div class="specials-item">
+          <h2><?= $tempUpcoming->getTitle() ?></h2>
+          <p><?= $special->getDesc() ?></p>
+        </div>
+      </div>
+    <?php endif ?>
   </div>
 </section>
