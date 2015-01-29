@@ -23,14 +23,14 @@
 
 
 
-.specials-item {
+.block-grid-item .specials-item {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   align-content: center;
   position: relative;
   width: 100%;
-  background: $color-primary !important;
+  background: $color-primary;
   color: white;
 
   &:before {
@@ -60,6 +60,10 @@
       transform: scale(1);
     }
   }
+}
+
+.block-grid-item--normal .specials-item {
+  background: desaturate($color-primary, 15%);
 }
 
 .specials-item h2 {

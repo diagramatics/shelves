@@ -1525,7 +1525,7 @@ body.is-popup-overlayed {
 .specials-desc {
   font-size: 1.2em; }
 
-.specials-item {
+.block-grid-item .specials-item {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
@@ -1540,9 +1540,9 @@ body.is-popup-overlayed {
           align-content: center;
   position: relative;
   width: 100%;
-  background: #443a31 !important;
+  background: #443a31;
   color: white; }
-  .specials-item:before {
+  .block-grid-item .specials-item:before {
     content: "";
     position: absolute;
     top: 1em;
@@ -1554,17 +1554,20 @@ body.is-popup-overlayed {
             transform: scale(0);
     -webkit-transition: all 0.4s;
             transition: all 0.4s; }
-  .specials-item:hover h2 {
+  .block-grid-item .specials-item:hover h2 {
     -webkit-transform: translateY(0);
             transform: translateY(0); }
-  .specials-item:hover p {
+  .block-grid-item .specials-item:hover p {
     -webkit-transform: translateY(0);
             transform: translateY(0); }
-  .specials-item:hover small {
+  .block-grid-item .specials-item:hover small {
     opacity: 0; }
-  .specials-item:hover:before {
+  .block-grid-item .specials-item:hover:before {
     -webkit-transform: scale(1);
             transform: scale(1); }
+
+.block-grid-item--normal .specials-item {
+  background: #3b3a3a; }
 
 .specials-item h2 {
   -webkit-flex: 1 100%;
