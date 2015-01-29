@@ -27,6 +27,11 @@ class ProductsController extends Controller {
     $category = $this->database->getValue("Category", "", [
       ['catID', '=', $id]
     ]);
+
+    if (empty($category)) {
+      return $this->view404();
+    }
+
     $model->setCatID($category->catID);
     $model->setCatName($category->catName);
 
@@ -38,6 +43,10 @@ class ProductsController extends Controller {
     $category->items = $this->database->getValues("Product", "", [
       ['catID', '=', $category->catID]
     ]);
+
+    if (empty($category->subs) || empty($category->items)) {
+      return $this->view404();
+    }
 
     $model->setItems($category->items);
 
@@ -52,12 +61,21 @@ class ProductsController extends Controller {
     $raw = $this->database->getValue("SubCategory", "", [
       ['subCatID', '=', $id]
     ]);
+
+    if (empty($raw)) {
+      return $this->view404();
+    }
+
     $model = $this->model("SubCategoryModel");
     $model->setRaw($raw);
 
     $products = $this->database->getValues("Product", "", [
       ['subCatID', '=', $model->getID()]
     ]);
+
+    if (empty($products)) {
+      return $this->view404();
+    }
 
     $this->view('products/category', [
       'title' => $model->getName(),
@@ -74,12 +92,14 @@ class ProductsController extends Controller {
 
     if (!empty($product)) {
       $model->parse($product);
+      $this->view('products/product', [
+        'title' => $model->getName(),
+        'product' => $model
+      ]);
     }
-
-    $this->view('products/product', [
-      'title' => $model->getName(),
-      'product' => $model
-    ]);
+    else {
+      $this->view404();
+    }
   }
 }
 
