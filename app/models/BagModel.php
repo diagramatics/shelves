@@ -25,9 +25,8 @@ class BagModel extends Model {
     // Format the array so it uses an associative array with IDs as keys
     $productsFormatted = array();
     $i = 1;
-    require_once 'ProductModel.php';
     foreach ($products as $product) {
-      $productsFormatted[$i] = new ProductModel($this->database);
+      $productsFormatted[$i] = $this->model("ProductModel");
       $productsFormatted[$i]->parse($product);
       $i++;
     }
