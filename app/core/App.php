@@ -15,6 +15,9 @@ class App {
     ini_set('display_errors', 'On');
     error_reporting(E_ALL);
 
+    // Set the default timezone
+    date_default_timezone_set('Australia/Sydney');
+
     // Get the URL of the current directory being run on
     $url = $this->parseUrl();
 
