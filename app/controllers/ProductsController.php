@@ -73,36 +73,12 @@ class ProductsController extends Controller {
     ]);
 
     if (!empty($product)) {
-      $model->setName($product->prodName);
-      $model->setDesc($product->decript);
-
-      if (file_exists($_SERVER['DOCUMENT_ROOT'] . '/img/products/'.$product->image)) {
-        $model->setImage('/img/products/' . $product->image);
-      }
-      else if (file_exists($_SERVER['DOCUMENT_ROOT'] . '/img/products/'.$productID.'-'.$productName.'.jpg')) {
-        $model->setImage('/img/products/' . $productID.'-'.$productName.'.jpg');
-      }
-      else if (file_exists($_SERVER['DOCUMENT_ROOT'] . '/img/products/'.$productID.'-'.$productName.'.png')) {
-        $model->setImage('/img/products/' . $productID.'-'.$productName.'.png');
-      }
-      else {
-        $model->setImage('/img/products/default.jpg');
-      }
-
-      $model->setPrice($product->price);
-      $model->setPriceUnit($product->priceUnit);
-      $model->setQty($product->quantity);
+      $model->parse($product);
     }
 
     $this->view('products/product', [
       'title' => $model->getName(),
-      'id' => $productID,
-      'name' => $model->getName(),
-      'desc' => $model->getDesc(),
-      'image' => $model->getImage(),
-      'price' => $model->getPrice(),
-      'priceUnit' => $model->getPriceUnit(),
-      'qty' => $model->getQty()
+      'product' => $model
     ]);
   }
 }

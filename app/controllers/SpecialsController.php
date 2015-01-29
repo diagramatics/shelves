@@ -6,10 +6,17 @@ class SpecialsController extends Controller {
     $accountModel = $this->model("AccountModel");
     $isLoggedIn = $accountModel->isLoggedIn();
 
-    $account = $this->database->getValue("Account", "", [
-      ['email', '=', $_SESSION['email']]
-    ]);
-    $accountModel->parse($account);
+    if ($isLoggedIn) {
+      $account = $this->database->getValue("Account", "", [
+        ['email', '=', $_SESSION['email']]
+      ]);
+      $accountModel->parse($account);
+    }
+
+    // Check if the user is submitting subscription request
+    if (isset($_GET['subscribe'])) {
+      $this->subscribe($isLoggedIn);
+    }
 
     $products = $this->database->getValues("Product", "");
     $productsFormat = array();
@@ -23,21 +30,18 @@ class SpecialsController extends Controller {
 
     $specialsModel = array();
     $specialsRaw = $this->database->getValues("Promotion", "");
-    $i = 0;
-    foreach ($specialsRaw as $s) {
-      $specialsModel[$i] = $this->model("SpecialsModel");
-      $specialsModel[$i]->parse($s);
+    if ($specialsRaw) {
+      $i = 0;
+      foreach ($specialsRaw as $s) {
+        $specialsModel[$i] = $this->model("SpecialsModel");
+        $specialsModel[$i]->parse($s);
 
-      $productsRaw = $this->database->getValues("ProductPromotion", "", [
-        ['promotionID', '=', $s->promotionID]
-      ]);
-      $specialsModel[$i]->linkProducts($productsRaw);
-      $i++;
-    }
-
-    // Check if the user is submitting subscription request
-    if (isset($_GET['subscribe'])) {
-      $this->subscribe($isLoggedIn);
+        $productsRaw = $this->database->getValues("ProductPromotion", "", [
+          ['promotionID', '=', $s->promotionID]
+        ]);
+        $specialsModel[$i]->linkProducts($productsRaw);
+        $i++;
+      }
     }
 
     $this->view('specials/index', [

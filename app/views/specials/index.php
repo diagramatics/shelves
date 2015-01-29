@@ -28,7 +28,9 @@
             <p><?= $special->getLongDesc() ?></p>
             <div class="specials-item-products">
               <?php foreach ($special->getProductLinks() as $product): ?>
-                <img src="/img/products/<?= $data['products'][$product->prodID]->image ?>" alt="<?= $data['products'][$product->prodID]->prodName ?>" />
+                <a href="/products/product/<?= $product->prodID . '/' . Helpers::makeSlug($data['products'][$product->prodID]->prodName) ?>">
+                  <img src="/img/products/<?= $data['products'][$product->prodID]->image ?>" alt="<?= $data['products'][$product->prodID]->prodName ?>" />
+                </a>
               <?php endforeach ?>
             </div>
           </div>
