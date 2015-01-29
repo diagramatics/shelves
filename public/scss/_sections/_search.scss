@@ -1,0 +1,19 @@
+.search header {
+  text-align: center;
+}
+
+.search-item {
+  background: #ccc;
+  transition: all .4s;
+    box-shadow: 0 2px 2px rgba(black, 0);
+
+  &:hover {
+    box-shadow: 0 2px 2px rgba(black, .4);
+  }
+}
+
+.search-item a {
+  color: inherit;
+  text-align: center;
+  text-decoration: none;
+}

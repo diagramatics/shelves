@@ -5,6 +5,19 @@ class AccountModel {
   private $email;
   private $fName;
   private $lName;
+  private $specialSub;
+
+  /**
+    * Parse the raw data gotten from an SQL query statement
+    * $raw The raw data in an associative array
+    */
+  public function parse($raw) {
+    $this->id = $raw->userID;
+    $this->email = $raw->email;
+    $this->fName = $raw->fName;
+    $this->lName = $raw->lName;
+    $this->specialSub = $raw->specialSub;
+  }
 
   public function getID() {
     return $this->id;
@@ -36,6 +49,19 @@ class AccountModel {
 
   public function setLName($lName) {
     $this->lName = $lName;
+  }
+
+  public function getSpecialSub() {
+    return $this->specialSub;
+  }
+
+  public function setSpecialSub($specialSub) {
+    $this->specialSub = $specialSub;
+  }
+
+
+  public function isLoggedIn() {
+    return isset($_SESSION["email"]);
   }
 }
 

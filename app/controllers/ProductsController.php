@@ -27,6 +27,11 @@ class ProductsController extends Controller {
     $category = $this->database->getValue("Category", "", [
       ['catID', '=', $id]
     ]);
+
+    if (empty($category)) {
+      return $this->view404();
+    }
+
     $model->setCatID($category->catID);
     $model->setCatName($category->catName);
 
@@ -39,6 +44,10 @@ class ProductsController extends Controller {
       ['catID', '=', $category->catID]
     ]);
 
+    if (empty($category->subs) || empty($category->items)) {
+      return $this->view404();
+    }
+
     $model->setItems($category->items);
 
     $this->view('products/category', [
@@ -49,7 +58,29 @@ class ProductsController extends Controller {
   }
 
   public function subcategory($id, $slug) {
-    // TODO: Implement this
+    $raw = $this->database->getValue("SubCategory", "", [
+      ['subCatID', '=', $id]
+    ]);
+
+    if (empty($raw)) {
+      return $this->view404();
+    }
+
+    $model = $this->model("SubCategoryModel");
+    $model->setRaw($raw);
+
+    $products = $this->database->getValues("Product", "", [
+      ['subCatID', '=', $model->getID()]
+    ]);
+
+    if (empty($products)) {
+      return $this->view404();
+    }
+
+    $this->view('products/category', [
+      'title' => $model->getName(),
+      'items' => $products
+    ]);
   }
 
   public function product($productID, $productName) {
@@ -60,37 +91,15 @@ class ProductsController extends Controller {
     ]);
 
     if (!empty($product)) {
-      $model->setName($product->prodName);
-      $model->setDesc($product->decript);
-
-      if (file_exists($_SERVER['DOCUMENT_ROOT'] . '/img/products/'.$product->image)) {
-        $model->setImage('/img/products/' . $product->image);
-      }
-      else if (file_exists($_SERVER['DOCUMENT_ROOT'] . '/img/products/'.$productID.'-'.$productName.'.jpg')) {
-        $model->setImage('/img/products/' . $productID.'-'.$productName.'.jpg');
-      }
-      else if (file_exists($_SERVER['DOCUMENT_ROOT'] . '/img/products/'.$productID.'-'.$productName.'.png')) {
-        $model->setImage('/img/products/' . $productID.'-'.$productName.'.png');
-      }
-      else {
-        $model->setImage('/img/products/default.jpg');
-      }
-
-      $model->setPrice($product->price);
-      $model->setPriceUnit($product->priceUnit);
-      $model->setQty($product->quantity);
+      $model->parse($product);
+      $this->view('products/product', [
+        'title' => $model->getName(),
+        'product' => $model
+      ]);
     }
-
-    $this->view('products/product', [
-      'title' => $model->getName(),
-      'id' => $productID,
-      'name' => $model->getName(),
-      'desc' => $model->getDesc(),
-      'image' => $model->getImage(),
-      'price' => $model->getPrice(),
-      'priceUnit' => $model->getPriceUnit(),
-      'qty' => $model->getQty()
-    ]);
+    else {
+      $this->view404();
+    }
   }
 }
 

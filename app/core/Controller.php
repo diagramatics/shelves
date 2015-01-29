@@ -10,7 +10,7 @@ class Controller {
 
   protected function model($model) {
     require_once '../app/models/'. $model .'.php';
-    return new $model();
+    return new $model($this->database);
   }
 
   protected function view($view, $data = [], $noBase = false) {

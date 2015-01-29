@@ -1,29 +1,32 @@
-<?php if(!empty($data['name'])): ?>
+<?php if(!empty($data['product'])): ?>
 <section class="single-product">
   <div class="single-product-info single-product-info--left">
-    <img src="<?= $data['image'] ?>" class="product-image" />
+    <img src="<?= $data['product']->getImage() ?>" class="product-image" />
   </div>
   <div class="single-product-info single-product-info--right">
     <header>
-      <h1 class="single-product-name"><?= $data['name'] ?></h1>
+      <h1 class="single-product-name"><?= $data['product']->getName() ?></h1>
       <p class="single-product-price">
-        <span class="single-product-price-number">$<?= $data['price'] ?></span><span class="single-product-price-unit"><?= (!empty($data['priceUnit']) ? '/'.$data['priceUnit'] : '') ?></span>
+        <span class="single-product-price-number">$<?= number_format($data['product']->getPrice(), 2) ?></span><span class="single-product-price-unit"><?= (!empty($data['product']->getPriceUnit()) ? '/'.$data['product']->getPriceUnit() : '') ?></span>
       </p>
+      <?php if ($data['product']->getDiscount() != 0): ?>
+        <p>Promotion! Discounted <?= $data['product']->getDiscount() ?>% from $<?= number_format($data['product']->getBasePrice(), 2) ?>.</p>
+      <?php endif ?>
     </header>
 
     <form id="" action="?addBag" class="single-product-add" method="POST">
-      <input type="number" name="qty" value="1" min="1" max="<?= $data['qty'] ?>">
-      <input type="hidden" name="itemQty" value="<?= $data['qty'] ?>">
-      <input type="hidden" name="itemID" value="<?= $data['id'] ?>">
+      <input type="number" name="qty" value="1" min="1" max="<?= $data['product']->getQty() ?>">
+      <input type="hidden" name="itemQty" value="<?= $data['product']->getQty() ?>">
+      <input type="hidden" name="itemID" value="<?= $data['product']->getID() ?>">
       <button>
         <span>Add to Bag</span>
         <svg class="icon-bag"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-bag"></use></svg>
       </button>
     </form>
 
-    <?php if(isset($data['desc'])): ?>
+    <?php if(!empty($data['product']->getDesc())): ?>
     <div class="single-product-info-desc">
-    <?= $data['desc'] ?>
+    <?= $data['product']->getDesc() ?>
     <?php endif ?>
     </div>
   </div>

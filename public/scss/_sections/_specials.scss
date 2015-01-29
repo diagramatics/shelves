@@ -20,3 +20,127 @@
 .specials-desc {
   font-size: 1.2em;
 }
+
+
+
+.block-grid-item .specials-item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  align-content: center;
+  position: relative;
+  width: 100%;
+  background: $color-primary;
+  color: white;
+
+  &:before {
+    content: "";
+    position: absolute;
+    top: 1em;
+    right: 1em;
+    bottom: 1em;
+    left: 1em;
+    border: thin solid white;
+    transform: scale(0);
+    transition: all .4s;
+  }
+
+
+  &:hover {
+    h2 {
+      transform: translateY(0);
+    }
+    p {
+      transform: translateY(0);
+    }
+    small {
+      opacity: 0;
+    }
+    &:before {
+      transform: scale(1);
+    }
+  }
+}
+
+.block-grid-item--normal .specials-item {
+  background: desaturate($color-primary, 15%);
+}
+
+.specials-item h2 {
+  flex: 1 100%;
+  margin: 0;
+  padding: 0 .2em;
+  font-size: 1.3rem;
+  font-weight: normal;
+  text-align: center;
+  transform: translateY(-.2em);
+  transition: all .4s;
+}
+
+.specials-item p {
+  flex: 1 100%;
+  padding: 0 2em;
+  text-overflow: ellipsis;
+  transform: translateY(0);
+  transition: all .4s;
+}
+
+.block-grid-item--normal .specials-item {
+  h2 {
+    transform: translateY(100%);
+  }
+  p {
+    height: 0;
+    transform: scale(0);
+  }
+
+  &:hover {
+    h2 {
+      transform: translateY(0);
+    }
+    p {
+      transform: scale(1);
+    }
+  }
+}
+
+.specials-item-products {
+  display: flex;
+  flex-wrap: wrap;
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  right: 0;
+  padding: 10px;
+  background: white;
+  opacity: 0;
+  box-shadow: 0 -1px 10px 1px rgba(black, .2);
+  transform: translateY(100%);
+  transition: all .4s;
+
+  .specials-item:hover & {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.specials-item-products img {
+  width: 75px;
+  height: 75px;
+  margin: 5px;
+
+  & + img {
+    margin-left: 10px;
+  }
+}
+
+.specials-item small {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  padding: 1em 0;
+  background: rgba(black, .2);
+  transition: all .4s;
+}

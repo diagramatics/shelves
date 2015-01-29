@@ -4,7 +4,7 @@
     <div class="bag-action">
       <p class="bag-cost"><span class="bag-cost-pre">Total cost</span><span class="bag-cost-number">
         <?= '$'.number_format($data['totalCost'], 2) ?></span></p>
-        <a class="bag-checkout" <?= !empty($data['products']) ?: 'disabled' ?> href="">Checkout</a>
+        <a class="bag-checkout" <?= !empty($data['products']) ?: 'disabled' ?> href="/bag/checkout">Checkout</a>
     </div>
   </header>
 
@@ -37,31 +37,31 @@
       <?php foreach($data["products"] as $product): ?>
       <tr>
         <td>
-          <form id="manipulateBag<?= $product->prodID ?>" action="?manipulateBag" method="post">
-            <input type="hidden" name="prodID" value="<?= $product->prodID ?>">
-            <input type="hidden" name="prodName" value="<?= $product->prodName ?>">
+          <form id="manipulateBag<?= $product->getID() ?>" action="?manipulateBag" method="post">
+            <input type="hidden" name="prodID" value="<?= $product->getID() ?>">
+            <input type="hidden" name="prodName" value="<?= $product->getName() ?>">
             <button class="button-icon bag-items-manipulate" title="Remove" name="removeItem">
               <svg class="icon-minus"><use xlink:href="#icon-minus"></use></svg>
             </button>
           </form>
         </td>
-        <td class="bag-items-td-image"><img src="/img/products/<?= $product->image ?>" /></td>
-        <td><?= $product->prodName ?></td>
+        <td class="bag-items-td-image"><img src="<?= $product->getImage() ?>" /></td>
+        <td><?= $product->getName() ?></td>
         <td class="bag-items-td-qty">
-          <?php if(!isset($_POST['editItemQty'])): ?>
-          <?= $product->bagQty ?>
-          <button href="#" class="button-icon bag-items-td-qty-edit" title="Edit Quantity" name="editItemQty" form="manipulateBag<?= $product->prodID ?>">
+          <?php if(!isset($_POST['editItemQty']) || $_POST['editItemQty'] != $product->getID()): ?>
+          <?= $product->getQty() ?>
+          <button href="#" class="button-icon bag-items-td-qty-edit" title="Edit Quantity" name="editItemQty" form="manipulateBag<?= $product->getID() ?>" value="<?= $product->getID() ?>">
             <svg class="icon-edit"><use xlink:href="#icon-edit"></use></svg>
           </button>
           <?php else: ?>
-          <input form="manipulateBag<?= $product->prodID ?>" type="number" name="editedQty" value="<?= $product->bagQty ?>" min="1" max="<?= $product->quantity ?>" />
-          <button class="button-icon bag-items-td-qty-edit bag-items-td-qty-edit--confirm" title="Edit Quantity" name="confirmEditItemQty" form="manipulateBag<?= $product->prodID ?>">
+          <input form="manipulateBag<?= $product->getID() ?>" type="number" name="editedQty" value="<?= $product->getQty() ?>" min="1" max="<?= $product->getQty() ?>" />
+          <button class="button-icon bag-items-td-qty-edit bag-items-td-qty-edit--confirm" title="Confirm Quantity Edit" name="confirmEditItemQty" form="manipulateBag<?= $product->getID() ?>">
             <svg class="icon-edit"><use xlink:href="#icon-edit"></use></svg>
           </button>
           <?php endif ?>
         </td>
-        <td class="bag-items-td-price"><?= '$'.number_format($product->price, 2) ?></td>
-        <td class="bag-items-td-price"><?= '$'.number_format($product->price * $product->bagQty, 2) ?></td>
+        <td class="bag-items-td-price"><?= '$'.number_format($product->getPrice(), 2) ?></td>
+        <td class="bag-items-td-price"><?= '$'.number_format($product->getPrice() * $product->getQty(), 2) ?></td>
       </tr>
       <?php endforeach ?>
       <?php else: ?>
@@ -84,7 +84,7 @@
   </table>
 
   <footer>
-    <a class="bag-checkout" <?= !empty($data['products']) ?: 'disabled' ?> href="">Checkout</a>
+    <a class="bag-checkout" <?= !empty($data['products']) ?: 'disabled' ?> href="/bag/checkout">Checkout</a>
   </footer>
 
 </section>

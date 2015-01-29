@@ -3,6 +3,7 @@ CREATE TABLE Account(
   fName VARCHAR(25) NOT NULL,
   lName VARCHAR(25) NOT NULL,
   email VARCHAR(50) NOT NULL,
+  specialSub TINYINT(1) DEFAULT 0,
   PRIMARY KEY(userID)
 );
 
@@ -14,18 +15,11 @@ CREATE TABLE Category(
 
 CREATE TABLE Promotion(
   promotionID INTEGER NOT NULL UNIQUE AUTO_INCREMENT,
+  promotionTitle VARCHAR(255) NOT NULL,
+  promotionDesc VARCHAR(255),
   startDate DATE NOT NULL,
   endDate DATE NOT NULL,
   PRIMARY KEY(promotionID)
-);
-
-CREATE TABLE DiscountCode(
-  discID INTEGER NOT NULL UNIQUE AUTO_INCREMENT,
-  discCode VARCHAR(32) NOT NULL,
-  startDATE DATE NOT NULL,
-  endDate DATE NOT NULL,
-  codeDescript VARCHAR(100) NOT NULL,
-  PRIMARY KEY(discCode)
 );
 
 CREATE TABLE Product(
@@ -70,15 +64,12 @@ CREATE TABLE Address(
 CREATE TABLE OrderBag(
   orderBagID INTEGER NOT NULL UNIQUE AUTO_INCREMENT,
   userID INTEGER NOT NULL,
-  discID INTEGER,
   totalCharge DECIMAL(4, 2) NOT NULL,
-  email VARCHAR(50) NOT NULL,
   dateMade DATE NOT NULL,
   dateDelivered DATE,
   addressID INTEGER NOT NULL,
   orderBagNotes VARCHAR(100),
   FOREIGN KEY(userID) REFERENCES Account(userID),
-  FOREIGN KEY(discID) REFERENCES DiscountCode(discID),
   FOREIGN KEY(addressID) REFERENCES Address(addressID),
   PRIMARY KEY(orderBagID)
 );
