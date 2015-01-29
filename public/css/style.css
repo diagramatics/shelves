@@ -1544,6 +1544,8 @@ body.is-popup-overlayed {
   .specials-item:hover p {
     -webkit-transform: translateY(0);
             transform: translateY(0); }
+  .specials-item:hover small {
+    opacity: 0; }
   .specials-item:hover:before {
     -webkit-transform: scale(1);
             transform: scale(1); }
@@ -1612,10 +1614,22 @@ body.is-popup-overlayed {
             transform: translateY(0); }
 
 .specials-item-products img {
-  width: 125px;
-  height: 125px; }
+  width: 75px;
+  height: 75px;
+  margin: 5px; }
   .specials-item-products img + img {
     margin-left: 10px; }
+
+.specials-item small {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  padding: 1em 0;
+  background: rgba(0, 0, 0, 0.2);
+  -webkit-transition: all 0.4s;
+          transition: all 0.4s; }
 
 .bag header {
   text-align: center; }

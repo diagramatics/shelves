@@ -46,8 +46,14 @@ class SpecialsModel {
   public function getStartDate() {
     return $this->startDate;
   }
+  public function getStartDateFormatted() {
+    return $this->startDate->format('d/m/Y');
+  }
   public function getEndDate() {
     return $this->endDate;
+  }
+  public function getEndDateFormatted() {
+    return $this->endDate->format('d/m/Y');
   }
   public function getProductLinks() {
     return $this->links;

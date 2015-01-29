@@ -24,6 +24,7 @@
       <?php if ($special->isRunning()): ?>
         <div class="block-grid-item block-grid-item--big">
           <div class="specials-item">
+            <small>Ends at <?= $special->getEndDateFormatted() ?></small>
             <h2><?= $special->getTitle() ?></h2>
             <p><?= $special->getLongDesc() ?></p>
             <div class="specials-item-products">
@@ -41,10 +42,12 @@
         <?php else: ?>
           <div class="block-grid-item block-grid-item--normal">
             <div class="specials-item">
+              <small>Starts at <?= $tempUpcoming->getStartDateFormatted() ?></small>
               <h2><?= $tempUpcoming->getTitle() ?></h2>
-              <p><?= $special->getShortDesc() ?></p>
+              <p><?= $tempUpcoming->getShortDesc() ?></p>
             </div>
             <div class="specials-item">
+              <small>Starts at <?= $special->getStartDateFormatted() ?></small>
               <h2><?= $special->getTitle() ?></h2>
               <p><?= $special->getShortDesc() ?></p>
             </div>
@@ -56,8 +59,9 @@
     <?php if ($tempUpcoming != null): ?>
       <div class="block-grid-item block-grid-item--normal">
         <div class="specials-item">
+          <small>Starts at <?= $tempUpcoming->getStartDateFormatted() ?></small>
           <h2><?= $tempUpcoming->getTitle() ?></h2>
-          <p><?= $special->getShortDesc() ?></p>
+          <p><?= $tempUpcoming->getShortDesc() ?></p>
         </div>
       </div>
     <?php endif ?>
