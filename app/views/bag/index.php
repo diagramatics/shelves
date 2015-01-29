@@ -4,7 +4,7 @@
     <div class="bag-action">
       <p class="bag-cost"><span class="bag-cost-pre">Total cost</span><span class="bag-cost-number">
         <?= '$'.number_format($data['totalCost'], 2) ?></span></p>
-        <a class="bag-checkout" <?= !empty($data['products']) ?: 'disabled' ?> href="">Checkout</a>
+        <a class="bag-checkout" <?= !empty($data['products']) ?: 'disabled' ?> href="/bag/checkout">Checkout</a>
     </div>
   </header>
 
@@ -48,14 +48,14 @@
         <td class="bag-items-td-image"><img src="<?= $product->getImage() ?>" /></td>
         <td><?= $product->getName() ?></td>
         <td class="bag-items-td-qty">
-          <?php if(!isset($_POST['editItemQty'])): ?>
+          <?php if(!isset($_POST['editItemQty']) || $_POST['editItemQty'] != $product->getID()): ?>
           <?= $product->getQty() ?>
-          <button href="#" class="button-icon bag-items-td-qty-edit" title="Edit Quantity" name="editItemQty" form="manipulateBag<?= $product->getID() ?>">
+          <button href="#" class="button-icon bag-items-td-qty-edit" title="Edit Quantity" name="editItemQty" form="manipulateBag<?= $product->getID() ?>" value="<?= $product->getID() ?>">
             <svg class="icon-edit"><use xlink:href="#icon-edit"></use></svg>
           </button>
           <?php else: ?>
-          <input form="manipulateBag<?= $product->getID() ?>" type="number" name="editedQty" value="<?= $product->getQty() ?>" min="1" max="<?= $product->quantity ?>" />
-          <button class="button-icon bag-items-td-qty-edit bag-items-td-qty-edit--confirm" title="Edit Quantity" name="confirmEditItemQty" form="manipulateBag<?= $product->getID() ?>">
+          <input form="manipulateBag<?= $product->getID() ?>" type="number" name="editedQty" value="<?= $product->getQty() ?>" min="1" max="<?= $product->getQty() ?>" />
+          <button class="button-icon bag-items-td-qty-edit bag-items-td-qty-edit--confirm" title="Confirm Quantity Edit" name="confirmEditItemQty" form="manipulateBag<?= $product->getID() ?>">
             <svg class="icon-edit"><use xlink:href="#icon-edit"></use></svg>
           </button>
           <?php endif ?>
@@ -84,7 +84,7 @@
   </table>
 
   <footer>
-    <a class="bag-checkout" <?= !empty($data['products']) ?: 'disabled' ?> href="">Checkout</a>
+    <a class="bag-checkout" <?= !empty($data['products']) ?: 'disabled' ?> href="/bag/checkout">Checkout</a>
   </footer>
 
 </section>
