@@ -1125,6 +1125,55 @@ body.is-popup-overlayed {
     .homepage-dash {
       width: 60%; } }
 
+.promo-item {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: relative;
+  background: none !important; }
+  .promo-item:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    border: 5px solid #ccc;
+    opacity: 0.5; }
+  .promo-item a {
+    width: 100%;
+    height: 100%;
+    color: inherit;
+    text-decoration: none; }
+  .promo-item img {
+    width: 100%;
+    height: 100%; }
+  .promo-item p {
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-justify-content: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-align-items: center;
+        -ms-flex-align: center;
+            align-items: center;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    padding: 0.5em 0;
+    color: white;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.6);
+    opacity: 0;
+    -webkit-transition: all 0.4s;
+            transition: all 0.4s; }
+  .promo-item:hover p {
+    opacity: 1; }
+
 .product-category-item {
   background: #ddd;
   border: thin solid #d2d2d2;

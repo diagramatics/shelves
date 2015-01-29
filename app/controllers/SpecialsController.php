@@ -31,16 +31,18 @@ class SpecialsController extends Controller {
     $specialsModel = array();
     $specialsRaw = $this->database->getValues("Promotion", "");
     if ($specialsRaw) {
-      $i = 0;
       foreach ($specialsRaw as $s) {
-        $specialsModel[$i] = $this->model("SpecialsModel");
-        $specialsModel[$i]->parse($s);
+        $model = $this->model("SpecialsModel");
+        $model->parse($s);
 
         $productsRaw = $this->database->getValues("ProductPromotion", "", [
           ['promotionID', '=', $s->promotionID]
         ]);
-        $specialsModel[$i]->linkProducts($productsRaw);
-        $i++;
+        if (!empty($productsRaw)) {
+          $model->linkProducts($productsRaw);
+        }
+
+        array_push($specialsModel, $model);
       }
     }
 
