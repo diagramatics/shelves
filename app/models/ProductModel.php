@@ -10,6 +10,7 @@
     private $desc;
     private $priceUnit;
     private $qty;
+    private $slug;
 
     public function getID() {
       return $this->id;
@@ -25,6 +26,22 @@
 
     public function setName($name) {
       $this->name = $name;
+    }
+
+    public function getSlug() {
+      return $this->slug;
+    }
+
+    public function setSlug($name) {
+      $this->slug = Helpers::makeSlug($name);
+    }
+
+    public function getUrl() {
+      return $this->url;
+    }
+
+    public function setUrl() {
+      $this->url = '/products/product/'. $this->getID() . '/' . $this->getSlug();
     }
 
     public function getImage() {
@@ -106,6 +123,8 @@
     public function parse($raw) {
       $this->setID($raw->prodID);
       $this->setName($raw->prodName);
+      $this->setSlug($raw->prodName);
+      $this->setUrl();
       $this->setImage($raw->image);
       $this->setBasePrice($raw->price);
       $this->setPrice($raw->price);

@@ -187,7 +187,8 @@
   }
 }
 
-.site-search-form input {
+.site-search-form input,
+.site-search-form button {
   height: $site-search-bar-height;
   background: transparent;
   border: 0;
@@ -203,7 +204,7 @@
   &:hover {
     border-bottom-color: #999;
 
-    ~ input[type="submit"] {
+    + button {
       border-bottom-color: #999;
     }
   }
@@ -212,25 +213,25 @@
     outline: 0;
     border-bottom-color: #333;
 
-    ~ .icon-search {
-      fill: #333;
-    }
-
-    ~ input[type="submit"] {
+    + button {
       border-bottom-color: #333;
       color: #333;
+
+      .icon-search {
+        fill: #333;
+      }
     }
   }
 }
 
-.site-search-form input[type="submit"] {
+.site-search-form button {
   width: 28px;
   height: $site-search-bar-height;
   flex-shrink: 0;
   color: #ccc;
   transition: all .4s;
 
-  &:hover + .icon-search {
+  &:hover .icon-search {
     fill: #333;
   }
 }
