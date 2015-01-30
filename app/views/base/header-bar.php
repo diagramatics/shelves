@@ -1,6 +1,6 @@
 <header id="siteHeader" class="site-header">
   <div class="site-nav">
-    <img src="/img/shelves.png" class="site-logo" />
+    <img src="/img/shelves.png" alt="Shelves logo" class="site-logo" />
     <div class="site-nav-item"><a href="/">Home</a></div>
     <div class="site-nav-item">
       <a href="/products">Products</a>
@@ -38,13 +38,15 @@
     <span class="site-header-buttons tooltip--bottom" data-tooltip="Bag">
       <a href="/bag"><svg class="icon-bag"><use xlink:href="#icon-bag"></use></svg></a>
     </span>
-    <span class="site-header-buttons tooltip--bottom" data-tooltip="Menu">
+    <div class="site-header-buttons tooltip--bottom" data-tooltip="Menu">
       <a id="menuButton" href="#"><svg class="icon-menu"><use xlink:href="#icon-menu"></use></svg></a>
       <div id="menuButtonPopup" class="menu-button-popup">
         <?php if (isset($_SESSION['userLevel']) && $_SESSION['userLevel'] == 1): ?>
+        <ul>
         <li><a href="/admin">Admin Panel</a></li>
+        </ul>
         <?php endif ?>
       </div>
-    </span>
+    </div>
   </div>
 </header>

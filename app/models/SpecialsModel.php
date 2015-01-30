@@ -28,6 +28,10 @@ class SpecialsModel {
     }
   }
 
+  public function countProducts() {
+    return count($this->links);
+  }
+
   public function getID() {
     return $this->id;
   }
