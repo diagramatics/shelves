@@ -1,6 +1,6 @@
 <h1 class="product-categories-name">Products</h1>
 
-<section class="block-grid">
+<div class="block-grid">
   <div class="block-grid-item block-grid-item--normal">
     <div></div>
   </div>
@@ -28,4 +28,4 @@
     <?php endif; ?>
   </div>
   <?php endforeach; ?>
-</section>
+</div>
