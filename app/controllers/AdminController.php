@@ -546,6 +546,70 @@ class AdminController extends Controller {
     return $_POST['adminEditProduct'] = $insert;
   }
 
+  public function specials($item1 = "", $item2 = "") {
+    if ($item1 == "add") {
+    }
+    else if ($item1 == "edit") {
+    }
+    else {
+      $this->specialsView();
+    }
+  }
+
+  private function specialsView() {
+    if (isset($_GET['deleteSpecial'])) {
+      $this->deleteSpecial($_POST['promotionID'], $_POST['promotionName']);
+    }
+
+    $specialsModel = array();
+    $specialsRaw = $this->database->getValues("Promotion", "");
+    if ($specialsRaw) {
+      foreach ($specialsRaw as $s) {
+        $model = $this->model("SpecialsModel");
+        $model->parse($s);
+
+        $productsRaw = $this->database->getValues("ProductPromotion", "", [
+          ['promotionID', '=', $s->promotionID]
+        ]);
+        if (!empty($productsRaw)) {
+          $model->linkProducts($productsRaw);
+        }
+
+        array_push($specialsModel, $model);
+      }
+    }
+
+    $this->viewIfAllowed('admin/specials/index', [
+      'title' => 'Users',
+      'specials' => $specialsModel
+    ]);
+  }
+
+  private function deleteSpecial($id, $name) {
+    // Stop autocommit so we can rollback it in case of deletion problems
+    $this->database->autocommit(false);
+
+    $linkDelete = $this->database->deleteValue("ProductPromotion", [
+      ['promotionID', '=', $id]
+    ]);
+    $promotionDelete = $this->database->deleteValue("Promotion", [
+      ['promotionID', '=', $id]
+    ]);
+
+    if ($linkDelete && $promotionDelete) {
+      // If it is successful then commit the changes
+      $this->database->commit();
+      Helpers::makeAlert('specials', 'Successfully deleted ' . $name . ' from your specials list.');
+    }
+    else {
+      // If it fails then rollback
+      $this->database->rollback();
+      Helpers::makeAlert('specials', 'There is a problem in deleting the special. Please try again later.');
+    }
+    // Start autocommit again
+    $this->database->autocommit(true);
+  }
+
   public function users() {
     $users = $this->database->getValues("Account", "");
     $this->viewIfAllowed('admin/users/index', [

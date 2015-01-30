@@ -12,6 +12,9 @@
   <ul>
     <li><a href="/admin/subcategory/add">Add Subcategory</a></li>
   </ul>
-
+  <a href="/admin/specials">Specials</a>
+  <ul>
+    <li><a href="/admin/specials/add">Add Specials</a></li>
+  </ul>
   <a href="/admin/users">Users</a>
 </section>
