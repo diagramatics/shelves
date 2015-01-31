@@ -50,3 +50,15 @@
     fill: $color-accent-dark;
   }
 }
+
+.admin-special-add-product {
+  &.error {
+    border: thin solid red;
+
+    &:after {
+      content: "You have selected this product multiple times.";
+      flex: 2 1 100%;
+      text-align: center;
+    }
+  }
+}

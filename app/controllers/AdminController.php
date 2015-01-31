@@ -548,6 +548,7 @@ class AdminController extends Controller {
 
   public function specials($item1 = "", $item2 = "") {
     if ($item1 == "add") {
+      $this->addSpecialView();
     }
     else if ($item1 == "edit") {
     }
@@ -607,6 +608,69 @@ class AdminController extends Controller {
       Helpers::makeAlert('specials', 'There is a problem in deleting the special. Please try again later.');
     }
     // Start autocommit again
+    $this->database->autocommit(true);
+  }
+
+  private function addSpecialView() {
+    if (isset($_GET["adminAddSpecial"])) {
+      $this->addNewSpecial();
+    }
+
+    $products = $this->database->getValues("Product", "");
+    $productsFormatted = array();
+    foreach ($products as $product) {
+      $model = $this->model("ProductModel");
+      $model->parse($product);
+      array_push($productsFormatted, $model);
+    }
+
+    $this->viewIfAllowed('admin/specials/add', [
+      'title' => 'Add New Special',
+      'products' => $productsFormatted
+    ]);
+  }
+
+  private function addNewSpecial() {
+    // TODO: PHP fallbacks
+    $title = $_POST['title'];
+    $desc = $_POST['description'];
+    $startDate = new DateTime($_POST['startDate']);
+    $endDate = new DateTime($_POST['endDate']);
+    $productsCount = $_POST['finalProductsCount'];
+
+    // Stop autocommit so we can rollback
+    $this->database->autocommit(false);
+    $promotionInsert = $this->database->insertValue("Promotion", [
+      ['promotionTitle', $title],
+      ['promotionDesc', $desc],
+      ['startDate', $startDate->format('Y-m-d')],
+      ['endDate', $endDate->format('Y-m-d')]
+    ]);
+    $promotionID = $this->database->insert_id;
+    $productsInsert = true;
+    for ($i = 1; $i <= $productsCount; $i++) {
+      if ($_POST['product' . $i] > 0) {
+        if (!($this->database->insertValue("ProductPromotion", [
+          ['promotionID', $promotionID],
+          ['prodID', $_POST['product' . $i]],
+          ['discount', $_POST['discount' . $i]]
+        ]))) {
+          $productsInsert = false;
+          break;
+        }
+      }
+    }
+
+    if ($promotionInsert && $productsInsert) {
+      $this->database->commit();
+      Helpers::makeAlert('addSpecial', 'Successfully added special.');
+    }
+    else {
+      $this->database->rollback();
+      Helpers::makeAlert('addSpecial', 'There is a problem in adding the special. Please try again later.');
+    }
+
+    // We're finished. Enable it again.
     $this->database->autocommit(true);
   }
 

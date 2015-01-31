@@ -426,7 +426,14 @@ input {
   -webkit-justify-content: space-between;
       -ms-flex-pack: justify;
           justify-content: space-between;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
   margin: 10px 0; }
+  .form-input-halfblock-container .form-error-box, .form-input-thirdblock-container .form-error-box {
+    -webkit-flex: 2 1 100%;
+        -ms-flex: 2 1 100%;
+            flex: 2 1 100%; }
 
 .form-input-halfblock {
   -webkit-flex: 1 1;
@@ -2130,3 +2137,12 @@ body.is-popup-overlayed {
           transition: all 0.4s; }
 .admin-table-delete:hover svg {
   fill: #3d4032; }
+
+.admin-special-add-product.error {
+  border: thin solid red; }
+  .admin-special-add-product.error:after {
+    content: "You have selected this product multiple times.";
+    -webkit-flex: 2 1 100%;
+        -ms-flex: 2 1 100%;
+            flex: 2 1 100%;
+    text-align: center; }
