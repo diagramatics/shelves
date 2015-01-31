@@ -1,5 +1,4 @@
 <div class="block-grid">
-<<<<<<< HEAD
   <?php
     $swaps = 2;
     $specialsCount = 0;
@@ -33,7 +32,7 @@
       ?>
     <?php elseif (!($productsCount > $productsCountLimit || $productsCount > count($data['products']))): ?>
       <?php if ($tempProduct == null): ?>
-        <?php $tempProduct = $data['products'][$productsCount] ?>
+        <?php isset($data['products'][$productsCount]) ? $tempProduct = $data['products'][$productsCount] : ''  ?>
       <?php else: ?>
         <div class="block-grid-item block-grid-item--normal">
           <div class="promo-item">
@@ -71,37 +70,4 @@
       </div>
     </div>
   <?php endif ?>
-=======
-  <div class="block-grid-item block-grid-item--big"></div>
-  <div class="block-grid-item block-grid-item--small">
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-  </div>
-  <div class="block-grid-item block-grid-item--normal">
-    <div></div>
-    <div></div>
-  </div>
-  <div class="block-grid-item block-grid-item--big"></div>
-  <div class="block-grid-item block-grid-item--normal">
-    <div></div>
-    <div></div>
-  </div>
-  <div class="block-grid-item block-grid-item--small">
-    <div><a href="/products/product/1234/potato"><img src="/img/products/1234-potato.png" style="height: 100%;" /></a></div>
-    <div></div>
-    <div></div>
-    <div></div>
-  </div>
-  <div class="block-grid-item block-grid-item--big"></div>
-  <div class="block-grid-item block-grid-item--normal">
-    <div></div>
-    <div></div>
-  </div>
-  <div class="block-grid-item block-grid-item--normal">
-    <div></div>
-    <div></div>
-  </div>
->>>>>>> origin/validation
 </div>
