@@ -1,20 +1,3 @@
-<?php
-if (isset($_POST['adminEditProduct'])) {
-  if ($_POST['adminEditProduct'] === true) {
-    Helpers::makeAlert('adminProduct', "Successfully edited the product.");
-  }
-  elseif ($_POST['adminEditProduct'] === false) {
-    Helpers::makeAlert('adminProduct', "There's something wrong with editing the product. Please try again.");
-  }
-  elseif ($_POST['adminEditProduct'] === 'noupload') {
-    Helpers::makeAlert('adminProduct', "The server is unable to accept the uploaded image. Try again later.");
-  }
-  elseif ($_POST['adminEditProduct'] === 'wrongsub') {
-    Helpers::makeAlert('adminProduct', "You have chosen a wrong subcategory — it's not a subcategory of the chosen category.");
-  }
-}
-?>
-
 <?php if ($_POST['adminEditProduct'] === 'stumbled'): ?>
 <div class="container">
   <h1>Whoops.</h1>
@@ -29,7 +12,7 @@ if (isset($_POST['adminEditProduct'])) {
     <input type="text" name="name" value="<?= Helpers::orEmpty($_POST['name'], $data['name']) ?>" placeholder="Name" class="form-input-block">
     <div class="form-input-halfblock-container">
       <div class="form-input-halfblock">
-        <input type="text" name="price" value="<?= Helpers::orEmpty($_POST['price'], $data['price']) ?>" placeholder="Price" class="form-input-block">
+        <input type="number" name="price" value="<?= Helpers::orEmpty($_POST['price'], $data['price']) ?>" placeholder="Price" class="form-input-block">
       </div>
       <div class="form-input-halfblock">
         <input type="text" name="priceUnit" value="<?= Helpers::orEmpty($_POST['priceUnit'], $data['priceUnit']) ?>" placeholder="Price Unit (optional)" class="form-input-block">

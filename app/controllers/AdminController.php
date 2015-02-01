@@ -511,6 +511,7 @@ class AdminController extends Controller {
     $description = $_POST['description'];
 
     if ($subcategory[0] != '0' && $subcategory[0] != $category) {
+      Helpers::makeAlert('adminProduct', "You have chosen a wrong subcategory — it's not a subcategory of the chosen category.");
       return $_POST['adminEditProduct'] = 'wrongsub';
     }
 
@@ -529,6 +530,7 @@ class AdminController extends Controller {
 
     // If there's any image uploaded to replace the existing image
     if (isset($_FILES['image'])) {
+      $this->database->autocommit(false);
       // Make the slug from the image
       $slug = Helpers::makeSlug($name);
 
@@ -537,13 +539,15 @@ class AdminController extends Controller {
 
       $imageName = $prodID . '-' . $slug . '.' . pathinfo($imageFile['name'], PATHINFO_EXTENSION);
 
+      $update = true;
       // Upload the image
       // TODO: More image uploading validations
-      if (move_uploaded_file($imageFile['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . '/img/products/' . $imageName)) {
+      if (!empty($imageFile) && move_uploaded_file($imageFile['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . '/img/products/' . $imageName)) {
         // We're done here. Update the image file reference and finish
         $update = $this->database->updateValue("Product", [['image', $imageName]], [['prodID', '=', $id]]);
         if (!$update) {
-          return $_POST['adminAddProduct'] = 'noupload';
+          Helpers::makeAlert('adminProduct', "The server is unable to accept the uploaded image. Try again later.");
+          $_POST['adminAddProduct'] = 'noupload';
         }
         else {
           array_push($dbValues, ['image', $imageName]);
@@ -552,6 +556,15 @@ class AdminController extends Controller {
     }
 
     $insert = $this->database->updateValue("Product", $dbValues, [['prodID', '=', $prodID]]);
+    if ($insert && $update) {
+      Helpers::makeAlert('adminProduct', "Successfully edited the product.");
+      $this->database->commit();
+    }
+    else {
+      Helpers::makeAlert('adminProduct', "There's something wrong with editing the product. Please try again.");
+      $this->database->rollback();
+    }
+    $this->database->autocommit(true);
     return $_POST['adminEditProduct'] = $insert;
   }
 

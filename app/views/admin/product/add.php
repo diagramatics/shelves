@@ -4,7 +4,7 @@
     <input type="text" name="name" value="<?= Helpers::orEmpty($_POST['name']) ?>" placeholder="Name" class="form-input-block">
     <div class="form-input-halfblock-container">
       <div class="form-input-halfblock">
-        <input type="text" name="price" value="<?= Helpers::orEmpty($_POST['price']) ?>" placeholder="Price" class="form-input-block">
+        <input type="number" name="price" value="<?= Helpers::orEmpty($_POST['price']) ?>" placeholder="Price" class="form-input-block">
         </div>
       <div class="form-input-halfblock">
         <input type="text" name="priceUnit" value="<?= Helpers::orEmpty($_POST['priceUnit']) ?>" placeholder="Price Unit (optional)" class="form-input-block">

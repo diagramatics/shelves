@@ -1,6 +1,6 @@
 $(function() {
   // Products - add and edit validations
-  function Product(selector) {
+  function Product(selector, emptyImage) {
     Form.call(this);
     this.selector = selector;
 
@@ -11,8 +11,10 @@ $(function() {
       // Check validations
       e.push(t.validate($(this.name), ['empty']));
       e.push(t.validate($(this.price), ['empty', 'number']));
-      e.push(t.validate($(this.quantity), ['empty', 'zeroString']));
-      e.push(t.validate($(this.image), ['empty']));
+      e.push(t.validate($(this.quantity), ['empty', 'number', 'zeroString']));
+      if (!emptyImage) {
+        e.push(t.validate($(this.image), ['empty']));
+      }
 
       var ec = '', errorc = ''; // These are to store the error message configs
       var category = $(this.subcategory).val().substr(0, 1);
@@ -32,7 +34,8 @@ $(function() {
   Product.prototype = Object.create(Form.prototype);
   Product.prototype.constructor = Product;
 
-  var addProduct = new Product('#adminAddProduct');
+  var addProduct = new Product('#adminAddProduct', false);
+  var editProduct = new Product('#adminEditProduct', true);
 
   // Suppliers - add and edit validations
   function Supplier(selector, productSelectSelector, addProductSelector) {
