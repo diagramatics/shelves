@@ -22,12 +22,9 @@
   </div>
   <?php endforeach ?>
 </div>
-<<<<<<< HEAD
 <?php else: ?>
 <div class="container">
   <p class="align-center">Sorry, there are no products in this category.</p>
   <p class="align-center"><a href="/products">&laquo; Go back to categories list</a></p>
 </div>
 <?php endif; ?>
-=======
->>>>>>> origin/validation
