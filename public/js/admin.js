@@ -14,19 +14,15 @@ $(function() {
       e.push(t.validate($(this.quantity), ['empty', 'zeroString']));
       e.push(t.validate($(this.image), ['empty']));
 
+      var ec = '', errorc = ''; // These are to store the error message configs
       var category = $(this.subcategory).val().substr(0, 1);
       if (category !== $(this.category).val() && category !== '0') {
-        if ($(this.subcategory).next('.form-error-box').length === 0) {
-          // If there isn't any make a new one
-          $(this.subcategory).after('<div class="form-error-box"></div>');
-        }
-        // Get that element
-        var errorBox = $(this.subcategory).next('.form-error-box');
-        // Empty the contents first to reset
-        errorBox.empty();
-        errorBox.append('<div class="error-mismatch">The subcategory you selected doesn\'t match the category you\'ve selected.</div>');
         e.push(true);
+        ec = 'mismatch';
+        errorc = 'The subcategory you selected doesn\'t match the category you\'ve selected.';
       }
+      // Make the error box according to the error received
+      t.createErrorBox($(this.subcategory), ec, errorc);
 
       if (e.indexOf(true) > -1) {
         event.preventDefault();

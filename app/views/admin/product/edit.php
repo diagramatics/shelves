@@ -28,8 +28,12 @@ if (isset($_POST['adminEditProduct'])) {
   <form id="adminEditProduct" action="?adminEditProduct" method="POST" enctype="multipart/form-data">
     <input type="text" name="name" value="<?= Helpers::orEmpty($_POST['name'], $data['name']) ?>" placeholder="Name" class="form-input-block">
     <div class="form-input-halfblock-container">
-      <input type="text" name="price" value="<?= Helpers::orEmpty($_POST['price'], $data['price']) ?>" placeholder="Price" class="form-input-halfblock">
-      <input type="text" name="priceUnit" value="<?= Helpers::orEmpty($_POST['priceUnit'], $data['priceUnit']) ?>" placeholder="Price Unit (optional)" class="form-input-halfblock">
+      <div class="form-input-halfblock">
+        <input type="text" name="price" value="<?= Helpers::orEmpty($_POST['price'], $data['price']) ?>" placeholder="Price" class="form-input-block">
+      </div>
+      <div class="form-input-halfblock">
+        <input type="text" name="priceUnit" value="<?= Helpers::orEmpty($_POST['priceUnit'], $data['priceUnit']) ?>" placeholder="Price Unit (optional)" class="form-input-block">
+      </div>
     </div>
     <label for="quantity">Quantity</label><input type="number" name="quantity" value="<?= empty(Helpers::orEmpty($_POST['quantity'], $data['quantity'])) ? '100' : Helpers::orEmpty($_POST['quantity'], $data['quantity']) ?>" placeholder="Stock (Quantity)" min="0" class="form-input-block">
     <label for="category">Category:</label>

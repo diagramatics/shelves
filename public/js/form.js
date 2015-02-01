@@ -12,7 +12,7 @@ Form.prototype.validate = function(el, conditions) {
     }
   }
   if (conditions.indexOf('number') > -1) {
-    if (!isNaN(el.val())) {
+    if (isNaN(el.val())) {
       e.push('number');
       errors.push('This field has to only have numbers. <strong>('+placeholder+')</strong>');
     }
@@ -30,9 +30,17 @@ Form.prototype.validate = function(el, conditions) {
     }
   }
 
+  // Create errors based on how many we've got
+  this.createErrorBox(el, e, errors);
+
+  // Return the length of the e. If it's bigger than 0 then there's an error and return true
+  return e.length > 0;
+};
+
+Form.prototype.createErrorBox = function (el, e, errors) {
   // Check if there's any errors accumulated
-  if (errors.length > 0) {
-    // Now check if there's any existing error box after the error input
+  if (e.length > 0) {
+    // Check if there's any existing error box after the error input
     if (el.next('.form-error-box').length === 0) {
       // If there isn't any make a new one
       el.after('<div class="form-error-box"></div>');
@@ -42,12 +50,16 @@ Form.prototype.validate = function(el, conditions) {
     // Empty the contents first to reset
     errorBox.empty();
 
-    // And add the errors
-    for (i = 0; i < e.length; i++) {
-      errorBox.append('<div class="error-' + e[i] + '">' + errors[i] + '</div>');
+    if (typeof e === 'string') {
+      errorBox.append('<div class="error-' + e + '">' + errors + '</div>');
+    }
+    else {
+      for (i = 0; i < e.length; i++) {
+        errorBox.append('<div class="error-' + e[i] + '">' + errors[i] + '</div>');
+      }
     }
   }
-
-  // Return the length of the e. If it's bigger than 0 then there's an error and return true
-  return e.length > 0;
-};
+  else if (el.next('.form-error-box').length !== 0) {
+    el.next('.form-error-box').remove();
+  }
+}
