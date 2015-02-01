@@ -4,6 +4,11 @@ class BagModel extends Model {
   private $products;
   private $totalCost;
 
+  public function parse($raw) {}
+  public function extract() {
+    return void;
+  }
+
   public function getProducts() {
     return $this->products;
   }
