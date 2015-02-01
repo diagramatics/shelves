@@ -37,6 +37,31 @@ $(function() {
   var addProduct = new Product('#adminAddProduct', false);
   var editProduct = new Product('#adminEditProduct', true);
 
+
+  // Category - add and edit validation
+  function Category(selector) {
+    Form.call(this);
+    this.selector = selector;
+
+    var t = this;
+
+    this.listener = $('body').on('submit', this.selector, function(event) {
+      var e = [];
+      // Check validations
+      e.push(t.validate($(this.name), ['empty']));
+
+      if (e.indexOf(true) > -1) {
+        event.preventDefault();
+      }
+    });
+  }
+  Category.prototype = Object.create(Form.prototype);
+  Category.prototype.constructor = Category;
+
+  var addCategory = new Category('#adminAddCategory');
+  var addCategory = new Category('#adminEditCategory');
+
+
   // Suppliers - add and edit validations
   function Supplier(selector, productSelectSelector, addProductSelector) {
     Form.call(this);

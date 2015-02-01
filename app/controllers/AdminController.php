@@ -116,6 +116,12 @@ class AdminController extends Controller {
 
     $insert = $this->database->updateValue("Category", [['catName', $name]], [['catID', '=', $catID]]);
 
+    if ($insert) {
+      Helpers::makeAlert('adminCategory', "Successfully edited the category.");
+    }
+    else {
+      Helpers::makeAlert('adminCategory', "There's something wrong with editing the category. Please try again.");
+    }
     return $_POST['adminEditCategory'] = $insert;
   }
 
@@ -129,8 +135,12 @@ class AdminController extends Controller {
       // If something bad happens abort
       if ($insert == false) {
         $_POST['adminAddCategory'] = false;
+        Helpers::makeAlert('adminCategory', "There's something wrong with adding the category. Please try again.");
       }
-      else $_POST['adminAddCategory'] = true;
+      else {
+        $_POST['adminAddCategory'] = true;
+        Helpers::makeAlert('adminCategory', "Successfully added to category list.");
+      }
     }
 
     $this->viewIfAllowed('admin/category/add', [
