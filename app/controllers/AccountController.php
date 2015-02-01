@@ -141,10 +141,7 @@ class AccountController extends Controller {
       }
 
       // The code below gets executed if it passes all the validations
-      $hash = password_hash($newPassword, PASSWORD_DEFAULT);
-      $changePassword = $this->database->updateValue("Login", [["password", $hash]], [
-        ['userID', '=', $_SESSION['userID']]
-      ]);
+      $changePassword = $this->changePassword($newPassword);
       if ($changePassword) {
         // Password changing is successful. Make sure the password change dialog is closed
         unset($_POST['changePassword']);
@@ -172,6 +169,61 @@ class AccountController extends Controller {
       }
       else {
         Helpers::makeAlert("accountSettings", "There is something wrong in updating your account settings. Please try again.");
+      }
+    }
+  }
+
+  private function changePassword($newPassword) {
+    $hash = password_hash($newPassword, PASSWORD_DEFAULT);
+    $changePassword = $this->database->updateValue("Login", [["password", $hash]], [
+      ['userID', '=', $_SESSION['userID']]
+    ]);
+    return $changePassword;
+  }
+
+  // Ajax-specific  stuff
+  public function ajaxAddAddress() {
+    die(Helpers::ajaxReturnContent('../app/views/account/settings-add-address.php'));
+  }
+  public function ajaxChangePassword() {
+    die(Helpers::ajaxReturnContent('../app/views/account/settings-change-password.php'));
+  }
+  public function ajaxChangePasswordButton() {
+    die(Helpers::ajaxReturnContent('../app/views/account/settings-change-password-button.php'));
+  }
+  public function ajaxCorrectPassword() {
+    $password = $_POST['password'];
+    if(Helpers::isAjax()) {
+      // Find the user if it exists
+      $result = $this->database->getValue("Account", "", [
+        ['email', '=', $_SESSION['email']]
+      ]);
+
+      // If there's a matching account...
+      if ($result != false) {
+        // Get the password and compare
+        $loginResult = $this->database->getValue("Login", ["password", "userLevel"], [
+          ["userID", "=", $result->userID]
+        ]);
+        if (password_verify($password, $loginResult->password)) {
+          die('ok');
+        }
+        else die('mismatch');
+      }
+
+      // If anything happens assume the user inputted a wrong password
+      die('error');
+    }
+  }
+
+  public function ajaxConfirmChangePassword() {
+    $newPassword = $_POST['password'];
+    if (Helpers::isAjax()) {
+      if ($this->changePassword($newPassword)) {
+        die('ok');
+      }
+      else {
+        die('error');
       }
     }
   }

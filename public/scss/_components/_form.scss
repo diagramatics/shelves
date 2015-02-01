@@ -8,16 +8,16 @@ input {
   width: 100%;
 }
 
+.form-error-box {
+  flex: 2 1 100%;
+}
+
 .form-input-halfblock-container,
 .form-input-thirdblock-container {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
   margin: 10px 0;
-
-  & .form-error-box {
-    flex: 2 1 100%;
-  }
 }
 
 .form-input-halfblock {

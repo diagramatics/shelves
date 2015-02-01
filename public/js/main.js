@@ -1,3 +1,18 @@
+Helpers = function() {};
+Helpers.makeAlert = function(id, string) {
+  $.ajax({
+    url: '/ajax/ajaxMakeAlert',
+    type: 'POST',
+    data: {
+      alertID: id,
+      alertString: string
+    }
+  }).done(function(data) {
+    // Prepend the alert made to the body
+    $('body').prepend(data);
+  });
+}
+
 $(function() {
   // TODO: Probably make this object oriented. Make it as a class or something?
   $('body').on('click', 'a[data-popup]', function() {
