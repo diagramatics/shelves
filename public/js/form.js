@@ -11,6 +11,12 @@ Form.prototype.validate = function(el, conditions) {
       errors.push('This field cannot be empty. <strong>('+placeholder+')</strong>');
     }
   }
+  if (conditions.indexOf('number') > -1) {
+    if (!isNaN(el.val())) {
+      e.push('number');
+      errors.push('This field has to only have numbers. <strong>('+placeholder+')</strong>');
+    }
+  }
   if (conditions.indexOf('zeroString') > -1) {
     if (el.val() === '0') {
       e.push('zeroString');
@@ -18,7 +24,7 @@ Form.prototype.validate = function(el, conditions) {
     }
   }
   if (conditions.indexOf('date') > -1) {
-    if (isNan(Date.parse(el.val()))) {
+    if (isNaN(Date.parse(el.val()))) {
       e.push('date');
       errors.push('This field contains an invalid date. <strong>('+placeholder+')</strong>');
     }

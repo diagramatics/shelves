@@ -378,7 +378,8 @@ class AdminController extends Controller {
     // Check if the subcategory is indeed a subcategory of the chosen category
     // This is a PHP fallback if no JS
     if ($subcategory[0] != '0' && $subcategory[0] != $category) {
-      return $_POST['adminAddProduct'] = 'wrongsub';
+      Helpers::makeAlert('adminProduct', "You have chosen a wrong subcategory — it's not a subcategory of the chosen category.");
+      return $_POST['adminAddProduct'] = false;
     }
 
     // Make the slug from the image
@@ -393,17 +394,20 @@ class AdminController extends Controller {
       ['catID', $category],
       ['quantity', $quantity]
     ];
-
-    // Add these two if they're not empty
+    // Add these if they're not empty
     $subcategory[1] == 0 ?: array_push($dbValues, ['subCatID', $subcategory[1]]);
     $priceUnit == "" ?: array_push($dbValues, ['priceUnit', $priceUnit]);
     $description == "" ?: array_push($dbValues, ['decript', $description]);
+
+    // Before inserting stop autocommit so we can rollback
+    $this->database->autocommit(false);
 
     // Next try and insert the product to the database
     $insert = $this->database->insertValue("Product", $dbValues);
 
     // If something bad happens abort
     if ($insert == false) {
+      Helpers::makeAlert('adminProduct', "There's something wrong with adding the product. Please try again.");
       return $_POST['adminAddProduct'] = false;
     }
 
@@ -418,13 +422,18 @@ class AdminController extends Controller {
       // We're done here. Update the image file reference and finish
       $update = $this->database->updateValue("Product", [['image', $imageName]], [['prodID', '=', $id]]);
       if ($update) {
+        $this->database->commit();
+        $this->database->autocommit(true);
+        Helpers::makeAlert('adminProduct', "Successfully added to product list.");
         return $_POST['adminAddProduct'] = true;
       }
     }
 
     // If the image upload fails then churn out an error and delete the database insert.
+    Helpers::makeAlert('adminProduct', "The server is unable to accept the uploaded image. Try again later.");
     $_POST['adminAddProduct'] = 'noupload';
-    $this->database->deleteValue('Product', [['prodID', '=', $id]]);
+    $this->database->rollback();
+    $this->database->autocommit(true);
   }
 
   private function editProductView($prodID) {

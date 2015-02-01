@@ -25,7 +25,7 @@ if (isset($_POST['adminEditProduct'])) {
 <?php else: ?>
 <div class="container">
   <h1>Edit Product</h1>
-  <form id="" action="?adminEditProduct" method="POST" enctype="multipart/form-data">
+  <form id="adminEditProduct" action="?adminEditProduct" method="POST" enctype="multipart/form-data">
     <input type="text" name="name" value="<?= Helpers::orEmpty($_POST['name'], $data['name']) ?>" placeholder="Name" class="form-input-block">
     <div class="form-input-halfblock-container">
       <input type="text" name="price" value="<?= Helpers::orEmpty($_POST['price'], $data['price']) ?>" placeholder="Price" class="form-input-halfblock">
@@ -39,7 +39,7 @@ if (isset($_POST['adminEditProduct'])) {
       <?php endforeach ?>
     </select>
     <label for="subcategory">Subcategory:</label>
-    <select name="subcategory" class="form-input-block">
+    <select name="subcategory" class="form-input-block admin-product-subcategory">
       <option value="0-0">None</option>
       <?php foreach ($data['categories'] as $category): ?>
         <optgroup label="<?= $category->catName ?>">
@@ -52,7 +52,7 @@ if (isset($_POST['adminEditProduct'])) {
       <?php endforeach ?>
     </select>
     <label for="image">Upload Image</label>
-    <input type="file" name="image" value="">
+    <input type="file" name="image" value="" placeholder="Upload Image">
     <textarea name="description" rows="8" cols="40" placeholder="Description (optional)" class="form-input-block" resize="no"><?= Helpers::orEmpty($_POST['description'], $data['desc']) ?></textarea>
     <input type="submit" name="" value="Edit Product" class="form-button form-input-block">
   </form>
