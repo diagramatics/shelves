@@ -1,8 +1,9 @@
 $(function() {
-  function Supplier() {
+  function Supplier(selector, productSelectSelector, addProductSelector) {
     Form.call(this);
-    this.selector = '#adminAddSpecial';
-    this.productSelectSelector = '.admin-special-add-product-select';
+    this.selector = selector;
+    this.productSelectSelector = productSelectSelector;
+    this.addProductSelector = addProductSelector;
 
     var t = this;
 
@@ -33,13 +34,22 @@ $(function() {
       }
     });
 
-    this.addProductListener = $('body').on('click', '#adminAddSpecialAddProduct', function(event) {
-      var nextProduct = parseInt($('#adminAddSpecialAddProduct').val()) + 1;
-      $('#adminAddSpecialAddProduct').val(nextProduct);
+    this.addProductListener = $('body').on('click', this.addProductSelector, function(event) {
+      var nextProduct = parseInt($(this).val()) + 1;
+      $(this).val(nextProduct);
+      $('#finalProductsCount').val(nextProduct - 1);
 
       // Select one of the existing product view as a template, clone it, and put the clone before the button
       var template = $($('.admin-special-add-product')[0]).clone();
-      $('#adminAddSpecialAddProduct').before(template);
+      // Reset the options pick
+      var templateSelectOptions = $('select option', template);
+      templateSelectOptions.removeAttr('selected');
+      $(templateSelectOptions[0]).attr('selected', '');
+      $('select', template).attr('name', 'product'+(nextProduct-1));
+      // And the discounts also
+      $('input', template).val('').attr('name', 'discount'+(nextProduct-1));
+      // Now add it
+      $(this).before(template);
 
       // Cancel the form submission because we're not sending anything to the server
       // Why is this a submit function anyway? Just for PHP fallback
@@ -49,5 +59,8 @@ $(function() {
   Supplier.prototype = Object.create(Form.prototype);
   Supplier.prototype.constructor = Supplier;
 
-  var supplier = new Supplier();
+  var addSupplier = new Supplier('#adminAddSpecial', '.admin-special-add-product-select', '#adminAddSpecialAddProduct');
+  var editSupplier = new Supplier('#adminEditSpecial', '.admin-special-add-product-select', '#adminEditSpecialAddProduct');
+
+
 })

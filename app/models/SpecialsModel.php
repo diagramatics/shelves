@@ -7,7 +7,6 @@ class SpecialsModel {
   private $startDate;
   private $endDate;
   private $now;
-  private $products;
   private $links;
 
   public function parse($raw) {
@@ -19,6 +18,20 @@ class SpecialsModel {
 
     // Get the current datetime
     $this->now = new DateTime(null);
+  }
+
+  public function extract() {
+    return array(
+      'id' => $this->getID(),
+      'title' => $this->getTitle(),
+      'desc' => $this->getDesc(),
+      'shortDesc' => $this->getShortDesc(),
+      'longDesc' => $this->getLongDesc(),
+      'startDate' => $this->getStartDateFormattedSQL(),
+      'endDate' => $this->getEndDateFormattedSQL(),
+      'linksCount' => $this->countProducts(),
+      'links' => $this->getProductLinksArray()
+    );
   }
 
   public function linkProducts($raw) {
@@ -53,14 +66,32 @@ class SpecialsModel {
   public function getStartDateFormatted() {
     return $this->startDate->format('d/m/Y');
   }
+  public function getStartDateFormattedSQL() {
+    return $this->startDate->format('Y-m-d');
+  }
   public function getEndDate() {
     return $this->endDate;
   }
   public function getEndDateFormatted() {
     return $this->endDate->format('d/m/Y');
   }
+  public function getEndDateFormattedSQL() {
+    return $this->endDate->format('Y-m-d');
+  }
   public function getProductLinks() {
     return $this->links;
+  }
+  public function getProductLinksArray() {
+    $t = array();
+    if (!empty($this->links)) {
+      foreach ($this->links as $link) {
+        array_push($t, array(
+          'id' => $link->prodID,
+          'discount' => $link->discount
+        ));
+      }
+    }
+    return $t;
   }
 
   public function isNotStarted() {

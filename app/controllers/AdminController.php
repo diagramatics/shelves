@@ -551,6 +551,7 @@ class AdminController extends Controller {
       $this->addSpecialView();
     }
     else if ($item1 == "edit") {
+      $this->editSpecialView($item2);
     }
     else {
       $this->specialsView();
@@ -612,7 +613,7 @@ class AdminController extends Controller {
   }
 
   private function addSpecialView() {
-    if (isset($_GET["adminAddSpecial"])) {
+    if (isset($_GET["adminAddSpecial"]) && isset($_POST['confirmAddSpecial'])) {
       $this->addNewSpecial();
     }
 
@@ -668,6 +669,123 @@ class AdminController extends Controller {
     else {
       $this->database->rollback();
       Helpers::makeAlert('addSpecial', 'There is a problem in adding the special. Please try again later.');
+    }
+
+    // We're finished. Enable it again.
+    $this->database->autocommit(true);
+  }
+
+  private function editSpecialView($id) {
+    if (isset($_GET["adminEditSpecial"]) && isset($_POST["confirmEditSpecial"])) {
+      $this->editSpecial($id);
+    }
+
+    $specialModel = $this->model('SpecialsModel');
+    $specialRaw = $this->database->getValue("Promotion", "", [
+      ['promotionID', '=', $id]
+    ]);
+    if ($specialRaw) {
+      $specialModel->parse($specialRaw);
+      $productsRaw = $this->database->getValues("ProductPromotion", "", [
+        ['promotionID', '=', $specialRaw->promotionID]
+      ]);
+      if (!empty($productsRaw)) {
+        $specialModel->linkProducts($productsRaw);
+      }
+    }
+    $products = $this->database->getValues("Product", "");
+    $productsFormatted = array();
+    foreach ($products as $product) {
+      $model = $this->model("ProductModel");
+      $model->parse($product);
+      array_push($productsFormatted, $model);
+    }
+
+    $this->viewIfAllowed('admin/specials/edit', [
+      'title' => 'Edit Special',
+      'special' => $specialModel->extract(),
+      'products' => $productsFormatted
+    ]);
+  }
+
+  private function editSpecial($id) {
+    // TODO: PHP fallbacks
+    $title = $_POST['title'];
+    $desc = $_POST['description'];
+    $startDate = new DateTime($_POST['startDate']);
+    $endDate = new DateTime($_POST['endDate']);
+    $productsCount = $_POST['finalProductsCount'];
+
+    // Stop autocommit so we can rollback
+    $this->database->autocommit(false);
+    $promotionInsert = $this->database->updateValue("Promotion", [
+      ['promotionTitle', $title],
+      ['promotionDesc', $desc],
+      ['startDate', $startDate->format('Y-m-d')],
+      ['endDate', $endDate->format('Y-m-d')]
+    ], [
+      ['promotionID', '=', $id]
+    ]);
+    $productsInsert = true;
+
+    // Get all the rows of the discounted stuff on the DB
+    $products = $this->database->getValues("ProductPromotion", "", [
+      ['promotionID', '=', $id]
+    ]);
+    // Make an assoc array of it
+    $productsFormatted = array();
+    foreach ($products as $product) {
+      $productsFormatted[$product->prodID] = $product;
+    }
+    $products = $productsFormatted;
+
+    for ($i = 1; $i <= $productsCount; $i++) {
+      if ($_POST['product' . $i] > 0) {
+        // If there is an existing record on the DB of that product then update it
+        if (!empty($products[$_POST['product' . $i]])) {
+          if (!($this->database->updateValue("ProductPromotion", [
+            ['discount', $_POST['discount' . $i]]
+          ], [
+            ['promotionID', '=', $id],
+            ['prodID', '=', $_POST['product' . $i]]
+          ]))) {
+            $productsInsert = false;
+            break;
+          }
+          // Unset that value in that array if successful
+          unset($products[$_POST['product' . $i]]);
+        }
+        // If not make a new one
+        else {
+          die('a');
+          if (!($this->database->insertValue("ProductPromotion", [
+            ['promotionID', $id],
+            ['prodID', $_POST['product' . $i]],
+            ['discount', $_POST['discount' . $i]]
+          ]))) {
+            $productsInsert = false;
+            break;
+          }
+        }
+      }
+    }
+    // Assume the products left on the $products are deleted now and remove them
+    foreach ($products as $product) {
+      if (!($this->database->deleteValue("ProductPromotion", [
+        ['prodID', '=', $product->prodID]
+      ]))) {
+        $productsInsert = false;
+        break;
+      }
+    }
+
+    if ($promotionInsert && $productsInsert) {
+      $this->database->commit();
+      Helpers::makeAlert('addSpecial', 'Successfully edited special.');
+    }
+    else {
+      $this->database->rollback();
+      Helpers::makeAlert('addSpecial', 'There is a problem in editing the special. Please try again later.');
     }
 
     // We're finished. Enable it again.

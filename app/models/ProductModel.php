@@ -12,6 +12,34 @@
     private $qty;
     private $slug;
 
+    public function parse($raw) {
+      $this->setID($raw->prodID);
+      $this->setName($raw->prodName);
+      $this->setSlug($raw->prodName);
+      $this->setUrl();
+      $this->setImage($raw->image);
+      $this->setBasePrice($raw->price);
+      $this->setPrice($raw->price);
+      $this->setPriceUnit($raw->priceUnit);
+      $this->setDesc($raw->decript);
+      $this->setQty($raw->quantity);
+    }
+
+    public function extract() {
+      return array(
+        'id' => $this->getID(),
+        'name' => $this->getName(),
+        'slug' => $this->getSlug(),
+        'url' => $this->getUrl(),
+        'image' => $this->getImage(),
+        'basePrice' => $this->getBasePrice(),
+        'price' => $this->getPrice(),
+        'priceUnit' => $this->getPriceUnit(),
+        'desc' => $this->getDesc(),
+        'qty' => $this->getQty()
+      );
+    }
+
     public function getID() {
       return $this->id;
     }
@@ -118,19 +146,6 @@
 
     public function setQty($qty) {
       $this->qty = $qty;
-    }
-
-    public function parse($raw) {
-      $this->setID($raw->prodID);
-      $this->setName($raw->prodName);
-      $this->setSlug($raw->prodName);
-      $this->setUrl();
-      $this->setImage($raw->image);
-      $this->setBasePrice($raw->price);
-      $this->setPrice($raw->price);
-      $this->setPriceUnit($raw->priceUnit);
-      $this->setDesc($raw->decript);
-      $this->setQty($raw->quantity);
     }
   }
 

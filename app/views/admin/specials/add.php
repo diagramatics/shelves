@@ -16,7 +16,7 @@
 
     <fieldset id="adminAddSpecialProducts">
       <legend>Products in Special</legend>
-      <input type="hidden" name="finalProductsCount" value="<?= isset($_POST['productsCount']) ? $_POST['productsCount'] : 3 ?>" />
+      <input type="hidden" id="finalProductsCount" name="finalProductsCount" value="<?= isset($_POST['productsCount']) ? $_POST['productsCount'] : 3 ?>" />
       <?php for ($i = 0; $i < (isset($_POST['productsCount']) ? $_POST['productsCount'] : 3); $i++): ?>
         <div class="form-input-halfblock-container admin-special-add-product">
           <select class="form-input-halfblock admin-special-add-product-select" name="product<?= $i+1 ?>">
