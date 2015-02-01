@@ -1,14 +1,3 @@
-<?php
-if (isset($_POST['adminEditSubCategory'])) {
-  if ($_POST['adminEditSubCategory'] === true) {
-    Helpers::makeAlert('adminSubCategory', "Successfully edited the category.");
-  }
-  elseif ($_POST['adminEditSubCategory'] === false) {
-    Helpers::makeAlert('adminSubCategory', "There's something wrong with editing the category. Please try again.");
-  }
-}
-?>
-
 <?php if ($_POST['adminEditSubCategory'] === 'stumbled'): ?>
   <div class="container">
     <h1>Whoops.</h1>
@@ -19,7 +8,7 @@ if (isset($_POST['adminEditSubCategory'])) {
 <?php else: ?>
   <div class="container">
     <h1>Edit Category</h1>
-    <form id="" action="?adminEditSubCategory" method="POST" enctype="multipart/form-data">
+    <form id="adminEditSubCategory" action="?adminEditSubCategory" method="POST" enctype="multipart/form-data">
       <label for="name">Category Name:</label>
       <input type="text" name="name" value="<?= Helpers::orEmpty($_POST['name'], $data['name']) ?>" placeholder="Name" class="form-input-block">
       <select name="category" class="form-input-block">

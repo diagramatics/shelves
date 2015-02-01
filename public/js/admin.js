@@ -59,7 +59,12 @@ $(function() {
   Category.prototype.constructor = Category;
 
   var addCategory = new Category('#adminAddCategory');
-  var addCategory = new Category('#adminEditCategory');
+  var editCategory = new Category('#adminEditCategory');
+
+
+  // Subcategory - add and edit validation
+  var addSubCategory = new Category('#adminAddSubCategory');
+  var editSubCategory = new Category('#adminEditSubCategory');
 
 
   // Suppliers - add and edit validations
