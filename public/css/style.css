@@ -844,6 +844,9 @@ body.is-popup-overlayed {
   -webkit-flex: 1.5 0;
       -ms-flex: 1.5 0;
           flex: 1.5 0; }
+  .site-logo img {
+    width: 100%;
+    height: auto; }
 
 .site-nav-item {
   -webkit-flex: 1 0;
@@ -856,7 +859,7 @@ body.is-popup-overlayed {
   color: white;
   font-family: "Montserrat", Times, "Times New Roman", serif;
   text-align: center; }
-  .site-nav-item:nth-of-type(n+3) {
+  .site-nav-item:nth-of-type(n+4) {
     -webkit-order: 2;
         -ms-flex-order: 2;
             order: 2; }

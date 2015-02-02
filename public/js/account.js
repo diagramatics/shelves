@@ -8,6 +8,7 @@ $(function() {
     this.changePasswordContainerSelector = '#accountSettingsChangePasswordContainer';
     this.changePasswordSelector = '#accountSettingsChangePassword';
     this.confirmChangePasswordSelector = '#accountSettingsConfirmChangePassword';
+    this.selectAddressSelector = '.form-account-settings-address-select';
 
     var t = this;
 
@@ -121,6 +122,12 @@ $(function() {
           }
         });
       }
+    });
+
+    this.selectAddressListener = $('body').on('click', this.selectAddressSelector, function(event) {
+      // Prevent form submission
+      // The button is submitting for PHP fallbacks
+      // event.preventDefault();
     });
   }
   Settings.prototype = Object.create(Form.prototype);

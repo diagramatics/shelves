@@ -1,6 +1,8 @@
 <header id="siteHeader" class="site-header">
   <div class="site-nav">
-    <img src="/img/shelves.png" alt="Shelves logo" class="site-logo" />
+    <div class="site-logo">
+      <img src="/img/shelves.png" alt="Shelves logo" />
+    </div>
     <div class="site-nav-item"><a href="/">Home</a></div>
     <div class="site-nav-item">
       <a href="/products">Products</a>

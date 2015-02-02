@@ -111,6 +111,11 @@
   width: 100%;
   padding: 0 20px;
   flex: 1.5 0;
+
+  img {
+    width: 100%;
+    height: auto;
+  }
 }
 
 .site-nav-item {
@@ -121,7 +126,7 @@
   color: white;
   font-family: $font-family-heading;
   text-align: center;
-  &:nth-of-type(n+#{$site-nav-items / 2 + 1}) {
+  &:nth-of-type(n+#{$site-nav-items / 2 + 2}) {
     // For the other half, put it after the .site-logo
     order: 2;
   }

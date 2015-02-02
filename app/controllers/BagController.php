@@ -75,6 +75,8 @@ class BagController extends Controller {
       return false;
     }
 
+    // Empty the bag if checkout succeeds
+    unset($_SESSION['bag']);
     $this->view("bag/checkout-done", [
       "title" => "Checkout Done!"
     ]);

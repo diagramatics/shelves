@@ -14,10 +14,10 @@
   </div>
   <div class="form-input-thirdblock-container">
     <div class="form-input-thirdblock">
-      <input type="text" name="addressCity" placeholder="City" class="form-input-block" />
+      <input type="text" name="addressCity" placeholder="Suburb" class="form-input-block" />
     </div>
     <div class="form-input-thirdblock">
-      <input type="text" name="addressState" placeholder="State/Suburb" class="form-input-block" />
+      <input type="text" name="addressState" placeholder="State" class="form-input-block" />
     </div>
     <div class="form-input-thirdblock">
       <input type="text" name="addressPostcode" placeholder="Postcode" class="form-input-block" />

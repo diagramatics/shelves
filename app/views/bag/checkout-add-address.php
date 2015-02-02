@@ -7,8 +7,8 @@
     <input type="text" name="addressType" placeholder="Street Type" class="form-input-thirdblock" />
   </div>
   <div class="form-input-thirdblock-container">
-    <input type="text" name="addressCity" placeholder="City" class="form-input-thirdblock" />
-    <input type="text" name="addressState" placeholder="State/Suburb" class="form-input-thirdblock" />
+    <input type="text" name="addressCity" placeholder="Suburb" class="form-input-thirdblock" />
+    <input type="text" name="addressState" placeholder="State" class="form-input-thirdblock" />
     <input type="text" name="addressPostcode" placeholder="Postcode" class="form-input-thirdblock" />
   </div>
   <input type="submit" name="confirmAddAddress" value="Add Address" class="form-button form-input-block" />
