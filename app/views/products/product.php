@@ -1,7 +1,7 @@
 <?php if(!empty($data['product'])): ?>
 <section class="single-product">
   <div class="single-product-info single-product-info--left">
-    <img src="<?= $data['product']->getImage() ?>" class="product-image" />
+    <img src="<?= $data['product']->getImage() ?>" class="product-image" alt="<?= $data['product']->getName() ?>"/>
   </div>
   <div class="single-product-info single-product-info--right">
     <header>
