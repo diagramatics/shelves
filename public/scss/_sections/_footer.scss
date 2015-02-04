@@ -54,6 +54,17 @@
   margin: 0;
   font-family: $font-family-heading;
   font-size: 1.8em;
+
+  a {
+    border-bottom: thin solid transparent;
+    text-decoration: none;
+    color: inherit;
+    transition: all .4s;
+
+    &:hover {
+      border-bottom: thin solid white;
+    }
+  }
 }
 
 .site-footer-directory-list {
@@ -64,4 +75,15 @@
 .site-footer-directory-list li {
   margin-bottom: .2em;
   font-size: 1.1em;
+
+  a {
+    border-bottom: thin solid transparent;
+    text-decoration: none;
+    color: inherit;
+    transition: all .4s;
+
+    &:hover {
+      border-bottom: thin solid white;
+    }
+  }
 }

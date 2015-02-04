@@ -34,6 +34,15 @@ class Controller {
     }
     // Then put the footer if $noBase is not specified
     if (!$noBase) {
+      $data['footerCategories'] = array();
+      $categories = $this->database->getValues("Category", "");
+      if ($categories) {
+        foreach ($categories as $category) {
+          $model = $this->model("CategoryModel");
+          $model->parse($category, "", "get");
+          array_push($data['footerCategories'], $model->extract());
+        }
+      }
       require_once '../app/views/base/footer.php';
     }
   }

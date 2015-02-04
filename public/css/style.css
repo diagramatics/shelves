@@ -1110,6 +1110,14 @@ body.is-popup-overlayed {
   margin: 0;
   font-family: "Montserrat", Times, "Times New Roman", serif;
   font-size: 1.8em; }
+  .site-footer-directory-category-title a {
+    border-bottom: thin solid transparent;
+    text-decoration: none;
+    color: inherit;
+    -webkit-transition: all 0.4s;
+            transition: all 0.4s; }
+    .site-footer-directory-category-title a:hover {
+      border-bottom: thin solid white; }
 
 .site-footer-directory-list {
   list-style-type: none;
@@ -1118,6 +1126,14 @@ body.is-popup-overlayed {
 .site-footer-directory-list li {
   margin-bottom: 0.2em;
   font-size: 1.1em; }
+  .site-footer-directory-list li a {
+    border-bottom: thin solid transparent;
+    text-decoration: none;
+    color: inherit;
+    -webkit-transition: all 0.4s;
+            transition: all 0.4s; }
+    .site-footer-directory-list li a:hover {
+      border-bottom: thin solid white; }
 
 .search header {
   text-align: center; }
