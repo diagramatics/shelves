@@ -181,7 +181,7 @@ class AccountController extends Controller {
     return $changePassword;
   }
 
-  // Ajax-specific  stuff
+  // Ajax-specific stuff
   public function ajaxAddAddress() {
     die(Helpers::ajaxReturnContent('../app/views/account/settings-add-address.php'));
   }

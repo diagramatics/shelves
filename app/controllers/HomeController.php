@@ -23,7 +23,9 @@ class HomeController extends Controller {
       }
     }
 
-    $products = $this->database->getValues("Product", "");
+    $products = $this->database->getValues("Product", "", [], [
+      'ORDER BY RAND() LIMIT 25'  
+    ]);
     $productsFormat = array();
     $productsAssoc = array();
     // Format the whole array so it becomes an associative array with IDs as the indicator
