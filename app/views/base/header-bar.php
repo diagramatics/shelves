@@ -16,7 +16,7 @@
   <?php if (!isset($_SESSION["email"])): ?>
   <div class="site-meta site-sign-in" aria-hidden="true">
     <a id="metaBackButton" href="#" class="site-sign-in-back"><svg class="icon-arrow-left"><use xlink:href="#icon-arrow-left"></use></svg></a>
-    <form id="login" class="site-sign-in-form" action="?login" method="POST">
+    <form id="formLogin" class="site-sign-in-form" action="?login" method="POST">
       <input type="email" name="loginEmail" value="" placeholder="Email">
       <input type="password" name="loginPassword" value="" placeholder="Password">
       <button class="site-meta-buttons">Sign In</button>

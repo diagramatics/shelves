@@ -61,6 +61,14 @@
     flex: 1.5 1;
     border-bottom-color: white;
   }
+
+  &.error {
+    border-bottom-color: desaturate(red, 50%);
+
+    &:focus {
+      border-bottom-color: desaturate(red, 35%);
+    }
+  }
 }
 
 .site-meta-buttons {
@@ -82,8 +90,10 @@
   }
 }
 
-.site-sign-in-form .site-sign-in-facebook {
-  padding: 0;
+.site-sign-in-form .form-error-box {
+  position: absolute;
+  transform: translateX(-100%) translateY(100%);
+  max-width: 200px;
 }
 
 .site-sign-in-facebook svg {

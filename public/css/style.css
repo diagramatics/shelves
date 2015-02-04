@@ -790,6 +790,10 @@ body.is-popup-overlayed {
         -ms-flex: 1.5 1;
             flex: 1.5 1;
     border-bottom-color: white; }
+  .site-sign-in-form input.error {
+    border-bottom-color: #bf4040; }
+    .site-sign-in-form input.error:focus {
+      border-bottom-color: #d22d2d; }
 
 .site-meta-buttons {
   -webkit-flex: 0 0 auto;
@@ -814,8 +818,11 @@ body.is-popup-overlayed {
     background: white;
     color: #443a31; }
 
-.site-sign-in-form .site-sign-in-facebook {
-  padding: 0; }
+.site-sign-in-form .form-error-box {
+  position: absolute;
+  -webkit-transform: translateX(-100%) translateY(100%);
+          transform: translateX(-100%) translateY(100%);
+  max-width: 200px; }
 
 .site-sign-in-facebook svg {
   padding: 4px; }

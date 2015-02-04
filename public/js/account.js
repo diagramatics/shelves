@@ -1,5 +1,5 @@
 $(function() {
-  function Settings(selector) {
+  function Settings() {
     Form.call(this);
     this.selector = '#changeAccountSettings';
     this.addAddressContainerSelector = '#accountSettingsAddAddressContainer';
@@ -134,4 +134,28 @@ $(function() {
   Settings.prototype.constructor = Settings;
 
   var settings = new Settings();
+
+
+  function Login() {
+    Form.call(this);
+    this.selector = '#formLogin';
+
+    var t = this;
+
+    this.listener = $('body').on('submit', this.selector, function() {
+      var e = [];
+      // Check validations
+      e.push(t.validate($(this.loginEmail), ['empty', 'email'], false));
+      e.push(t.validate($(this.loginPassword), ['empty'], false));
+
+      if (e.indexOf(true) > -1) {
+        event.preventDefault();
+      }
+    });
+  }
+  Login.prototype = Object.create(Form.prototype);
+  Login.prototype.constructor = Login;
+
+  var login = new Login();
+
 });
