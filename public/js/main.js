@@ -15,8 +15,8 @@ Helpers.makeAlert = function(id, string) {
   var fid = id.charAt(0).toUpperCase() + id.slice(1);
 
   // If there's an alert with the same ID delete that first
-  if ($('#' +  id).length) {
-    $('#' + id).remove();
+  if ($('#alert' +  fid).length) {
+    $('#alert' + fid).remove();
   }
 
   var alert = Helpers.alertTemplate;

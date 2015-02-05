@@ -2,9 +2,11 @@
   <header>
     <h1 class="bag-title">Your Shopping Bag</h1>
     <div class="bag-action">
-      <p class="bag-cost"><span class="bag-cost-pre">Total cost</span><span class="bag-cost-number">
-        <?= '$'.number_format($data['totalCost'], 2) ?></span></p>
-        <a class="bag-checkout" <?= !empty($data['products']) ?: 'disabled' ?> href="/bag/checkout">Checkout</a>
+      <p class="bag-cost">
+        <span class="bag-cost-pre">Total cost</span>
+        <span class="bag-cost-number bag-total-price"><?= '$'.number_format($data['totalCost'], 2) ?></span>
+      </p>
+      <a class="bag-checkout" <?= !empty($data['products']) ?: 'disabled' ?> href="/bag/checkout">Checkout</a>
     </div>
   </header>
 
@@ -40,7 +42,7 @@
           <form id="manipulateBag<?= $product['model']->getID() ?>" class="form-bag-item-manipulate" action="?manipulateBag" method="post">
             <input type="hidden" name="prodID" value="<?= $product['model']->getID() ?>">
             <input type="hidden" name="prodName" value="<?= $product['model']->getName() ?>">
-            <button class="button-icon bag-items-manipulate" title="Remove" name="removeItem">
+            <button class="button-icon bag-items-manipulate bag-items-remove" title="Remove" name="removeItem">
               <svg class="icon-minus"><use xlink:href="#icon-minus"></use></svg>
             </button>
           </form>
@@ -55,7 +57,7 @@
           <?php endif ?>
         </td>
         <td class="bag-items-td-price"><?= '$'.number_format($product['model']->getPrice(), 2) ?></td>
-        <td class="bag-items-td-price"><?= '$'.number_format($product['model']->getPrice() * $product['bagQty'], 2) ?></td>
+        <td class="bag-items-td-price-total"><?= '$'.number_format($product['model']->getPrice() * $product['bagQty'], 2) ?></td>
       </tr>
       <?php endforeach ?>
       <?php else: ?>
@@ -70,9 +72,7 @@
         <td>
           Total cost:
         </td>
-        <td colspan="2">
-          <?= '$'.number_format($data['totalCost'], 2) ?>
-        </td>
+        <td colspan="2" class="bag-total-price"><?= '$'.number_format($data['totalCost'], 2) ?></td>
       </tr>
     </tfoot>
   </table>

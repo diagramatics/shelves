@@ -205,7 +205,7 @@ class BagController extends Controller {
         if ($_SESSION['bag'][$productID]['qty'] == $qty) {
           die('same');
         }
-        
+
         $_SESSION['bag'][$productID]['qty'] = $qty;
         die('ok');
       }
@@ -215,6 +215,22 @@ class BagController extends Controller {
       die('error');
     }
   }
+
+    /**
+      * AJAX request to remove the item from the bag
+      */
+  public function ajaxRemoveItem() {
+    if (Helpers::isAjax()) {
+      $id = $_POST['prodID'];
+      if (isset($_SESSION['bag'][$id])) {
+        unset($_SESSION['bag'][$id]);
+        die('ok');
+      }
+
+      die('error');
+    }
+  }
+
 }
 
 ?>

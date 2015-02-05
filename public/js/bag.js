@@ -4,6 +4,10 @@ $(function() {
     this.classSelector = '.form-bag-item-manipulate';
     this.selector = selector;
     this.changeQuantitySelector = '.bag-items-td-qty-edit';
+    this.removeItemSelector = '.bag-items-remove';
+    this.itemPriceSelector = '.bag-items-td-price';
+    this.totalItemPriceSelector = '.bag-items-td-price-total';
+    this.totalBagPriceSelector = '.bag-total-price';
 
     var t = this;
 
@@ -64,6 +68,18 @@ $(function() {
                 editedQty: $(form.editedQty).val()
               }
             }).done(function(data) {
+              // Update the item total price and the total bag price
+              var row = $(form).parents('tr');
+              var itemPrice = parseFloat(row.children(t.itemPriceSelector).text().slice(1));
+              var itemTotalPrice = parseFloat(row.children(t.totalItemPriceSelector).text().slice(1));
+              var bagTotalPrice = parseFloat($(t.totalBagPriceSelector).text().slice(1));
+
+
+              var diffPrice = itemPrice * parseInt($(form.editedQty).val(), 10) - itemTotalPrice;
+              row.children(t.totalItemPriceSelector).text('$' + (itemTotalPrice + diffPrice).toFixed(2));
+              $(t.totalBagPriceSelector).text('$' + (bagTotalPrice + diffPrice).toFixed(2));
+
+              // Replace the view
               $(self).parent()
                 .empty()
                 .html(data);
@@ -71,6 +87,40 @@ $(function() {
           });
         }
       }
+    });
+
+    this.removeItemListener = $('body').on('click', this.removeItemSelector, function(event) {
+      // Cancel the form submission
+      // The form submission is used just for PHP fallback
+      event.preventDefault();
+
+      var self = this;
+      var form = $(this).parents('form')[0];
+
+      // Remove the bag item with AJAX
+      $.ajax({
+        url: '/bag/ajaxRemoveItem',
+        type: 'POST',
+        data: {
+          prodID: $(form.prodID).val()
+        }
+      }).done(function(data) {
+        if (data === 'error') {
+          Helpers.makeAlert('bag', 'There is a problem in removing it. Please try again.')
+        }
+        else if (data === 'ok') {
+          Helpers.makeAlert('bag', 'Item removed from your bag.');
+          // Get the total price of the item removed and subtract it from the
+          // total price
+          var row = $(form).parents('tr');
+          var itemTotalPrice = parseFloat(row.children(t.totalItemPriceSelector).text().slice(1));
+          var bagTotalPrice = parseFloat($(t.totalBagPriceSelector).text().slice(1));
+          $(t.totalBagPriceSelector).text('$' + (bagTotalPrice - itemTotalPrice).toFixed(2));
+
+          // Now remove the whole row from view
+          row.remove();
+        }
+      });
     });
   };
   Bag.prototype = Object.create(Form.prototype);
