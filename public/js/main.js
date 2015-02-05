@@ -1,17 +1,31 @@
 Helpers = function() {};
-Helpers.makeAlert = function(id, string) {
+Helpers.initAlertTemplate = function() {
   $.ajax({
     url: '/ajax/ajaxMakeAlert',
     type: 'POST',
     data: {
-      alertID: id,
-      alertString: string
+      alertID: '%id%',
+      alertString: '%string%'
     }
   }).done(function(data) {
-    // Prepend the alert made to the body
-    $('body').prepend(data);
+    Helpers.alertTemplate = data;
   });
 }
+Helpers.makeAlert = function(id, string) {
+  var fid = id.charAt(0).toUpperCase() + id.slice(1);
+
+  // If there's an alert with the same ID delete that first
+  if ($('#' +  id).length) {
+    $('#' + id).remove();
+  }
+
+  var alert = Helpers.alertTemplate;
+  alert = alert.replace('%id%', fid).replace('%string%', string);
+  // Prepend the alert made to the body
+  $('body').prepend(alert);
+}
+
+Helpers.initAlertTemplate();
 
 $(function() {
   // TODO: Probably make this object oriented. Make it as a class or something?
@@ -39,11 +53,13 @@ $(function() {
 
   // Alert close button functionality
   $('body').on('click', 'a[data-alert-close]', function() {
-    var alertName = $(this).attr('data-alert-close');
-    alertName = alertName.charAt(0).toUpperCase() + alertName.slice(1);
+    var alert = $(this).parents('.alert');
+    $(alert).addClass('alert--hide');
 
-    var alertId = '#alert'+alertName;
-    $(alertId).addClass('alert--hide');
+    // After animation plays remove the alert
+    setInterval(function() {
+      $(alert).remove();
+    }, 500);
   });
 
 

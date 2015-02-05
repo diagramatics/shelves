@@ -31,8 +31,13 @@ class BagModel extends Model {
     $productsFormatted = array();
     $i = 1;
     foreach ($products as $product) {
-      $productsFormatted[$i] = $this->model("ProductModel");
-      $productsFormatted[$i]->parse($product);
+      // Since the products aren't ordered by the database query we can assume
+      // the orders are the same as the product order in the bag
+      $productsFormatted[$i] = array(
+        'model' => $this->model("ProductModel"),
+        'bagQty' => 0
+      );
+      $productsFormatted[$i]['model']->parse($product);
       $i++;
     }
     $products = $productsFormatted;
@@ -40,8 +45,8 @@ class BagModel extends Model {
     $mapQuantity = function($k) use ($bag) {
       $i = 0;
       foreach($bag as $item) {
-        if ($item["id"] === $k->getID()) {
-          $k->setQty($item["qty"]);
+        if ($item["id"] === $k['model']->getID()) {
+          $k['bagQty'] = $item["qty"];
           return $k;
         }
         $i++;
@@ -58,7 +63,7 @@ class BagModel extends Model {
     $this->totalCost = 0;
 
     foreach($products as $product) {
-      $this->totalCost += $product->getPrice() * $product->getQty();
+      $this->totalCost += $product['model']->getPrice() * $product['bagQty'];
     }
   }
 }
