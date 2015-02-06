@@ -81,18 +81,18 @@ $(function() {
           }
         }).done(function(data) {
           if (data === 'mismatch') {
-            e.push(false);
+            e.push(true);
             t.createErrorBox($(form.password), data, 'You have typed a wrong password.');
           }
           else if (data === 'error') {
-            e.push(false);
+            e.push(true);
             t.createErrorBox($(form.password), data, 'There is a problem. Please try again.');
           }
           // If it's fine then do the rest
           else if (data === 'ok'){
             // Check if the new password is confirmed
             if ($(form.confirmPassword).val() !== $(form.newPassword).val()) {
-              e.push(false);
+              e.push(true);
               t.createErrorBox($(form.confirmPassword), data, 'The new password doesn\'t match.');
             }
             // Now see if there's any errors
