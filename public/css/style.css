@@ -2158,7 +2158,6 @@ body.is-popup-overlayed {
             flex: 2 1 100%;
     text-align: center; }
 
-
 /*======================================================================*/
 /*======================== ADMIN PANEL PAGE ============================*/
 /*======================================================================*/
@@ -2198,31 +2197,31 @@ body.is-popup-overlayed {
     border:1px solid #3D6C35;
     border-radius: 2px;
 }
-.users{
+.admin-panel-page .users{
     background: url("../img/multiple25.png") no-repeat scroll left center / 40px 40px rgba(0, 0, 0, 0);
     height: 40px;
     width:40px;
     margin:0px auto;
 }
-.product{
+.admin-panel-page .product{
     background: url("../img/box52.png") no-repeat scroll left center / 40px 40px rgba(0, 0, 0, 0);
     height: 40px;
     width:40px;
     margin:0px auto;
 }
-.specials{
+.admin-panel-page .specials{
     background: url("../img/sale13.png") no-repeat scroll left center / 40px 40px rgba(0, 0, 0, 0);
     height: 40px;
     width:40px;
     margin:0px auto;
 }
-.categories{
+.admin-panel-page .categories{
     background: url("../img/category.png") no-repeat scroll left center / 40px 40px rgba(0, 0, 0, 0);
     height: 40px;
     width:40px;
     margin:0px auto;
 }
-.subcategories{
+.admin-panel-page .subcategories{
     background: url("../img/category2.png") no-repeat scroll left center / 40px 40px rgba(0, 0, 0, 0);
     height: 40px;
     width:40px;
