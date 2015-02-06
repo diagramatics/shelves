@@ -45,7 +45,7 @@ $(function() {
         e.push(t.validate($(form.editedQty), ['empty', 'zeroString', 'minus']));
         if (parseInt($(form.editedQty).val(), 10) > maxQuantity) {
           e.push(true);
-          t.createErrorBox($(form.editedQty), 'minus', 'Minus is not allowed.');
+          t.createErrorBox($(form.editedQty), 'minus', 'We only have '+maxQuantity+' in stock.');
         }
         if (e.indexOf(true) === -1) {
           $.ajax({
