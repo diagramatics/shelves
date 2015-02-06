@@ -24,7 +24,7 @@ class HomeController extends Controller {
     }
 
     $products = $this->database->getValues("Product", "", [], [
-      'ORDER BY RAND() LIMIT 25'  
+      'ORDER BY RAND()'  
     ]);
     $productsFormat = array();
     $productsAssoc = array();
