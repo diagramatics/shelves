@@ -2178,24 +2178,26 @@ body.is-popup-overlayed {
 }
 .admin-panel-page a{
   text-decoration: none;
-  color:#ffffff;
 }
 .admin-panel-page a:hover{
   opacity: 0.70;
 }
-.admin-panel-page ul li a{
-    background: url("../img/add.png") no-repeat scroll left center / 14px 14px rgba(0, 0, 0, 0);
-    padding-left: 20px;
-}
-.admin-panel-box1, .admin-panel-box2, .admin-panel-box3, .admin-panel-box4, .admin-panel-box5{
+.admin-panel-box1, .admin-panel-box2, .admin-panel-box3, .admin-panel-box4, .admin-panel-box5,
+.admin-panel-box6, .admin-panel-box7, .admin-panel-box8, .admin-panel-box9, .admin-panel-box10{
     width:18%;
     background-color: #74B869;
-    margin:0px 1%;
+    margin:0px 1% 15px;
     float:left;
     padding:2%;
     text-align: center;
     border:1px solid #3D6C35;
     border-radius: 2px;
+}
+.admin-panel-box6 a, .admin-panel-box7 a, .admin-panel-box8 a, .admin-panel-box9 a, .admin-panel-box10 a{
+    background: url("../img/add.png") no-repeat scroll left center / 14px 14px rgba(0, 0, 0, 0);
+    padding-left: 20px;
+    color:#ffffff;
+    text-decoration: none;
 }
 .admin-panel-page .users{
     background: url("../img/multiple25.png") no-repeat scroll left center / 40px 40px rgba(0, 0, 0, 0);
