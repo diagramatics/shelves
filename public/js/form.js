@@ -54,7 +54,7 @@ Form.prototype.validate = function(el, conditions, show) {
 };
 
 Form.prototype.createErrorBox = function (el, e, errors, show) {
-  if (show === true) {
+  if (show === true || show === undefined) {
     // Check if there's any errors accumulated
     if (e.length > 0) {
       // Check if there's any existing error box after the error input
