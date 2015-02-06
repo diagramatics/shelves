@@ -47,7 +47,7 @@ $(function() {
           e.push(true);
           t.createErrorBox($(form.editedQty), 'minus', 'Minus is not allowed.');
         }
-        if (!e) {
+        if (e.indexOf(true) === -1) {
           $.ajax({
             url: '/bag/ajaxConfirmChangeItemQuantity',
             type: 'POST',
