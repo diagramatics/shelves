@@ -2,7 +2,7 @@
   <?php
     $swaps = 2;
     $specialsCount = 0;
-    $specialsCountLimit = 4;
+    $specialsCountLimit = 3;
     $productsCount = 0;
     $productsCountLimit = 25;
     $tempProduct = null;
