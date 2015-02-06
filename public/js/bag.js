@@ -39,14 +39,21 @@ $(function() {
       else {
         // Check if the quantity is 0 or empty
         var form = $('form[id="' + $(this).attr('form') + '"]')[0];
+        var maxQuantity = $(form.editedQty).attr('max');
         var self = this;
-        if (!t.validate($(form.editedQty), ['empty', 'zeroString'])) {
+        var e = [];
+        e.push(t.validate($(form.editedQty), ['empty', 'zeroString', 'minus']));
+        if (parseInt($(form.editedQty).val(), 10) > maxQuantity) {
+          e.push(true);
+          t.createErrorBox($(form.editedQty), 'minus', 'Minus is not allowed.');
+        }
+        if (!e) {
           $.ajax({
             url: '/bag/ajaxConfirmChangeItemQuantity',
             type: 'POST',
             data: {
               confirmEditItemQty: $(form).attr('id').substr("manipulateBag".length),
-              editedQty: $(form.editedQty).val()
+              editedQty: parseInt($(form.editedQty).val(), 10)
             }
           }).done(function(data) {
             // Break the script execution if it's an error
@@ -65,7 +72,7 @@ $(function() {
               type: 'POST',
               data: {
                 confirmEditItemQty: $(form).attr('id').substr("manipulateBag".length),
-                editedQty: $(form.editedQty).val()
+                editedQty: parseInt($(form.editedQty).val(), 10)
               }
             }).done(function(data) {
               // Update the item total price and the total bag price

@@ -20,6 +20,12 @@ Form.prototype.validate = function(el, conditions, show) {
       errors.push('This field has to only have numbers. <strong>('+placeholder+')</strong>');
     }
   }
+  if (conditions.indexOf('minus') > -1) {
+    if (parseFloat(el.val()) < 0) {
+      e.push('minus');
+      errors.push('This field has to not have minus numbers. <strong>('+placeholder+')</strong>');
+    }
+  }
   if (conditions.indexOf('zeroString') > -1) {
     if (el.val() === '0') {
       e.push('zeroString');
