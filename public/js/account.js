@@ -28,6 +28,9 @@ $(function() {
       // The button is submitting for PHP fallbacks
       event.preventDefault();
 
+      // Disable the button to prevent multiple submission
+      $(this).attr('disabled', '').html('Loading...');
+
       // Get the add address content
       $.ajax('/account/ajaxAddAddress').done(function(data) {
         $(t.addAddressContainerSelector)
@@ -66,6 +69,9 @@ $(function() {
     this.confirmChangePasswordListener = $('body').on('click', this.confirmChangePasswordSelector, function(event) {
       // Cancel it first because the AJAX has to take over the form submission
       event.preventDefault();
+      // Disable the button to prevent multiple submission
+      $(this).attr('disabled', '');
+      var self = this;
       var e = [];
       var form = $(t.selector)[0];
       e.push(t.validate($(form.password), ['empty']));
@@ -83,10 +89,12 @@ $(function() {
           if (data === 'mismatch') {
             e.push(true);
             t.createErrorBox($(form.password), data, 'You have typed a wrong password.');
+            $(self).removeAttr('disabled');
           }
           else if (data === 'error') {
             e.push(true);
             t.createErrorBox($(form.password), data, 'There is a problem. Please try again.');
+            $(self).removeAttr('disabled');
           }
           // If it's fine then do the rest
           else if (data === 'ok'){
@@ -94,6 +102,7 @@ $(function() {
             if ($(form.confirmPassword).val() !== $(form.newPassword).val()) {
               e.push(true);
               t.createErrorBox($(form.confirmPassword), data, 'The new password doesn\'t match.');
+              $(self).removeAttr('disabled');
             }
             // Now see if there's any errors
             if (e.indexOf(true) === -1) {
@@ -116,6 +125,7 @@ $(function() {
                 }
                 else {
                   Helpers.makeAlert('accountSettings', 'There is something wrong in updating your password. Please try again.');
+                  $(self).removeAttr('disabled');
                 }
               });
             }
@@ -135,7 +145,8 @@ $(function() {
 
   var settings = new Settings();
 
-
+  // ---
+  // Login form at the navbar
   function Login() {
     Form.call(this);
     this.selector = '#formLogin';

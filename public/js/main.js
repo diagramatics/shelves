@@ -20,7 +20,7 @@ Helpers.makeAlert = function(id, string) {
   }
 
   var alert = Helpers.alertTemplate;
-  alert = alert.replace('%id%', fid).replace('%string%', string);
+  alert = alert.replace(/%id%/g, fid).replace(/%string%/g, string);
   // Prepend the alert made to the body
   $('body').prepend(alert);
 }

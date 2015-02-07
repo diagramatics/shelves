@@ -5,12 +5,12 @@
     <fieldset>
       <legend>Credentials</legend>
       <div class="form-account-settings-group">
-        <label for="email">Email</label>
-        <input type="email" name="email" value="<?= $data['email'] ?>" class="form-account-settings-input" disabled="disabled" />
+        <label for="settingsEmail">Email</label>
+        <input id="settingsEmail" type="email" name="email" value="<?= $data['email'] ?>" class="form-account-settings-input" disabled="disabled" />
       </div>
 
       <div class="form-account-settings-group">
-        <label for="changePassword">Password</label>
+        <label>Password</label>
         <div id="accountSettingsChangePasswordContainer" class="form-account-settings-group--inner">
           <?php if (isset($_POST['changePassword'])): ?>
             <?php include 'settings-change-password.php' ?>
@@ -23,12 +23,12 @@
     <fieldset>
       <legend>Personal</legend>
       <div class="form-account-settings-group">
-        <label for="fName">First Name</label>
-        <input type="text" name="fName" placeholder="First Name" value="<?= Helpers::orEmpty($_POST['fName'], $data['fName']) ?>" class="form-account-settings-input" />
+        <label for="settingsFName">First Name</label>
+        <input id="settingsFName" type="text" name="fName" placeholder="First Name" value="<?= Helpers::orEmpty($_POST['fName'], $data['fName']) ?>" class="form-account-settings-input" />
       </div>
       <div class="form-account-settings-group">
-        <label for="lName">Last Name</label>
-        <input type="text" name="lName" placeholder="Last Name" value="<?= Helpers::orEmpty($_POST['lName'], $data['lName']) ?>" class="form-account-settings-input" />
+        <label for="settingsLName">Last Name</label>
+        <input id="settingsLName" type="text" name="lName" placeholder="Last Name" value="<?= Helpers::orEmpty($_POST['lName'], $data['lName']) ?>" class="form-account-settings-input" />
       </div>
     </fieldset>
     <fieldset>
@@ -42,7 +42,7 @@
               <?= $address->streetNo ?> <?= $address->streetName ?> <?= $address->street ?> <br />
               <?= $address->city ?> <?= $address->state ?> <?= $address->postcode ?>
             </div>
-            <button id="accountSettingsDeleteAddress" class="form-button form-input-block form-input-block-small button-delete-address" name="deleteAddress" value="<?= $address->addressID ?>">Delete</button>
+            <button id="accountSettingsDeleteAddress<?= $address->addressID ?>" class="form-button form-input-block form-input-block-small button-delete-address" name="deleteAddress" value="<?= $address->addressID ?>">Delete</button>
           </div>
         <?php endforeach; ?>
       </div>

@@ -46,6 +46,12 @@ input {
     background: $color-primary-dark;
     color: white;
   }
+
+  &:disabled {
+    background: #ccc;
+    border-color: #c2c2c2;
+    color: #eee;
+  }
 }
 
 .form-button.form-input-block {
