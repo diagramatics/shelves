@@ -53,13 +53,14 @@ $(function() {
       if (e.indexOf(true) > -1) {
         event.preventDefault();
       }
-      // TODO: AJAX request here?
     });
 
     this.changePasswordListener = $('body').on('click', this.changePasswordSelector, function(event) {
       // Prevent form submission
       // The button is submitting for PHP fallbacks
       event.preventDefault();
+
+      $(this).attr('disabled', '');
 
       $.ajax('/account/ajaxChangePassword').done(function(data) {
         $(t.changePasswordContainerSelector)

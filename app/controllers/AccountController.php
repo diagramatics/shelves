@@ -300,6 +300,20 @@ class AccountController extends Controller {
       die($return);
     }
   }
+  public function ajaxConfirmAddAddress() {
+    if (Helpers::isAjax()) {
+      $address = $this->database->getValue("Address", "", [
+        ["addressID", "=", $_POST['addressID']]
+      ]);
+      if ($address) {
+        $values = array(
+          'address' => $address
+        );
+        die(Helpers::ajaxReturnContent('../app/views/account/settings-address.php', $values));
+      }
+      die('error');
+    }
+  }
   public function ajaxChangePassword() {
     die(Helpers::ajaxReturnContent('../app/views/account/settings-change-password.php'));
   }
