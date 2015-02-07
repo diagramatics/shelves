@@ -139,7 +139,29 @@ $(function() {
     this.selectAddressListener = $('body').on('click', this.selectAddressSelector, function(event) {
       // Prevent form submission
       // The button is submitting for PHP fallbacks
-      // event.preventDefault();
+      event.preventDefault();
+      // Disable the button
+      $(this).attr('disabled', '');
+
+      var id = $(this).val();
+      var self = this;
+      $.ajax({
+        url: '/account/ajaxChangePrimaryAddress',
+        type: 'POST',
+        data: {
+          changeAddressPrimary: id
+        }
+      }).done(function(data) {
+        $(self).removeAttr('disabled');
+        if (data === 'ok') {
+          Helpers.makeAlert("accountSettings", "Address has been set to primary.");
+          $(t.addressSelector).removeClass('primary');
+          $(self).parent().addClass('primary');
+        }
+        else if (data === 'error') {
+          Helpers.makeAlert("accountSettings", "There is something wrong in updating your primary address. Please try again.");
+        }
+      });
     });
 
     this.deleteAddressListener = $('body').on('click', this.deleteAddressSelector, function(event) {

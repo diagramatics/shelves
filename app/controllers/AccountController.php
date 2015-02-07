@@ -179,6 +179,7 @@ class AccountController extends Controller {
         Helpers::makeAlert("accountSettings", "Address has been set to primary.");
       }
       else {
+        $this->database->rollback();
         Helpers::makeAlert("accountSettings", "There is something wrong in updating your primary address. Please try again.");
       }
       $this->database->autocommit(true);
@@ -260,12 +261,43 @@ class AccountController extends Controller {
     die(Helpers::ajaxReturnContent('../app/views/account/settings-add-address.php'));
   }
   public function ajaxDeleteAddress() {
-    $deleteAddressResult = $this->database->deleteValue("Address", [['addressID', '=', $_POST['deleteAddress']]]);
-    if ($deleteAddressResult) {
-      die('ok');
+    if (Helpers::isAjax()) {
+      $deleteAddressResult = $this->database->deleteValue("Address", [['addressID', '=', $_POST['deleteAddress']]]);
+      if ($deleteAddressResult) {
+        die('ok');
+      }
+      else {
+        die('error');
+      }
     }
-    else {
-      die('error');
+  }
+  public function ajaxChangePrimaryAddress() {
+    if (Helpers::isAjax()) {
+      // Stop autocommit so we can rollback it in case of deletion problems
+      $this->database->autocommit(false);
+      $addressResetResult = $this->database->updateValue("Address", [
+        ["primaryAddress", "0"]
+      ], [
+        ["userID", "=", $_SESSION['userID']]
+      ]);
+
+      $addressUpdateResult = $this->database->updateValue("Address", [
+        ["primaryAddress", "1"]
+      ], [
+        ["addressID", "=", $_POST['changeAddressPrimary']]
+      ]);
+
+      $return = 'error';
+      if ($addressResetResult && $addressUpdateResult) {
+        $this->database->commit();
+        $return = 'ok';
+      }
+      else {
+        $this->database->rollback();
+        $return = 'error';
+      }
+      $this->database->autocommit(true);
+      die($return);
     }
   }
   public function ajaxChangePassword() {
