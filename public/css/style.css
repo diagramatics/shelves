@@ -2248,3 +2248,32 @@ body.is-popup-overlayed {
 .admin-panel-box-add .icon-plus {
   width: 16px;
   height: 16px; }
+
+.container h1 {
+  color: #443a31;
+  font-family: "Montserrat", Times, "Times New Roman", serif;
+  margin: 1em 0;
+  text-align: center; }
+.container div.about-img-container {
+  width: 30%;
+  height: auto;
+  border-radius: 50%;
+  float: left;
+  margin-right: 2%; }
+  .container div.about-img-container div.about-img {
+    background-image: url("../img/grocery-img.jpg");
+    background-size: cover;
+    background-position: center;
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+    margin: 0px auto; }
+.container div.about-txt {
+  width: 68%;
+  float: left;
+  margin-top: 10px; }
+  .container div.about-txt p {
+    line-height: 1.5em; }
+
+div.clear-this {
+  clear: both; }

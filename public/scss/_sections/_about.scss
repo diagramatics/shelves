@@ -1,0 +1,35 @@
+.container{
+  h1{
+      color: #443a31;
+      font-family: "Montserrat",Times,"Times New Roman",serif;
+      margin: 1em 0;
+      text-align: center;
+    } // end h1
+  div.about-img-container{
+      width:30%;
+      height:auto;
+      border-radius: 50%;
+      float:left;
+      margin-right:2%;
+      div.about-img{
+        background-image:url("../img/grocery-img.jpg");
+        background-size: cover;
+        background-position:center;
+        height:200px;
+        width:200px;
+        border-radius: 50%;
+        margin:0px auto;
+      } // end div about img
+    } // end about img container
+  div.about-txt{
+    width:68%;
+    float:left;
+    margin-top:10px;
+    p{
+      line-height: 1.5em;
+      } // end p
+  } // end about txt
+ } // end container
+div.clear-this{
+  clear:both;
+}
