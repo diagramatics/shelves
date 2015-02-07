@@ -26,7 +26,7 @@
   <?php else: ?>
   <div class="site-meta site-account-more" aria-hidden="true">
     <a id="metaBackButton" href="#" class="site-sign-in-back"><svg class="icon-arrow-left"><use xlink:href="#icon-arrow-left"></use></svg></a>
-    <a href="/account" class="site-meta-buttons">Account</a>
+    <a href="/account" class="site-meta-buttons">Overview</a>
     <a href="/account/settings" class="site-meta-buttons">Settings</a>
     <a href="?logout" class="site-meta-buttons">Logout</a>
 

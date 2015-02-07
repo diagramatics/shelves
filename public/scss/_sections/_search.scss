@@ -17,33 +17,3 @@
   text-align: center;
   text-decoration: none;
 }
-
-.search-result-pagination {
-  text-align: center;
-}
-
-.search-result-next,
-.search-result-previous {
-  display: inline-block;
-  padding: 10px 15px;
-  border: thin solid $color-primary;
-  border-radius: 2px;
-  color: $color-brown;
-  text-decoration: none;
-  transition: all .4s;
-
-  &:hover {
-    background: $color-primary;
-    color: white;
-  }
-}
-
-.search-result-next {
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
-}
-
-.search-result-previous {
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
-}

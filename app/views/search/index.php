@@ -16,12 +16,12 @@
     <?php endforeach ?>
   </div>
 
-  <div class="search-result-pagination">
+  <div class="pagination">
     <?php if ($data['n'] > 0): ?>
-      <a class="search-result-previous" href="?q=<?= $data['q'] ?>&n=<?= $data['n'] - 1 ?>">Previous &laquo;</a>
+      <a class="pagination-previous" href="?q=<?= $data['q'] ?>&n=<?= $data['n'] - 1 ?>">Previous &laquo;</a>
     <?php endif ?>
     <?php if ($data['count'] > 20 + (20 * $data['n'])): ?>
-      <a class="search-result-next" href="?q=<?= $data['q'] ?>&n=<?= $data['n'] + 1 ?>">Next &raquo;</a>
+      <a class="pagination-next" href="?q=<?= $data['q'] ?>&n=<?= $data['n'] + 1 ?>">Next &raquo;</a>
     <?php endif ?>
   </div>
 </section>

@@ -10,11 +10,20 @@ class AccountController extends Controller {
   }
 
   public function index() {
+    $ordersOffset = empty($_GET['oN']) ? 0 : $_GET['oN'];
+
     $accountModel = $this->model('AccountModel');
     // Check if the user is logged in to an account
     if ($accountModel->isLoggedIn()) {
       $ordersRaw = $this->database->getValues("OrderBag", "", array(
         ['userID', '=', $_SESSION['userID']]
+      ), array(
+        "ORDER BY dateMade DESC LIMIT 20 OFFSET ".$ordersOffset  * 20
+      ));
+      $ordersCount = $this->database->getValue("OrderBag", ["COUNT(OrderBagID) AS count"], array(
+        ['userID', '=', $_SESSION['userID']]
+      ), array(
+        "ORDER BY dateMade DESC"
       ));
 
       $orders = array();
@@ -26,7 +35,9 @@ class AccountController extends Controller {
 
       $this->view("account/index", array(
         'title' => 'Your Account Overview',
-        'orders' => $orders
+        'orders' => $orders,
+        'oN' => $ordersOffset,
+        'oCount' => $ordersCount->count
       ));
     }
     else {

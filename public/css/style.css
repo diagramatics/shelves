@@ -622,6 +622,30 @@ body.is-popup-overlayed {
   width: 24px;
   height: 24px; }
 
+.pagination {
+  text-align: center; }
+
+.pagination-next, .pagination-previous {
+  display: inline-block;
+  padding: 10px 15px;
+  border: thin solid #443a31;
+  border-radius: 2px;
+  color: #443a31;
+  text-decoration: none;
+  -webkit-transition: all 0.4s;
+          transition: all 0.4s; }
+  .pagination-next:hover, .pagination-previous:hover {
+    background: #443a31;
+    color: white; }
+
+.pagination-next {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0; }
+
+.pagination-previous {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0; }
+
 .site-header {
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -1157,30 +1181,6 @@ body.is-popup-overlayed {
   color: inherit;
   text-align: center;
   text-decoration: none; }
-
-.search-result-pagination {
-  text-align: center; }
-
-.search-result-next, .search-result-previous {
-  display: inline-block;
-  padding: 10px 15px;
-  border: thin solid #443a31;
-  border-radius: 2px;
-  color: #443a31;
-  text-decoration: none;
-  -webkit-transition: all 0.4s;
-          transition: all 0.4s; }
-  .search-result-next:hover, .search-result-previous:hover {
-    background: #443a31;
-    color: white; }
-
-.search-result-next {
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0; }
-
-.search-result-previous {
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0; }
 
 .homepage-dash {
   width: 100%;
@@ -2159,23 +2159,23 @@ body.is-popup-overlayed {
   border-top-left-radius: 0;
   border-top-right-radius: 0; }
 
-.admin-table {
+.admin-table, .account-orders-table {
   width: 90%;
   margin: 20px auto;
   text-align: center; }
 
-.admin-table th {
+.admin-table th, .admin-table .account-orders-table {
   padding: 10px;
   background: #443a31;
   color: white; }
 
-.admin-table tbody tr:nth-of-type(2n) {
+.admin-table tbody tr:nth-of-type(2n), .admin-table tbody .account-orders-table {
   background: #eee; }
 
-.admin-table tbody td {
+.admin-table tbody td, .admin-table tbody .account-orders-table {
   padding: 5px 0; }
 
-.admin-table tbody img {
+.admin-table tbody img, .admin-table tbody .account-orders-table {
   max-width: 100px; }
 
 .admin-table-edit svg {
@@ -2248,3 +2248,48 @@ body.is-popup-overlayed {
 .admin-panel-box-add .icon-plus {
   width: 16px;
   height: 16px; }
+
+.account-overview h1 {
+  margin-top: 2em;
+  font-family: "Montserrat", Times, "Times New Roman", serif;
+  text-align: center; }
+
+.account-orders {
+  position: relative;
+  padding: 0.5em 0;
+  text-align: center; }
+  .account-orders:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    width: 50%;
+    margin: 0 auto;
+    border-top: thin solid #ccc; }
+
+.account-orders-table tbody tr:nth-of-type(2n) {
+  background: #e8e8e8; }
+  .account-orders-table tbody tr:nth-of-type(2n) .account-orders-more {
+    border-color: #aaa; }
+
+.account-orders-table thead {
+  background: #443a31;
+  font-size: 1.4em;
+  color: white; }
+
+.account-orders-table th {
+  padding: 0.5em; }
+
+.account-orders-more {
+  margin: 0.5em 0;
+  padding: 0.2em 1em;
+  background: none;
+  border: 1px solid #ccc;
+  border-radius: 2px;
+  -webkit-transition: all 0.4s;
+          transition: all 0.4s; }
+  .account-orders-more:hover {
+    background: #443a31;
+    border-color: #443a31;
+    color: white; }

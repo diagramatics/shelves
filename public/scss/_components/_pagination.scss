@@ -1,0 +1,29 @@
+.pagination {
+  text-align: center;
+}
+
+.pagination-next,
+.pagination-previous {
+  display: inline-block;
+  padding: 10px 15px;
+  border: thin solid $color-primary;
+  border-radius: 2px;
+  color: $color-brown;
+  text-decoration: none;
+  transition: all .4s;
+
+  &:hover {
+    background: $color-primary;
+    color: white;
+  }
+}
+
+.pagination-next {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.pagination-previous {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}

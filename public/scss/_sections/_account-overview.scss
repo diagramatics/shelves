@@ -1,0 +1,68 @@
+.account-overview {
+
+}
+
+.account-overview h1 {
+  margin-top: 2em;
+  font-family: $font-family-heading;
+  text-align: center;
+}
+
+.account-orders {
+  position: relative;
+  padding: .5em 0;
+  text-align: center;
+
+  &:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    width: 50%;
+    margin: 0 auto;
+    border-top: thin solid #ccc;
+  }
+}
+
+.account-orders-table {
+  @extend .admin-table;
+}
+
+.account-orders-table tbody tr {
+  &:nth-of-type(2n) {
+    background: #e8e8e8;
+
+    .account-orders-more {
+      border-color: #aaa;
+    }
+  }
+}
+
+.account-orders-table thead {
+  background: $color-primary;
+  font-size: 1.4em;
+  color: white;
+}
+
+.account-orders-table th {
+  padding: .5em;
+}
+
+.account-orders-table td {
+}
+
+.account-orders-more {
+  margin: .5em 0;
+  padding: .2em 1em;
+  background: none;
+  border: 1px solid #ccc;
+  border-radius: 2px;
+  transition: all .4s;
+
+  &:hover {
+    background: $color-primary;
+    border-color: $color-primary;
+    color: white;
+  }
+}
