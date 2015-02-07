@@ -81,24 +81,42 @@ class BagController extends Controller {
   private function processCheckout($bag) {
     $today = new DateTime(null);
 
+    $this->database->autocommit(false);
+
     $addOrderResult = $this->database->insertValue("OrderBag", [
       ['userID', $_SESSION['userID']],
       ['totalCharge', $bag->getTotalCost()],
       ['dateMade', $today->format('Y-m-d')],
       ['addressID', $_POST['address']]
     ]);
+    $orderID = $this->database->insert_id;
 
-    if (!$addOrderResult) {
+    $orderListResult = true;
+    foreach ($bag->getProducts() as $product) {
+      $orderListResult = $this->database->insertValue("OrderBagList", array(
+        ['orderBagID', $orderID],
+        ['prodID', $product['model']->getID()],
+        ['quantity', $product['bagQty']]
+      ));
+      if (!$orderListResult) {
+        break;
+      }
+    }
+
+    if (!$addOrderResult || !$orderListResult) {
+      $this->database->rollback();
       Helpers::makeAlert('checkout', 'There is a problem in checking out right now. Please try again later.');
+      $this->database->autocommit(true);
       return false;
     }
 
     // Empty the bag if checkout succeeds
     unset($_SESSION['bag']);
+    $this->database->commit();
     $this->view("bag/checkout-done", [
       "title" => "Checkout Done!"
     ]);
-
+    $this->database->autocommit(true);
     return true;
   }
 
