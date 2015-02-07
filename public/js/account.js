@@ -44,12 +44,12 @@ $(function() {
     this.confirmAddAddressListener = $('body').on('click', this.confirmAddAddressSelector, function(event) {
       var e = [];
       var form = $(t.selector)[0];
-      e.push(t.validate($(form.addressNumber), ['empty', 'number']));
+      e.push(t.validate($(form.addressNumber), ['empty']));
       e.push(t.validate($(form.addressName), ['empty']));
       e.push(t.validate($(form.addressType), ['empty']));
       e.push(t.validate($(form.addressCity), ['empty']));
       e.push(t.validate($(form.addressState), ['empty']));
-      e.push(t.validate($(form.addressPostcode), ['empty', 'number']));
+      e.push(t.validate($(form.addressPostcode), ['empty', 'number', 'size4']));
       if (e.indexOf(true) > -1) {
         event.preventDefault();
       }

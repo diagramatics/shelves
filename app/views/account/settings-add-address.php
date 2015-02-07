@@ -17,7 +17,10 @@
       <input type="text" name="addressCity" placeholder="Suburb" class="form-input-block" />
     </div>
     <div class="form-input-thirdblock">
-      <input type="text" name="addressState" placeholder="State" class="form-input-block" />
+      <select name="addressState" placeholder="State" class="form-input-block">
+        <option value="NSW">NSW</option>
+        <option value="VIC">VIC</option>
+      </select>
     </div>
     <div class="form-input-thirdblock">
       <input type="text" name="addressPostcode" placeholder="Postcode" class="form-input-block" />

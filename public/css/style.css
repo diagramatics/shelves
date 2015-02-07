@@ -417,7 +417,8 @@ input {
 
 .form-input-block {
   display: block;
-  width: 100%; }
+  width: 100%;
+  min-height: 34px; }
 
 .form-error-box {
   -webkit-flex: 2 1 100%;

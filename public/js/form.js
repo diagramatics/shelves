@@ -45,6 +45,12 @@ Form.prototype.validate = function(el, conditions, show) {
       errors.push('Invalid email');
     }
   }
+  if (conditions.indexOf('size4') > -1) {
+    if (el.val().length > 4) {
+      e.push('size4');
+      errors.push('This field can only have 4 characters or less. <strong>('+placeholder+')</strong>');
+    }
+  }
 
   // Create errors based on how many we've got
   this.createErrorBox(el, e, errors, show);
