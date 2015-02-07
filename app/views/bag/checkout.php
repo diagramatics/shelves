@@ -1,13 +1,17 @@
 <section class="checkout">
   <h1>Checkout</h1>
 
-  <form class="checkout-form" action="?processCheckout" method="POST">
+  <form id="formCheckout" class="checkout-form" action="?processCheckout" method="POST">
     <fieldset class="checkout-addresses">
       <legend>Select your address:</legend>
       <div class="checkout-addresses-list">
+        <?php
+          $addressCount = count($data['addresses']);
+          $i = 1;
+        ?>
         <?php foreach($data['addresses'] as $address): ?>
           <div class="checkout-address">
-            <input type="radio" name="address" value="<?= $address->addressID ?>" <?= $address->primaryAddress == true ? 'checked' : '' ?>/>
+            <input type="radio" name="address" value="<?= $address->addressID ?>" <?= $address->primaryAddress == true ? 'checked' : ($i++ >= $addressCount ? 'checked' : '') ?>/>
             <div class="checkout-address-container">
               <?= $address->unit ?> <br />
               <?= $address->streetNo ?> <?= $address->streetName ?> <?= $address->street ?> <br />

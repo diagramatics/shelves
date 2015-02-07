@@ -9,6 +9,7 @@ $(function() {
     this.totalItemPriceSelector = '.bag-items-td-price-total';
     this.totalBagPriceSelector = '.bag-total-price';
     this.addBagSelector = 'form[action="?addBag"]';
+    this.checkoutFormSelector = '#formCheckout';
 
     var t = this;
 
@@ -164,6 +165,18 @@ $(function() {
           Helpers.makeAlert('bag', 'Added '+ qty +' more item to bag. There is now '+data+' of the product in your bag.');
         }
       });
+    });
+
+    this.checkoutFormListener = $('body').on('submit', this.checkoutFormSelector, function(event) {
+      var e = [];
+      if ($('input[name="address"]:checked', this).val() === undefined) {
+        // There is no address selected.
+        e.push(true);
+        t.createErrorBox($('.checkout-addresses-list'), 'not-selected', 'You haven\'t selected any addresses yet. Add one if you don\'t have any.');
+      }
+      if (e.indexOf(true) > -1) {
+        event.preventDefault();
+      }
     });
   };
   Bag.prototype = Object.create(Form.prototype);

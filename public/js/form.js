@@ -2,7 +2,12 @@ var Form = function() {};
 
 Form.prototype.validate = function(el, conditions, show) {
   // Assemble errors
-  var placeholder = el.attr('placeholder');
+  try {
+    var placeholder = el.attr('placeholder');
+  }
+  catch (e) {
+    var placeholder = '';
+  }
   var e = [];
   var errors = [];
   if (show === undefined) {
