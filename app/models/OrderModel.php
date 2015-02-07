@@ -119,7 +119,7 @@ class OrderModel extends Model {
           $model->parse($itemRawQuery);
         }
         array_push($items, array(
-          'model' => $model,
+          'model' => $model->extract(),
           'qty' => $itemRaw->quantity
         ));
       }

@@ -3,7 +3,6 @@
 class AccountController extends Controller {
   /**
    * Show the not logged in view when the user is not logged in
-   * @return    void
    */
   private function notLoggedInView() {
     return $this->view("account/not-logged-in", ["title" => "Whoops."]);

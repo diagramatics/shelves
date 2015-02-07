@@ -2268,9 +2268,9 @@ body.is-popup-overlayed {
     margin: 0 auto;
     border-top: thin solid #ccc; }
 
-.account-orders-table tbody tr:nth-of-type(2n) {
+.account-orders-table > tbody > tr:nth-of-type(2n) {
   background: #e8e8e8; }
-  .account-orders-table tbody tr:nth-of-type(2n) .account-orders-more {
+  .account-orders-table > tbody > tr:nth-of-type(2n) .account-orders-more, .account-orders-table > tbody > tr:nth-of-type(2n) .account-orders-more-close {
     border-color: #aaa; }
 
 .account-orders-table thead {
@@ -2281,7 +2281,7 @@ body.is-popup-overlayed {
 .account-orders-table th {
   padding: 0.5em; }
 
-.account-orders-more {
+.account-orders-more, .account-orders-more-close, .account-orders-more-close {
   margin: 0.5em 0;
   padding: 0.2em 1em;
   background: none;
@@ -2289,7 +2289,33 @@ body.is-popup-overlayed {
   border-radius: 2px;
   -webkit-transition: all 0.4s;
           transition: all 0.4s; }
-  .account-orders-more:hover {
+  .account-orders-more:hover, .account-orders-more-close:hover, .account-orders-more-close:hover {
     background: #443a31;
     border-color: #443a31;
     color: white; }
+
+.account-orders-more-close {
+  border-color: #443a31 !important; }
+
+.account-orders-table-details {
+  background: #443a31;
+  color: white;
+  box-shadow: inset 0 -2px 5px rgba(0, 0, 0, 0.2), inset 0 2px 5px rgba(0, 0, 0, 0.2); }
+
+.account-orders-table-details table {
+  width: 100%; }
+
+.account-orders-table-details th {
+  padding: 1em 0;
+  background: #332217; }
+
+.account-orders-table-details tr:nth-of-type(2n) {
+  background: #3e352d; }
+
+.account-orders-table-details td {
+  padding: 0.3em 0; }
+
+.account-orders-table-details img {
+  width: 50px;
+  height: auto;
+  vertical-align: middle; }

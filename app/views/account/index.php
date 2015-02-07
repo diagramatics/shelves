@@ -24,8 +24,17 @@
             <td><?= $order['orderDate'] ?></td>
             <td><?= count($order['items']) ?> items</td>
             <td>$<?= number_format($order['totalCharge'], 2) ?></td>
-            <td><button class="account-orders-more">Details</button></td>
+            <td>
+              <?php if (Helpers::orEmpty($_GET['oDetails']) != $order['id']): ?>
+                <?php include 'order-details-before.php' ?>
+              <?php else: ?>
+                <?php include 'order-details-after.php' ?>
+              <?php endif ?>
+            </td>
           </tr>
+          <?php if (Helpers::orEmpty($_GET['oDetails']) == $order['id']): ?>
+            <?php include 'order-details-table.php' ?>
+          <?php endif ?>
         <?php endforeach ?>
       </tbody>
     </table>
