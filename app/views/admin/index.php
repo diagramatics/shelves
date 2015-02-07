@@ -1,37 +1,56 @@
-<section class="container">
+<section class="container admin-index">
+  <header>
+    <h1>
+      <svg class="icon-settings"><use xlink:href="#icon-settings"></use></svg>
+      Admin Panel
+    </h1>
+  </header>
   <div class="admin-panel-page">
-  <h1>Admin Panel</h1>
-      <div class="admin-panel-box1">
-        <a href="/admin/product"><div class="product"></div></a>
-      </div>
-      <div class="admin-panel-box2">
-      <a href="/admin/category"><div class="categories"></div></a>
-      </div>
-      <div class="admin-panel-box3">
-      <a href="/admin/subcategory"><div class="subcategories"></div></a>
-      </div>
-      <div class="admin-panel-box4">
-      <a href="/admin/specials"><div class="specials"></div></a>
-      </div>
-      <div class="admin-panel-box5">
-      <a href="/admin/users"><div class="users"></div></a>
-      </div>
-    <div class="clear"></div>
-      <div class="admin-panel-box6">
-          <a href="/admin/product/add">Product</a>
-      </div>
-      <div class="admin-panel-box7">
-        <a href="/admin/category/add">Category</a>
-      </div>
-      <div class="admin-panel-box8">
-        <a href="/admin/subcategory/add">Subcategory</a>
-      </div>
-      <div class="admin-panel-box9">
-        <a href="/admin/specials/add">Specials</a>
-      </div>
-      <div class="admin-panel-box10">
-        <a href="#">User</a>
-      </div>
+    <div class="admin-panel-box">
+      <a href="/admin/product" class="admin-panel-box-list">
+        <svg class="icon-box"><use xlink:href="#icon-box"></use></svg>
+        <p>Products</p>
+      </a>
+      <a href="/admin/product/add" class="admin-panel-box-add">
+        <svg class="icon-plus"><use xlink:href="#icon-plus"></use></svg>
+        New
+      </a>
+    </div>
+    <div class="admin-panel-box">
+      <a href="/admin/category" class="admin-panel-box-list">
+        <svg class="icon-category"><use xlink:href="#icon-category"></use></svg>
+        <p>Categories</p>
+      </a>
+      <a href="/admin/category/add" class="admin-panel-box-add">
+        <svg class="icon-plus"><use xlink:href="#icon-plus"></use></svg>
+        New
+      </a>
+    </div>
+    <div class="admin-panel-box">
+      <a href="/admin/subcategory" class="admin-panel-box-list">
+        <svg class="icon-subcategory"><use xlink:href="#icon-subcategory"></use></svg>
+        <p>Subcategories</p>
+      </a>
+      <a href="/admin/subcategory/add" class="admin-panel-box-add">
+        <svg class="icon-plus"><use xlink:href="#icon-plus"></use></svg>
+        New
+      </a>
+    </div>
+    <div class="admin-panel-box">
+      <a href="/admin/specials" class="admin-panel-box-list">
+        <svg class="icon-specials"><use xlink:href="#icon-specials"></use></svg>
+        <p>Specials</p>
+      </a>
+      <a href="/admin/specials/add" class="admin-panel-box-add">
+        <svg class="icon-plus"><use xlink:href="#icon-plus"></use></svg>
+        New
+      </a>
+    </div>
+    <div class="admin-panel-box">
+      <a href="/admin/users" class="admin-panel-box-list">
+        <svg class="icon-users"><use xlink:href="#icon-users"></use></svg>
+        <p>Users</p>
+      </a>
+    </div>
   </div>
-  <div class="clear"></div>
 </section>

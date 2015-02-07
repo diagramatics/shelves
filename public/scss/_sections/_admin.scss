@@ -45,7 +45,7 @@
     fill: $color-accent;
     transition: all .4s;
   }
-  
+
   &:hover svg {
     fill: $color-accent-dark;
   }
@@ -61,4 +61,47 @@
       text-align: center;
     }
   }
+}
+
+.admin-index h1{
+  color: $color-primary;
+  margin: 1em 0;
+  font-family: $font-family-heading;
+  text-align: center;
+}
+
+.admin-panel-page {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+
+.admin-panel-box {
+  flex: 1 1;
+  margin: .2em;
+  text-align: center;
+  border: 2px solid $color-primary;
+  border-radius: 2px;
+}
+
+.admin-panel-box a {
+  display: block;
+  padding: 1em;
+  color: inherit;
+  text-decoration: none;
+  transition: all .4s;
+
+  &:hover {
+    background: $color-primary;
+    color: white;
+  }
+}
+
+.admin-panel-box-add {
+  border-top: 2px solid $color-primary;
+}
+
+.admin-panel-box-add .icon-plus {
+  width: 16px;
+  height: 16px;
 }
