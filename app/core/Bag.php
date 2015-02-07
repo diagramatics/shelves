@@ -20,7 +20,7 @@ class Bag {
     }
   }
   public static function addItem() {
-    if ($_POST['qty'] > $_POST['itemQty'] || ($_SESSION['bag'][$_POST['itemID']]['qty'] + $_POST['qty']) > $_POST['itemQty']) {
+    if ($_POST['qty'] > $_POST['itemQty']) {
       return 'nostock';
     }
 
@@ -34,8 +34,13 @@ class Bag {
 
     // If there's the same item found on the bag, then add the quantities to it.
     if (isset($_SESSION['bag'][$_POST['itemID']])) {
-      $_SESSION['bag'][$_POST['itemID']]['qty'] += $_POST['qty'];
-      return ($_SESSION['bag'][$_POST['itemID']]['qty']);
+      if (($_SESSION['bag'][$_POST['itemID']]['qty'] + $_POST['qty']) > $_POST['itemQty']) {
+        return 'nostock';
+      }
+      else {
+        $_SESSION['bag'][$_POST['itemID']]['qty'] += $_POST['qty'];
+        return ($_SESSION['bag'][$_POST['itemID']]['qty']);
+      }
     }
     // If not then add it
     else {
