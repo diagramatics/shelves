@@ -2293,9 +2293,13 @@ body.is-popup-overlayed {
     background: #443a31;
     border-color: #443a31;
     color: white; }
+  .account-orders-more:disabled, .account-orders-more-close:disabled, .account-orders-more-close:disabled {
+    background: #ccc;
+    border-color: #c2c2c2;
+    color: #eee; }
 
 .account-orders-more-close {
-  border-color: #443a31 !important; }
+  border-color: #443a31; }
 
 .account-orders-table-details {
   background: #443a31;

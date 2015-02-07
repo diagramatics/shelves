@@ -158,4 +158,89 @@ $(function() {
 
   var login = new Login();
 
+
+  // -----
+  // Account overview details
+  var AccountOrders = function() {
+    this.formSubmitting = false;
+    this.selector = '.account-order-details-form';
+    this.closeSelector = '.account-order-details-form-close';
+    this.detailsRowSelector = '.account-orders-table-details-row';
+
+    var t = this;
+
+    // Get templates for the before and after button form view
+    $.ajax({
+      url: 'account/ajaxOrderDetailsBefore',
+      type: 'POST',
+      data: {
+        detailsID: '%detailsID%'
+      }
+    }).done(function(data) {
+      t.detailsBeforeView = data;
+    });
+    $.ajax({
+      url: 'account/ajaxOrderDetailsAfter',
+      type: 'POST',
+      data: {
+        detailsID: '%detailsID%'
+      }
+    }).done(function(data) {
+      t.detailsAfterView = data;
+    });
+    // Set up functions to generate the views
+    this.makeDetailsBeforeView = function(id) {
+      var view = this.detailsBeforeView;
+      view = view.replace(/%detailsID%/g, id);
+      return view;
+    }
+    this.makeDetailsAfterView = function(id) {
+      var view = this.detailsAfterView;
+      view = view.replace(/%detailsID%/g, id);
+      return view;
+    }
+
+
+    this.listener = $('body').on('submit', this.selector, function(event) {
+      // Prevent submit execution
+      // The submission is only for PHP fallback
+      event.preventDefault();
+
+      // Disable the button so there will not be multiple submissions
+      $(this.oDetails).attr('disabled', '').html('Loading...');
+
+      var id = $(this.oDetails).val();
+      var parent = $(this).parent();
+      var parentRow = $(this).parents('tr');
+      $.ajax({
+        url: 'account/ajaxOrderDetailsTable',
+        type: 'POST',
+        data: {
+          detailsID: id
+        }
+      }).done(function(data) {
+        parentRow.after(data);
+        parent.html(t.makeDetailsAfterView(id));
+      });
+    });
+
+    this.closeListener = $('body').on('submit', this.closeSelector, function(event) {
+      // Prevent submit execution
+      // The submission is only for PHP fallback
+      event.preventDefault();
+
+      // Disable the button so there will not be multiple submissions
+      $(this.oDetailsClose).attr('disabled', '').html('Loading...');
+
+      var id = $(this.oDetailsClose).val();
+      var parent = $(this).parent();
+
+      // Close the detail row
+      $('#accountOrderDetailsRow' + id).remove();
+
+      parent.html(t.makeDetailsBeforeView(id));
+    });
+  };
+  var accountOrders = new AccountOrders();
+
 });

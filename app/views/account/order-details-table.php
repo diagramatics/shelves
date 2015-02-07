@@ -1,4 +1,4 @@
-<tr>
+<tr class="account-orders-table-details-row" id="accountOrderDetailsRow<?= $order['id'] ?>">
   <td colspan="5" class="account-orders-table-details">
     <table>
       <thead>

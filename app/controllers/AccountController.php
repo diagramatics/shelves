@@ -17,12 +17,12 @@ class AccountController extends Controller {
       $ordersRaw = $this->database->getValues("OrderBag", "", array(
         ['userID', '=', $_SESSION['userID']]
       ), array(
-        "ORDER BY dateMade DESC LIMIT 20 OFFSET ".$ordersOffset  * 20
+        "ORDER BY dateMade DESC, orderBagID ASC LIMIT 20 OFFSET ".$ordersOffset  * 20
       ));
       $ordersCount = $this->database->getValue("OrderBag", ["COUNT(OrderBagID) AS count"], array(
         ['userID', '=', $_SESSION['userID']]
       ), array(
-        "ORDER BY dateMade DESC"
+        "ORDER BY dateMade DESC, orderBagID ASC"
       ));
 
       $orders = array();
@@ -43,6 +43,46 @@ class AccountController extends Controller {
       $this->notLoggedInView();
     }
   }
+  // AJAX calls in index
+  public function ajaxOrderDetailsBefore() {
+    if (Helpers::isAjax()) {
+      $values = array(
+        'order' => array(
+          'id' => $_POST['detailsID']
+        )
+      );
+      die(Helpers::ajaxReturnContent('../app/views/account/order-details-before.php', $values));
+    }
+  }
+  public function ajaxOrderDetailsAfter() {
+    if (Helpers::isAjax()) {
+      $values = array(
+        'order' => array(
+          'id' => $_POST['detailsID']
+        )
+      );
+      die(Helpers::ajaxReturnContent('../app/views/account/order-details-after.php', $values));
+    }
+  }
+  public function ajaxOrderDetailsTable() {
+    if (Helpers::isAjax()) {
+      $orderRaw = $this->database->getValue("OrderBag", "", array(
+        ['userID', '=', $_SESSION['userID']],
+        ['orderBagID', '=', $_POST['detailsID']]
+      ));
+      if ($orderRaw) {
+        $orderModel = $this->model('OrderModel');
+        $orderModel->parse($orderRaw);
+        die(Helpers::ajaxReturnContent('../app/views/account/order-details-table.php', array(
+          'order' => $orderModel->extract()
+        )));
+      }
+      else {
+        die("notfound");
+      }
+    }
+  }
+  //---
 
   public function settings() {
     if(isset($_SESSION["email"])) {
