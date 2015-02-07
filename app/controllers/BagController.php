@@ -249,6 +249,12 @@ class BagController extends Controller {
     }
   }
 
+  public function ajaxAddItem() {
+    if (Helpers::isAjax()) {
+      $return = Bag::addItem();
+      die($return . "");
+    }
+  }
 }
 
 ?>

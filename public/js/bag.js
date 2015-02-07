@@ -8,6 +8,7 @@ $(function() {
     this.itemPriceSelector = '.bag-items-td-price';
     this.totalItemPriceSelector = '.bag-items-td-price-total';
     this.totalBagPriceSelector = '.bag-total-price';
+    this.addBagSelector = 'form[action="?addBag"]';
 
     var t = this;
 
@@ -126,6 +127,41 @@ $(function() {
 
           // Now remove the whole row from view
           row.remove();
+        }
+      });
+    });
+
+    this.addBagListener = $('body').on('submit', this.addBagSelector, function(event) {
+      // Prevent submission
+      // Submission is for PHP fallback only
+      event.preventDefault();
+
+      var qty = $(this.qty).val();
+      var itemQty = $(this.itemQty).val();
+      if (parseInt(qty, 10) > parseInt($(this.itemQty).val(), 10)) {
+        return Helpers.makeAlert('bag', 'Sorry, we don\'t have that much in stock. We currently have ' + $(this.itemQty).val() + ' left.');
+      }
+      // If quantity passes then let's add it
+      $.ajax({
+        url: '/bag/ajaxAddItem',
+        type: 'POST',
+        data: {
+          qty: qty,
+          itemQty: itemQty,
+          itemID: $(this.itemID).val()
+        }
+      }).done(function(data) {
+        if (data == 'nostock') {
+          Helpers.makeAlert('bag', 'Sorry, we don\'t have that much in stock. We currently have ' + itemQty + ' left.');
+        }
+        else if (data == 'add') {
+          Helpers.makeAlert('bag', 'Added item to bag.');
+        }
+        else if (data == 'error') {
+          Helpers.makeAlert('bag', 'There is a problem. Please try again.');
+        }
+        else {
+          Helpers.makeAlert('bag', 'Added '+ qty +' more item to bag. There is now '+data+' of the product in your bag.');
         }
       });
     });
