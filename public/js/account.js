@@ -2,9 +2,11 @@ $(function() {
   function Settings() {
     Form.call(this);
     this.selector = '#changeAccountSettings';
+    this.addressSelector = '.form-account-settings-address';
     this.addAddressContainerSelector = '#accountSettingsAddAddressContainer';
     this.addAddressSelector = '#accountSettingsAddAddress';
     this.confirmAddAddressSelector = '#accountSettingsConfirmAddAddress';
+    this.deleteAddressSelector = '.button-delete-address';
     this.changePasswordContainerSelector = '#accountSettingsChangePasswordContainer';
     this.changePasswordSelector = '#accountSettingsChangePassword';
     this.confirmChangePasswordSelector = '#accountSettingsConfirmChangePassword';
@@ -138,6 +140,35 @@ $(function() {
       // Prevent form submission
       // The button is submitting for PHP fallbacks
       // event.preventDefault();
+    });
+
+    this.deleteAddressListener = $('body').on('click', this.deleteAddressSelector, function(event) {
+      // Prevent form submission
+      // The button is submitting for PHP fallbacks
+      event.preventDefault();
+
+      // Disable the button
+      $(this).attr('disabled', '');
+      var id = $(this).val();
+      var self = this;
+
+      $.ajax({
+        url: '/account/ajaxDeleteAddress',
+        type: 'POST',
+        data: {
+          deleteAddress: id
+        }
+      }).done(function(data) {
+        if (data === 'ok') {
+          Helpers.makeAlert('accountSettings', 'Address deleted.');
+          // Now remove the view altogether
+          $(self).parents(t.addressSelector).remove();
+        }
+        else if (data === 'error') {
+          Helpers.makeAlert("accountSettings", "There's something wrong when deleting the address. Please try again.");
+          $(self).removeAttr('disabled');
+        }
+      });
     });
   }
   Settings.prototype = Object.create(Form.prototype);

@@ -259,6 +259,15 @@ class AccountController extends Controller {
   public function ajaxAddAddress() {
     die(Helpers::ajaxReturnContent('../app/views/account/settings-add-address.php'));
   }
+  public function ajaxDeleteAddress() {
+    $deleteAddressResult = $this->database->deleteValue("Address", [['addressID', '=', $_POST['deleteAddress']]]);
+    if ($deleteAddressResult) {
+      die('ok');
+    }
+    else {
+      die('error');
+    }
+  }
   public function ajaxChangePassword() {
     die(Helpers::ajaxReturnContent('../app/views/account/settings-change-password.php'));
   }
