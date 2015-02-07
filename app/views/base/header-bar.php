@@ -11,7 +11,7 @@
       </div>
     </div>
     <div class="site-nav-item"><a href="/specials">Specials</a></div>
-    <div class="site-nav-item"><a href="/">About</a></div>
+    <div class="site-nav-item"><a href="/about">About</a></div>
   </div>
   <?php if (!isset($_SESSION["email"])): ?>
   <div class="site-meta site-sign-in" aria-hidden="true">
