@@ -74,6 +74,12 @@
 .checkout-address-add {
   font-size: 1.2em;
   font-weight: bold;
+  transition: all .4s;
+  border: 3px solid transparent;
+
+  &.toggle {
+    border: 3px solid $color-primary;
+  }
 }
 
 .checkout-paypal {

@@ -20,11 +20,7 @@
           </div>
         <?php endforeach ?>
         <?php if (!isset($_POST['addAddress'])): ?>
-          <div class="checkout-address">
-            <button class="checkout-address-container checkout-address-add" name="addAddress">
-              Add New Address
-            </button>
-          </div>
+          <?php include 'checkout-add-address-before.php' ?>
         <?php endif ?>
       </div>
       <?php if (isset($_POST['addAddress'])): ?>

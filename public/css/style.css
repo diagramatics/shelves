@@ -2012,7 +2012,12 @@ body.is-popup-overlayed {
 
 .checkout-address-add {
   font-size: 1.2em;
-  font-weight: bold; }
+  font-weight: bold;
+  -webkit-transition: all 0.4s;
+          transition: all 0.4s;
+  border: 3px solid transparent; }
+  .checkout-address-add.toggle {
+    border: 3px solid #443a31; }
 
 .checkout-paypal {
   margin: 1em 0; }

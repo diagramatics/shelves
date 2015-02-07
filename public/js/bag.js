@@ -10,6 +10,7 @@ $(function() {
     this.totalBagPriceSelector = '.bag-total-price';
     this.addBagSelector = 'form[action="?addBag"]';
     this.checkoutFormSelector = '#formCheckout';
+    this.checkoutAddAddressSelector = '#checkoutAddAddress';
 
     var t = this;
 
@@ -176,6 +177,30 @@ $(function() {
       }
       if (e.indexOf(true) > -1) {
         event.preventDefault();
+      }
+    });
+
+    this.checkoutAddAddressListener = $('body').on('click', this.checkoutAddAddressSelector, function(event) {
+      // Prevent submission, submission is PHP fallback
+      event.preventDefault();
+
+      if ($('.checkout-add-new-address').length <= 0) {
+        // Disable button to prevent duplicate events
+        $(this).attr('disabled', '');
+        var self = this;
+
+        $.ajax('/bag/ajaxCheckoutAddAddress').done(function(data) {
+          // Remove any occurences of the form if there's any
+          // Just for precautions
+          $('.checkout-add-new-address').remove();
+          $('.checkout-addresses-list').after(data);
+          $(self).removeAttr('disabled').addClass('toggle');
+        });
+      }
+      else {
+        // Remove the form
+        $('.checkout-add-new-address').remove();
+        $(this).removeClass('toggle')
       }
     });
   };

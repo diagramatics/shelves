@@ -1,4 +1,4 @@
-<fieldset>
+<fieldset class="checkout-add-new-address">
   <legend>Add New Address</legend>
   <input type="text" name="addressUnit" placeholder="Unit (optional)" class="form-input-block" />
   <div class="form-input-thirdblock-container">

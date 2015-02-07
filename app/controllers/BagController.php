@@ -234,9 +234,9 @@ class BagController extends Controller {
     }
   }
 
-    /**
-      * AJAX request to remove the item from the bag
-      */
+  /**
+    * AJAX request to remove the item from the bag
+    */
   public function ajaxRemoveItem() {
     if (Helpers::isAjax()) {
       $id = $_POST['prodID'];
@@ -254,6 +254,14 @@ class BagController extends Controller {
       $return = Bag::addItem();
       die($return . "");
     }
+  }
+
+  public function ajaxCheckoutAddAddress() {
+    die(Helpers::ajaxReturnContent('../app/views/bag/checkout-add-address.php'));
+  }
+
+  public function ajaxCheckoutAddAddressBefore() {
+    die(Helpers::ajaxReturnContent('../app/views/bag/checkout-add-address-before.php'));
   }
 }
 
