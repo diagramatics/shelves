@@ -1,12 +1,37 @@
 <?php
 
 class AccountController extends Controller {
-  public function index() {
-    // TODO: Implement an account overview page
+  /**
+   * Show the not logged in view when the user is not logged in
+   * @return    void
+   */
+  private function notLoggedInView() {
+    return $this->view("account/not-logged-in", ["title" => "Whoops."]);
+  }
 
-    $this->view("account/index", [
-      "title" => "Your Account Overview"
-    ]);
+  public function index() {
+    $accountModel = $this->model('AccountModel');
+    // Check if the user is logged in to an account
+    if ($accountModel->isLoggedIn()) {
+      $ordersRaw = $this->database->getValues("OrderBag", "", array(
+        ['userID', '=', $_SESSION['userID']]
+      ));
+
+      $orders = array();
+      foreach ($ordersRaw as $orderRaw) {
+        $orderModel = $this->model('OrderModel');
+        $orderModel->parse($orderRaw);
+        array_push($orders, $orderModel->extract());
+      }
+
+      $this->view("account/index", array(
+        'title' => 'Your Account Overview',
+        'orders' => $orders
+      ));
+    }
+    else {
+      $this->notLoggedInView();
+    }
   }
 
   public function settings() {
@@ -38,9 +63,8 @@ class AccountController extends Controller {
         "addresses" => $addresses
       ]);
     }
-
     else {
-      $this->view("account/settings-error", ["title" => "Whoops."]);
+      $this->notLoggedInView();
     }
   }
 
