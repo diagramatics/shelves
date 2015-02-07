@@ -2204,3 +2204,78 @@ body.is-popup-overlayed {
         -ms-flex: 2 1 100%;
             flex: 2 1 100%;
     text-align: center; }
+
+/*======================================================================*/
+/*======================== ADMIN PANEL PAGE ============================*/
+/*======================================================================*/
+.admin-panel-page{
+  width:100%;
+}
+.admin-panel-page h1{
+  background: url("../img/settings48.png") no-repeat scroll left center / 30px 30px rgba(0, 0, 0, 0);
+  color: #5b3818;
+  padding-left: 35px;
+}
+.admin-panel-page ul{
+  padding-left: 0px;
+  margin-bottom:0px;
+}
+.admin-panel-page li{
+  list-style-type: none;
+}
+.admin-panel-page a{
+  text-decoration: none;
+}
+.admin-panel-page a:hover{
+  opacity: 0.70;
+}
+.admin-panel-box1, .admin-panel-box2, .admin-panel-box3, .admin-panel-box4, .admin-panel-box5,
+.admin-panel-box6, .admin-panel-box7, .admin-panel-box8, .admin-panel-box9, .admin-panel-box10{
+    width:18%;
+    background-color: #74B869;
+    margin:0px 1% 15px;
+    float:left;
+    padding:2%;
+    text-align: center;
+    border:1px solid #3D6C35;
+    border-radius: 2px;
+}
+.admin-panel-box6 a, .admin-panel-box7 a, .admin-panel-box8 a, .admin-panel-box9 a, .admin-panel-box10 a{
+    background: url("../img/add.png") no-repeat scroll left center / 14px 14px rgba(0, 0, 0, 0);
+    padding-left: 20px;
+    color:#ffffff;
+    text-decoration: none;
+}
+.admin-panel-page .users{
+    background: url("../img/multiple25.png") no-repeat scroll left center / 40px 40px rgba(0, 0, 0, 0);
+    height: 40px;
+    width:40px;
+    margin:0px auto;
+}
+.admin-panel-page .product{
+    background: url("../img/box52.png") no-repeat scroll left center / 40px 40px rgba(0, 0, 0, 0);
+    height: 40px;
+    width:40px;
+    margin:0px auto;
+}
+.admin-panel-page .specials{
+    background: url("../img/sale13.png") no-repeat scroll left center / 40px 40px rgba(0, 0, 0, 0);
+    height: 40px;
+    width:40px;
+    margin:0px auto;
+}
+.admin-panel-page .categories{
+    background: url("../img/category.png") no-repeat scroll left center / 40px 40px rgba(0, 0, 0, 0);
+    height: 40px;
+    width:40px;
+    margin:0px auto;
+}
+.admin-panel-page .subcategories{
+    background: url("../img/category2.png") no-repeat scroll left center / 40px 40px rgba(0, 0, 0, 0);
+    height: 40px;
+    width:40px;
+    margin:0px auto;
+}
+.clear{
+  clear: both;
+}
