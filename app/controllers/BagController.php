@@ -45,8 +45,8 @@ class BagController extends Controller {
     }
 
     if (empty($_SESSION["userID"])) {
-      Helpers::makeAlert("checkout", "Before being able to checkout you will need to register an account first.");
-      $_POST['register'] = false;
+      Helpers::makeAlert("checkout", "Before being able to checkout you will need to login or register first. Please login/register at the top.");
+      $_POST['needCred'] = true;
       $this->index();
     }
     else {

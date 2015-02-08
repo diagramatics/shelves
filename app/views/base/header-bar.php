@@ -1,4 +1,4 @@
-<header id="siteHeader" class="site-header">
+<header id="siteHeader" class="site-header <?= !empty($_POST['needCred']) ? 'is-meta' : ''?> ">
   <div class="site-nav">
     <div class="site-logo">
       <img src="/img/shelves.png" alt="Shelves logo" />

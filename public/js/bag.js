@@ -11,6 +11,7 @@ $(function() {
     this.addBagSelector = 'form[action="?addBag"]';
     this.checkoutFormSelector = '#formCheckout';
     this.checkoutAddAddressSelector = '#checkoutAddAddress';
+    this.checkoutConfirmAddAddressSelector = '#checkoutConfirmAddAddress';
 
     var t = this;
 
@@ -201,6 +202,22 @@ $(function() {
         // Remove the form
         $('.checkout-add-new-address').remove();
         $(this).removeClass('toggle')
+      }
+    });
+
+    this.checkoutConfirmAddAddressListener = $('body').on('click', this.checkoutConfirmAddAddressSelector, function(event) {
+      var form = $(t.checkoutFormSelector)[0];
+      var e = [];
+      // Check on validations
+      e.push(t.validate($(form.addressNumber), ['empty']));
+      e.push(t.validate($(form.addressName), ['empty']));
+      e.push(t.validate($(form.addressType), ['empty']));
+      e.push(t.validate($(form.addressCity), ['empty']));
+      e.push(t.validate($(form.addressState), ['empty']));
+      e.push(t.validate($(form.addressPostcode), ['empty', 'number', 'size4']));
+
+      if (e.indexOf(true) > -1) {
+        event.preventDefault();
       }
     });
   };

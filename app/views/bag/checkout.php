@@ -10,14 +10,7 @@
           $i = 1;
         ?>
         <?php foreach($data['addresses'] as $address): ?>
-          <div class="checkout-address">
-            <input type="radio" name="address" value="<?= $address->addressID ?>" <?= $address->primaryAddress == true ? 'checked' : ($i++ >= $addressCount ? 'checked' : '') ?>/>
-            <div class="checkout-address-container">
-              <?= $address->unit ?> <br />
-              <?= $address->streetNo ?> <?= $address->streetName ?> <?= $address->street ?> <br />
-              <?= $address->city ?> <?= $address->state ?> <?= $address->postcode ?>
-            </div>
-          </div>
+          <?php include 'checkout-address.php' ?>
         <?php endforeach ?>
         <?php if (!isset($_POST['addAddress'])): ?>
           <?php include 'checkout-add-address-before.php' ?>

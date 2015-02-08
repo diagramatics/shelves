@@ -17,12 +17,12 @@ class AccountController extends Controller {
       $ordersRaw = $this->database->getValues("OrderBag", "", array(
         ['userID', '=', $_SESSION['userID']]
       ), array(
-        "ORDER BY dateMade DESC, orderBagID ASC LIMIT 20 OFFSET ".$ordersOffset  * 20
+        "ORDER BY dateMade DESC, orderBagID DESC LIMIT 20 OFFSET ".$ordersOffset  * 20
       ));
       $ordersCount = $this->database->getValue("OrderBag", ["COUNT(OrderBagID) AS count"], array(
         ['userID', '=', $_SESSION['userID']]
       ), array(
-        "ORDER BY dateMade DESC, orderBagID ASC"
+        "ORDER BY dateMade DESC, orderBagID DESC"
       ));
 
       $orders = array();
