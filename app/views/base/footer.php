@@ -1,6 +1,6 @@
   <footer class="site-footer">
     <div class="site-footer-logo">
-      <img src="/img/shelves.png" class="site-logo" alt="Shelves" />
+      <a href="/" title="To Homepage"><img src="/img/shelves.png" class="site-logo" alt="Shelves" /></a>
     </div>
 
     <div class="site-footer-links">
