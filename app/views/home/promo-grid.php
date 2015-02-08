@@ -4,7 +4,7 @@
     $specialsCount = 0;
     $specialsCountLimit = 3;
     $productsCount = 0;
-    $productsCountLimit = 25;
+    $productsCountLimit = 26;
     $tempProduct = null;
   ?>
   <?php while($swaps > 0): ?>
