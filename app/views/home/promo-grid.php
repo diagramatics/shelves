@@ -38,14 +38,34 @@
           <div class="promo-item">
             <a href="<?= $tempProduct->getUrl() ?>">
               <img src="<?= $tempProduct->getImage() ?>" alt="<?= $tempProduct->getName() ?>" />
-              <p><span><?= $tempProduct->getName() ?></span></p>
             </a>
+            <div class="promo-item-details">
+              <a href="<?= $tempProduct->getUrl() ?>" class="promo-item-details-name-container">
+                <div class="promo-item-details-name"><?= $tempProduct->getName() ?></div>
+              </a>
+              <form action="?addBag" class="promo-item-details-add" method="POST">
+                <input class="promo-item-details-add-input" type="number" name="qty" value="1" min="1" max="<?= $tempProduct->getQty() ?>">
+                <input type="hidden" name="itemQty" value="<?= $tempProduct->getQty() ?>">
+                <input type="hidden" name="itemID" value="<?= $tempProduct->getID() ?>">
+                <button class="button-icon" title="Add to Bag"><svg class="icon-plus"><use xlink:href="#icon-plus"></use></svg></button>
+              </form>
+            </div>
           </div>
           <div class="promo-item">
             <a href="<?= $data['products'][$productsCount]->getUrl() ?>">
               <img src="<?= $data['products'][$productsCount]->getImage() ?>" alt="<?= $data['products'][$productsCount]->getName() ?>" />
-              <p><span><?= $data['products'][$productsCount]->getName() ?></span></p>
             </a>
+            <div class="promo-item-details">
+              <a href="<?= $data['products'][$productsCount]->getUrl() ?>" class="promo-item-details-name-container">
+                <div class="promo-item-details-name"><?= $data['products'][$productsCount]->getName() ?></div>
+              </a>
+              <form action="?addBag" class="promo-item-details-add" method="POST">
+                <input class="promo-item-details-add-input" type="number" name="qty" value="1" min="1" max="<?= $data['products'][$productsCount]->getQty() ?>">
+                <input type="hidden" name="itemQty" value="<?= $data['products'][$productsCount]->getQty() ?>">
+                <input type="hidden" name="itemID" value="<?= $data['products'][$productsCount]->getID() ?>">
+                <button class="button-icon" title="Add to Bag"><svg class="icon-plus"><use xlink:href="#icon-plus"></use></svg></button>
+              </form>
+            </div>
           </div>
         </div>
         <?php $tempProduct = null ?>
@@ -65,8 +85,18 @@
       <div class="promo-item">
         <a href="<?= $tempProduct->getUrl() ?>">
           <img src="<?= $tempProduct->getImage() ?>" alt="<?= $tempProduct->getName() ?>" />
-          <p><span><?= $tempProduct->getName() ?></span></p>
         </a>
+        <div class="promo-item-details">
+          <a href="<?= $tempProduct->getUrl() ?>" class="promo-item-details-name-container">
+            <div class="promo-item-details-name"><?= $tempProduct->getName() ?></div>
+          </a>
+          <form action="?addBag" class="promo-item-details-add" method="POST">
+            <input class="promo-item-details-add-input" type="number" name="qty" value="1" min="1" max="<?= $tempProduct->getQty() ?>">
+            <input type="hidden" name="itemQty" value="<?= $tempProduct->getQty() ?>">
+            <input type="hidden" name="itemID" value="<?= $tempProduct->getID() ?>">
+            <button class="button-icon" title="Add to Bag"><svg class="icon-plus"><use xlink:href="#icon-plus"></use></svg></button>
+          </form>
+        </div>
       </div>
     </div>
   <?php endif ?>
