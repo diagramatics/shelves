@@ -42,10 +42,11 @@ $(function() {
       }
       else {
         // Check if the quantity is 0 or empty
-        var form = $('form[id="' + $(this).attr('form') + '"]')[0];
+        var form = $(this).parent('form')[0];
         var maxQuantity = $(form.editedQty).attr('max');
         var self = this;
         var e = [];
+        var productID = $(form.prodID).val();
         e.push(t.validate($(form.editedQty), ['empty', 'zeroString', 'minus']));
         if (parseInt($(form.editedQty).val(), 10) > maxQuantity) {
           e.push(true);
@@ -56,7 +57,7 @@ $(function() {
             url: '/bag/ajaxConfirmChangeItemQuantity',
             type: 'POST',
             data: {
-              confirmEditItemQty: $(form).attr('id').substr("manipulateBag".length),
+              confirmEditItemQty: productID,
               editedQty: parseInt($(form.editedQty).val(), 10)
             }
           }).done(function(data) {
@@ -75,7 +76,7 @@ $(function() {
               url: '/bag/ajaxChangeItemQuantityBefore',
               type: 'POST',
               data: {
-                confirmEditItemQty: $(form).attr('id').substr("manipulateBag".length),
+                confirmEditItemQty: productID,
                 editedQty: parseInt($(form.editedQty).val(), 10)
               }
             }).done(function(data) {
