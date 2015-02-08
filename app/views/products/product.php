@@ -31,30 +31,6 @@
     </div>
   </div>
 </section>
-
-<section class="related-products">
-  <h1>Related Products</h1>
-  <div class="related-product">
-    <img src="/img/products/default.jpg" />
-    <h2>Product</h2>
-    <p class="related-product-price">$12.34</p>
-  </div>
-  <div class="related-product">
-    <img src="/img/products/default.jpg" />
-    <h2>Product</h2>
-    <p class="related-product-price">$12.34</p>
-  </div>
-  <div class="related-product">
-    <img src="/img/products/default.jpg" />
-    <h2>Product</h2>
-    <p class="related-product-price">$12.34</p>
-  </div>
-  <div class="related-product">
-    <img src="/img/products/default.jpg" />
-    <h2>Product</h2>
-    <p class="related-product-price">$12.34</p>
-  </div>
-</section>
 <?php else: ?>
 <div class="single-product-info-empty">
   Sorry, we can't find the product. <br />
