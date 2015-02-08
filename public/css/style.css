@@ -1120,6 +1120,15 @@ body.is-popup-overlayed {
 .site-footer-link {
   padding: 3px 10px; }
 
+.site-footer-link a {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: thin solid transparent;
+  -webkit-transition: all 0.4s;
+          transition: all 0.4s; }
+  .site-footer-link a:hover {
+    border-bottom: thin solid white; }
+
 .site-footer-copyright {
   padding: 15px 10px;
   font-size: 0.9em; }

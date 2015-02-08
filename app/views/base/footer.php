@@ -4,8 +4,8 @@
     </div>
 
     <div class="site-footer-links">
-      <div class="site-footer-link">TOS</div>
-      <div class="site-footer-link">Privacy</div>
+      <div class="site-footer-link"><a href="/about/tos">TOS</a></div>
+      <div class="site-footer-link"><a href="/about/privacy">Privacy</a></div>
       <div class="site-footer-copyright">© 2014</div>
     </div>
 
