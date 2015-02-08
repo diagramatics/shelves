@@ -6,7 +6,7 @@
         <span class="bag-cost-pre">Total cost</span>
         <span class="bag-cost-number bag-total-price"><?= '$'.number_format($data['totalCost'], 2) ?></span>
       </p>
-      <a class="bag-checkout" <?= !empty($data['products']) ?: 'disabled' ?> href="/bag/checkout">Checkout</a>
+      <a class="bag-checkout" <?= !empty($data['products']) ? '' : 'disabled' ?> href="/bag/checkout">Checkout</a>
     </div>
   </header>
 
@@ -47,7 +47,7 @@
             </button>
           </form>
         </td>
-        <td class="bag-items-td-image"><img src="<?= $product['model']->getImage() ?>" /></td>
+        <td class="bag-items-td-image"><img src="<?= $product['model']->getImage() ?>" alt="<?= $product['model']->getName() ?>" /></td>
         <td><?= $product['model']->getName() ?></td>
         <td class="bag-items-td-qty">
           <?php if(!isset($_POST['editItemQty']) || $_POST['editItemQty'] != $product['model']->getID()): ?>
@@ -78,7 +78,7 @@
   </table>
 
   <footer>
-    <a class="bag-checkout" <?= !empty($data['products']) ?: 'disabled' ?> href="/bag/checkout">Checkout</a>
+    <a class="bag-checkout" <?= !empty($data['products']) ? '' : 'disabled' ?> href="/bag/checkout">Checkout</a>
   </footer>
 
 </section>
