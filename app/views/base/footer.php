@@ -6,7 +6,6 @@
     <div class="site-footer-links">
       <div class="site-footer-link">TOS</div>
       <div class="site-footer-link">Privacy</div>
-      <div class="site-footer-link">Support</div>
       <div class="site-footer-copyright">© 2014</div>
     </div>
 
