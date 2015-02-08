@@ -17,3 +17,38 @@
   text-align: center;
   text-decoration: none;
 }
+
+.search-item img {
+  width: 100%;
+  height: auto;
+  padding: .5em;
+}
+
+.search-item-details {
+  display: flex;
+  align-items: center;
+  height: auto !important;
+  margin-bottom: 0 !important;
+  padding: .5em;
+}
+
+.search-item-details-name-container {
+  display: block;
+  flex: 2 1;
+}
+
+.search-item-details-add {
+  flex: 1 1;
+  text-align: center;
+}
+
+.search-item-details-add .icon-plus {
+  width: 24px;
+  height: 24px;
+  fill: #666;
+  transition: all .4s;
+
+  &:hover {
+    fill: #333;
+  }
+}

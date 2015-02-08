@@ -10,8 +10,18 @@
       <div class="block-grid-item block-grid-item--normal search-item">
         <a href="<?= $product->getUrl() ?>">
           <img src="<?= $product->getImage() ?>" alt="<?= $product->getName() ?>" />
-          <p><?= $product->getName() ?></p>
         </a>
+        <div class="search-item-details">
+          <a href="<?= $product->getUrl() ?>" class="search-item-details-name-container">
+            <div class="search-item-details-name"><?= $product->getName() ?></div>
+          </a>
+          <form action="?addBag" class="search-item-details-add" method="POST">
+            <input class="product-category-item-add-qty" type="number" name="qty" value="1" min="1" max="<?= $product->getQty() ?>">
+            <input type="hidden" name="itemQty" value="<?= $product->getQty() ?>">
+            <input type="hidden" name="itemID" value="<?= $product->getID() ?>">
+            <button class="button-icon" title="Add to Bag"><svg class="icon-plus"><use xlink:href="#icon-plus"></use></svg></button>
+          </form>
+        </div>
       </div>
     <?php endforeach ?>
   </div>

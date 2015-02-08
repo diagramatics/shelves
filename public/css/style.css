@@ -737,6 +737,10 @@ body.is-popup-overlayed {
     background: #ddd;
     border-color: #ddd; }
 
+.promo-note {
+  text-align: center;
+  font-size: 1.2em; }
+
 .site-nav {
   -webkit-flex: 2 1;
       -ms-flex: 2 1;
@@ -1186,6 +1190,43 @@ body.is-popup-overlayed {
   color: inherit;
   text-align: center;
   text-decoration: none; }
+
+.search-item img {
+  width: 100%;
+  height: auto;
+  padding: 0.5em; }
+
+.search-item-details {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: auto !important;
+  margin-bottom: 0 !important;
+  padding: 0.5em; }
+
+.search-item-details-name-container {
+  display: block;
+  -webkit-flex: 2 1;
+      -ms-flex: 2 1;
+          flex: 2 1; }
+
+.search-item-details-add {
+  -webkit-flex: 1 1;
+      -ms-flex: 1 1;
+          flex: 1 1;
+  text-align: center; }
+
+.search-item-details-add .icon-plus {
+  width: 24px;
+  height: 24px;
+  fill: #666;
+  -webkit-transition: all 0.4s;
+          transition: all 0.4s; }
+  .search-item-details-add .icon-plus:hover {
+    fill: #333; }
 
 .homepage-dash {
   width: 100%;

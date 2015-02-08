@@ -71,3 +71,4 @@
     </div>
   <?php endif ?>
 </div>
+<p class="promo-note"><em><a href="/">Refresh the page</a> for more great products from us.</em></p>
