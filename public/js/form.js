@@ -56,6 +56,12 @@ Form.prototype.validate = function(el, conditions, show) {
       errors.push('This field can only have 4 characters or less. <strong>('+placeholder+')</strong>');
     }
   }
+  if (conditions.indexOf('password') > -1) {
+    if (el.val().length <= 6) {
+      e.push('size4');
+      errors.push('Passwords must contain at least 6 characters.');
+    }
+  }
 
   // Create errors based on how many we've got
   this.createErrorBox(el, e, errors, show);

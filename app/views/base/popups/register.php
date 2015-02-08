@@ -5,13 +5,21 @@
 
     <form id="formRegister" class="form-register" action="?register" method="POST">
       <div class="form-input-halfblock-container">
-        <input class="form-input-halfblock" type="text" name="fname" value="<?= empty($_POST["fname"]) ? "" : $_POST["fname"] ?>" placeholder="First Name">
-        <input class="form-input-halfblock" type="text" name="lname" value="<?= empty($_POST['lname']) ? "" : $_POST['lname'] ?>" placeholder="Last Name">
+        <div class="form-input-halfblock">
+          <input class="form-input-block" type="text" name="fname" value="<?= Helpers::orEmpty($_POST["fname"]) ?>" placeholder="First Name">
+        </div>
+        <div class="form-input-halfblock">
+          <input class="form-input-block" type="text" name="lname" value="<?= Helpers::orEmpty($_POST['lname']) ?>" placeholder="Last Name">
+        </div>
       </div>
-      <input class="form-input-block" type="email" name="email" value="<?= empty($_POST['email']) ? "" : $_POST['email'] ?>" placeholder="Email">
+      <input class="form-input-block" type="email" name="email" value="<?= Helpers::orEmpty($_POST['email']) ?>" placeholder="Email">
       <div class="form-input-halfblock-container">
-        <input class="form-input-halfblock" type="password" name="password" value="" placeholder="Password">
-        <input class="form-input-halfblock" type="password" name="passwordConfirm" value="" placeholder="Confirm Password">
+        <div class="form-input-halfblock">
+          <input class="form-input-block" type="password" name="password" value="" placeholder="Password">
+        </div>
+        <div class="form-input-halfblock">
+          <input class="form-input-block" type="password" name="passwordConfirm" value="" placeholder="Confirm Password">
+        </div>
       </div>
       <input class="form-button form-input-block" type="submit" value="Register">
       <p>

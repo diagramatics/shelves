@@ -77,9 +77,9 @@ $(function() {
       var self = this;
       var e = [];
       var form = $(t.selector)[0];
-      e.push(t.validate($(form.password), ['empty']));
-      e.push(t.validate($(form.newPassword), ['empty']));
-      e.push(t.validate($(form.confirmPassword), ['empty']));
+      e.push(t.validate($(form.password), ['empty', 'password']));
+      e.push(t.validate($(form.newPassword), ['empty', 'password']));
+      e.push(t.validate($(form.confirmPassword), ['empty', 'password']));
       // Check if password is correct
       if ($(form.password).val() !== '') {
         $.ajax({
@@ -207,11 +207,11 @@ $(function() {
 
     var t = this;
 
-    this.listener = $('body').on('submit', this.selector, function() {
+    this.listener = $('body').on('submit', this.selector, function(event) {
       var e = [];
       // Check validations
       e.push(t.validate($(this.loginEmail), ['empty', 'email'], false));
-      e.push(t.validate($(this.loginPassword), ['empty'], false));
+      e.push(t.validate($(this.loginPassword), ['empty', 'password'], false));
 
       if (e.indexOf(true) > -1) {
         event.preventDefault();
@@ -222,6 +222,38 @@ $(function() {
   Login.prototype.constructor = Login;
 
   var login = new Login();
+
+
+  // -----
+  // Registering validations
+  function Register() {
+    Form.call(this);
+    this.selector = '#formRegister';
+
+    var t = this;
+
+    this.listener = $('body').on('submit', this.selector, function(event) {
+      var e = [];
+      // Check validations
+      e.push(t.validate($(this.fname), ['empty']));
+      e.push(t.validate($(this.lname), ['empty']));
+      e.push(t.validate($(this.email), ['empty', 'email']));
+      e.push(t.validate($(this.password), ['empty', 'password']));
+      e.push(t.validate($(this.passwordConfirm), ['empty', 'password']));
+      if ($(this.password).val() !== $(this.passwordConfirm).val()) {
+        e.push(true);
+        t.createErrorBox($(this.passwordConfirm), 'password', 'The password doesn\'t match.');
+      }
+
+      if (e.indexOf(true) > -1) {
+        event.preventDefault();
+      }
+    });
+  }
+  Register.prototype = Object.create(Form.prototype);
+  Register.prototype.constructor = Register;
+
+  var register = new Register();
 
 
   // -----
