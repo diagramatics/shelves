@@ -11,8 +11,8 @@
         <input class="form-button form-input-block" type="submit" value="Notify me by email" />
       </form>
     <?php else: ?>
-      <form class="form-subscribe" id="" action="?subscribe" method="POST">
-        <input type="email" name="" value="" placeholder="Your email">
+      <form class="form-subscribe" id="formSubscribeEmail" action="?subscribe" method="POST">
+        <input type="email" name="email" placeholder="Your email">
         <input class="form-button form-subscribe-button" type="submit" name="" value="Subscribe">
       </form>
     <?php endif ?>

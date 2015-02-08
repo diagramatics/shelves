@@ -1063,6 +1063,8 @@ body.is-popup-overlayed {
     border-bottom-color: #888; }
   .form-subscribe input[type="email"]:focus {
     border-bottom-color: #333; }
+  .form-subscribe input[type="email"].error {
+    border-bottom: 2px solid #bf4040; }
 
 .form-subscribe-button {
   -webkit-flex: 1 1;

@@ -340,4 +340,23 @@ $(function() {
   };
   var accountOrders = new AccountOrders();
 
+
+  // -----
+  // Subscribe to specials email validation
+  function Subscribe() {
+    this.selector = '#formSubscribeEmail';
+
+    var t = this;
+
+    this.listener = $('body').on('submit', this.selector, function(event) {
+      if (t.validate($(this.email), ['empty', 'email'], false)) {
+        event.preventDefault();
+      }
+    })
+  }
+  Subscribe.prototype = Object.create(Form.prototype);
+  Subscribe.prototype.constructor = Subscribe;
+
+  var subscribe = new Subscribe();
+
 });

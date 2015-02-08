@@ -26,6 +26,10 @@
   &:focus {
     border-bottom-color: #333;
   }
+
+  &.error {
+    border-bottom: 2px solid desaturate(red, 50%);
+  }
 }
 
 .form-subscribe-button {
