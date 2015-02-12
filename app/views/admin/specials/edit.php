@@ -7,11 +7,11 @@
     <div class="form-input-halfblock-container">
       <div class="form-input-halfblock">
         <label for="startDate">Start Date</label>
-        <input class="form-input-block" type="date" placeholder="Start Date (dd/mm/YYYY)" value="<?= Helpers::orEmpty($_POST['startDate'], $data['special']['startDate']) ?>" name="startDate" />
+        <input class="form-input-block" type="date" placeholder="Start Date (YYYY-mm-dd)" value="<?= Helpers::orEmpty($_POST['startDate'], $data['special']['startDate']) ?>" name="startDate" min="<?= (new DateTime())->format('Y-m-d') ?>" />
       </div>
       <div class="form-input-halfblock">
         <label for="endDate">End Date</label>
-        <input class="form-input-block" type="date" placeholder="End Date (dd/mm/YYYY)" value="<?= Helpers::orEmpty($_POST['endDate'], $data['special']['endDate']) ?>" name="endDate" />
+        <input class="form-input-block" type="date" placeholder="End Date (YYYY-mm-dd)" value="<?= Helpers::orEmpty($_POST['endDate'], $data['special']['endDate']) ?>" name="endDate" min="<?= (new DateTime())->format('Y-m-d') ?>" />
       </div>
     </div>
     <textarea name="description" rows="8" cols="40" placeholder="Description (optional)" class="form-input-block" resize="no"><?= Helpers::orEmpty($_POST['description'], $data['special']['description']) ?></textarea>

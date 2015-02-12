@@ -80,8 +80,15 @@ $(function() {
       var e = [];
       // Check validations
       e.push(t.validate($(this.title), ['empty']));
-      e.push(t.validate($(this.startDate), ['empty', 'date']));
-      e.push(t.validate($(this.endDate), ['empty', 'date']));
+      e.push(t.validate($(this.startDate), ['empty', 'date', 'dateToday']));
+      e.push(t.validate($(this.endDate), ['empty', 'date', 'dateToday']));
+      // Check if the end date is earlier than the start date
+      var startDate = new Date($(this.startDate).val());
+      var endDate = new Date($(this.endDate).val());
+      if (startDate > endDate) {
+        e.push(true);
+        t.createErrorBox($(this.endDate), 'end-earlier', 'The end date must be after the start date.');
+      }
       // Check if the values of the products are unique
       var selectsValues = ['-1']; // Null is the default value for "Select product..."
       $('.admin-special-add-product-select').each(function() {
@@ -100,6 +107,14 @@ $(function() {
 
       if (e.indexOf(true) > -1) {
         event.preventDefault();
+      }
+      else {
+        // To help make things easier, parse the start date and end date
+        // and output it in Y-m-d format
+        // so that on other browsers that don't have date picker implemented,
+        // any format will be compatible with PHP's DateTime parser
+        $(this.startDate).val(startDate.getFullYear() + '-' + startDate.getMonth() + '-' + startDate.getDate());
+        $(this.endDate).val(endDate.getFullYear() + '-' + endDate.getMonth() + '-' + endDate.getDate());
       }
     });
 

@@ -43,6 +43,12 @@ Form.prototype.validate = function(el, conditions, show) {
       errors.push('This field contains an invalid date. <strong>('+placeholder+')</strong>');
     }
   }
+  if (conditions.indexOf('dateToday') > -1) {
+    if (Date.parse(el.val()) < new Date()) {
+      e.push('dateToday');
+      errors.push('You have to set the date to be at least today or in the future. <strong>('+placeholder+')</strong>');
+    }
+  }
   if (conditions.indexOf('email') > -1) {
     var regex = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
     if (el.val().search(regex) === -1) {

@@ -5,11 +5,11 @@
     <div class="form-input-halfblock-container">
       <div class="form-input-halfblock">
         <label for="startDate">Start Date</label>
-        <input class="form-input-block" type="date" placeholder="Start Date (dd/mm/YYYY)" value="<?= isset($_POST['startDate']) ? $_POST['startDate'] : '' ?>" name="startDate" />
+        <input class="form-input-block" type="date" placeholder="Start Date (YYYY-mm-dd)" value="<?= isset($_POST['startDate']) ? $_POST['startDate'] : '' ?>" min="<?= (new DateTime())->format('Y-m-d') ?>" name="startDate" />
       </div>
       <div class="form-input-halfblock">
         <label for="endDate">End Date</label>
-        <input class="form-input-block" type="date" placeholder="End Date (dd/mm/YYYY)" value="<?= isset($_POST['endDate']) ? $_POST['endDate'] : '' ?>" name="endDate" />
+        <input class="form-input-block" type="date" placeholder="End Date (YYYY-mm-dd)" value="<?= isset($_POST['endDate']) ? $_POST['endDate'] : '' ?>" name="endDate" min="<?= (new DateTime())->format('Y-m-d') ?>" />
       </div>
     </div>
     <textarea name="description" rows="8" cols="40" placeholder="Description (optional)" class="form-input-block" resize="no"><?= isset($_POST['description']) ? $_POST['description'] : "" ?></textarea>
